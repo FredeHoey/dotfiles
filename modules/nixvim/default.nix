@@ -30,7 +30,6 @@
   #       maintainers = [ pkgs.lib.maintainers.fredeb ];
   #     };
   #   in
-  plugins =  {
   plugins = let
     ginko = pkgs.rustPlatform.buildRustPackage rec {
       pname = "ginko";
