@@ -1,4 +1,4 @@
-{ pkgs, nixvim, ... }: {
+{ pkgs, ... }: {
   enable = true;
 
   enableMan = true;
