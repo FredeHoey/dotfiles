@@ -196,28 +196,28 @@
   };
 
   opts = {
+    cmdheight = 0;
     completeopt = "menuone,noinsert,noselect";
     expandtab = true;
+    fixeol = false;
+    foldenable = false;
+    guifont = "Iosevka Nerd Font:h10";
     hidden = true;
     ignorecase = true;
+    inccommand = "nosplit";
+    jumpoptions = "stack";
+    laststatus = 3;
+    mousemodel = "extend";
     number = true;
+    scrollback = 100000;
     scrolloff = 15;
     shiftwidth = 4;
+    signcolumn = "yes:1";
     smartcase = true;
     tabstop = 4;
-    wildmode = "longest,list";
-    laststatus = 3;
-    inccommand = "nosplit";
     termguicolors = true;
-    fixeol = false;
-    signcolumn = "yes:1";
-    guifont = "Iosevka Nerd Font:h10";
-    mousemodel = "extend";
-    cmdheight = 0;
-    foldenable = false;
-    jumpoptions = "stack";
-    scrollback = 100000;
     undofile = true;
+    wildmode = "longest,list";
   };
 
   keymaps = [
