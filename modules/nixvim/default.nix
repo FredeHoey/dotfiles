@@ -186,7 +186,14 @@
     oil.enable = true;
     persisted.enable = true;
     tmux-navigator.enable = true;
-    treesitter.enable = true;
+    treesitter = {
+      enable = true;
+      settings = {
+        highlight.enable = true;
+        incremental_selection.enable = true;
+        indent.enable = true;
+      };
+    };
     web-devicons.enable = false;
   };
 
