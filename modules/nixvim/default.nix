@@ -21,8 +21,6 @@
     '';
   }];
 
-  colorschemes.kanagawa.enable = true;
-
   # let
   #     mkNeovimPlugin = nixvim.lib.nixvim.plugins.mkNeovimPlugin;
   #     minuet-ai = mkNeovimPlugin {

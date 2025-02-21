@@ -26,9 +26,9 @@ in {
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
 
-    targets.nixvim = {
+    targets.neovim = {
         enable = true;
-        plugin = "base16-nvim";
+        plugin = "mini.base16";
     };
 
     cursor = {

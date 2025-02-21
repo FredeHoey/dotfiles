@@ -95,8 +95,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     end,
 })
 
-vim.cmd('colorscheme kanagawa')
-
 local neotest = require('neotest')
 neotest.setup {
     adapters = {
