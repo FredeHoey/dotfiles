@@ -186,6 +186,9 @@ in {
       bashrcExtra = ''
         source ${pkgs.fzf}/share/fzf/completion.bash
         source ${../configs/bash/bashrc}
+        if [[ -f ~/.config/work.sh ]]; then
+            source ~/.config/work.sh
+        fi
       '';
     };
     readline = {
