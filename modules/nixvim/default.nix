@@ -21,13 +21,6 @@
     '';
   }];
 
-  # let
-  #     mkNeovimPlugin = nixvim.lib.nixvim.plugins.mkNeovimPlugin;
-  #     minuet-ai = mkNeovimPlugin {
-  #       name = "minuet-ai";
-  #       maintainers = [ pkgs.lib.maintainers.fredeb ];
-  #     };
-  #   in
   plugins = let
     ginko = pkgs.rustPlatform.buildRustPackage rec {
       pname = "ginko";
@@ -176,7 +169,10 @@
       };
     };
     nvim-bqf.enable = true;
-    notify.enable = true;
+    notify = {
+        enable = true;
+        settings.background_colour = "#000000";
+    };
     ollama = {
       enable = true;
 
