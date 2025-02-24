@@ -36,6 +36,10 @@ in {
       name = "Bibata-Modern-Ice";
     };
     fonts = {
+      sizes = {
+        applications = 9;
+        terminal = 10;
+      };
       serif = {
         package = pkgs.dejavu_fonts;
         name = "DejaVu Serif";
