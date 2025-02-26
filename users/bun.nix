@@ -151,7 +151,6 @@ in {
       sway-audio-idle-inhibit
       swaybg
       swayidle
-      swaylock
       wayland
       waypipe
       wdisplays
@@ -323,24 +322,9 @@ in {
 
   services = {
     swayidle = let
-      lockcmd = "${pkgs.swaylock}/bin/swaylock -f -i ${../assets/desktop.jpg}";
     in {
       enable = true;
-      events = [
-        {
-          event = "before-sleep";
-          command = lockcmd;
-        }
-        {
-          event = "lock";
-          command = lockcmd;
-        }
-      ];
       timeouts = [
-        {
-          timeout = 300;
-          command = lockcmd;
-        }
         # Lock computer
         {
           timeout = 600;
@@ -398,9 +382,6 @@ in {
       keybindings = {
 
         "${mod}+Shift+q" = "kill";
-
-        "${mod}+Shift+p" =
-          "exec ${pkgs.swaylock}/bin/swaylock -f -i ${../assets/desktop.jpg}";
 
         "${mod}+Return" = "exec ${pkgs.foot}/bin/foot";
         "${mod}+Shift+Return" = "exec $term -e bash";
