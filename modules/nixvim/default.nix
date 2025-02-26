@@ -185,7 +185,7 @@
       settings = {
         highlight.enable = true;
         incremental_selection.enable = true;
-        indent.enable = true;
+        indent.enable = false;
       };
     };
     web-devicons.enable = false;
