@@ -96,7 +96,15 @@
     };
     comment.enable = true;
     dap.enable = true;
-    diffview.enable = true;
+    diffview = {
+      enable = true;
+      extraOptions = {
+        file_panel = {
+          listing_style = "list";
+        };
+        merge_tool = "diff3_mixed";
+      };
+    };
     friendly-snippets.enable = true;
     fzf-lua = {
       enable = true;
