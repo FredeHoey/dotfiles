@@ -5,7 +5,6 @@ let
 
   browser = "firefox";
   editor = "nvim";
-  pager = "nvim -R";
   term = "foot";
 in {
   imports = [
@@ -69,7 +68,6 @@ in {
     sessionVariables = {
       BROWSER = browser;
       EDITOR = editor;
-      PAGER = pager;
       NIX_SHELL_PRESERVE_PROMPT = "1";
     };
 
@@ -238,7 +236,6 @@ in {
         push.autoSetupRemote = true;
         push.useForceIfIncludes = true;
         rerere.enabled = true;
-        color.pager = false;
       };
     };
     rofi = {
