@@ -382,7 +382,7 @@ in {
         "${mod}+g" = "fullscreen toggle";
         "${mod}+t" = "layout toggle split tabbed";
 
-        "${mod}+Shift+space" = "floating toggle";
+        "${mod}+Shift+Return" = "floating toggle";
 
         "${mod}+space" = "focus mode_toggle";
 
