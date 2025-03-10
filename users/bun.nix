@@ -3,7 +3,7 @@ let
   git-tools = pkgs.callPackage ../modules/git-tools/default.nix { };
   tmux-project = pkgs.callPackage ../modules/tmux-project/default.nix { };
 
-  browser = "firefox";
+  browser = "brave";
   editor = "nvim";
   term = "ghostty";
 in {
@@ -171,6 +171,16 @@ in {
         fi
       '';
     };
+    chromium = {
+      enable = true;
+      package = pkgs.brave;
+      extensions = [
+        { id = "gcbommkclmclpchllfjekcdonpmejbdp"; } # https everywhere
+        { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
+        { id = "nngceckbapebfimnlniiiahkandclblb"; } # bitwarden
+        { id = "ldpochfccmkkmhdbclfhpagapcfdljkj"; } # decentraleyes
+      ];
+    };
     readline = {
       enable = true;
       extraConfig = ''
@@ -183,7 +193,6 @@ in {
         set vi-cmd-mode-string "N "
       '';
     };
-    firefox = { enable = true; };
     foot = {
       enable = true;
       settings.main.term = "xterm-256color";
@@ -367,7 +376,7 @@ in {
         "${mod}+Return" = "exec ${term}";
         "${mod}+r" = "exec ${pkgs.rofi}/bin/rofi -show run";
         "${mod}+Shift+r" = "exec ${pkgs.rofi}/bin/rofi -show drun";
-        "${mod}+b" = "exec ${pkgs.firefox}/bin/firefox";
+        "${mod}+b" = "exec ${browser}";
 
         "${mod}+h" = "focus left";
         "${mod}+j" = "focus down";
