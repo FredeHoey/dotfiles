@@ -155,6 +155,7 @@
           installCargo = true;
           installRustc = true;
         };
+        svelte.enable = true;
         terraformls.enable = true;
         ts_ls.enable = true;
         verible.enable = true;
