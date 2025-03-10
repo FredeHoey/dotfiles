@@ -5,7 +5,7 @@ let
 
   browser = "firefox";
   editor = "nvim";
-  term = "foot";
+  term = "ghostty";
 in {
   imports = [
     nixvim.homeManagerModules.nixvim
@@ -201,6 +201,7 @@ in {
       tmux.enableShellIntegration = true;
       tmux.shellIntegrationOptions = [ "-p" "-w" "80%" "-h" "80%" ];
     };
+    ghostty.enable = true;
     git = {
       enable = true;
       difftastic.enable = true;
@@ -363,8 +364,7 @@ in {
 
         "${mod}+Shift+q" = "kill";
 
-        "${mod}+Return" = "exec ${pkgs.foot}/bin/foot";
-        "${mod}+Shift+Return" = "exec $term -e bash";
+        "${mod}+Return" = "exec ${term}";
         "${mod}+r" = "exec ${pkgs.rofi}/bin/rofi -show run";
         "${mod}+Shift+r" = "exec ${pkgs.rofi}/bin/rofi -show drun";
         "${mod}+b" = "exec ${pkgs.firefox}/bin/firefox";
