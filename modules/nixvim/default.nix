@@ -21,22 +21,7 @@
     '';
   }];
 
-  plugins = let
-    ginko = pkgs.rustPlatform.buildRustPackage rec {
-      pname = "ginko";
-      version = "0.0.8";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "Schottkyc137";
-        repo = "ginko";
-        rev = "v${version}";
-        hash = "sha256-lk+iZclni6jAkvN5/62YobFBAdwTUOfd5v7Fs8M6MQo=";
-      };
-      useFetchCargoVendor = true;
-      cargoHash = "sha256-7VwvFDjwUZechUrkxnXPFN6aMkr9KJkV81rpOZJHr8E=";
-    };
-  in    
-  {
+  plugins = {
     blink-cmp = {
       enable = true;   
       settings = {
@@ -158,7 +143,7 @@
         gopls.enable = true;
         ginko_ls = {
           enable = true;
-          package = ginko;
+          package = pkgs.ginko;
         };
         lua_ls.enable = true;
         neocmake.enable = true;
