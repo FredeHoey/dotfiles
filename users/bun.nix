@@ -193,6 +193,7 @@ in {
         set vi-cmd-mode-string "N "
       '';
     };
+    fuzzel.enable = true;
     foot = {
       enable = true;
       settings.main.term = "xterm-256color";
