@@ -99,23 +99,6 @@ in {
 
       nodejs
 
-      bash-language-server
-      pyright
-      nodePackages.typescript-language-server
-      black
-      bashdb
-      dockerfile-language-server-nodejs
-      docker-compose-language-service
-      terraform-ls
-      hadolint
-      gopls
-      lua-language-server
-      nixd
-      neocmakelsp
-      ruff
-      python3Packages.debugpy
-      verible
-
       dconf
       feh
       imagemagick
