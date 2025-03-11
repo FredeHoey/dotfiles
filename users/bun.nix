@@ -211,7 +211,12 @@ in {
       tmux.enableShellIntegration = true;
       tmux.shellIntegrationOptions = [ "-p" "-w" "80%" "-h" "80%" ];
     };
-    ghostty.enable = true;
+    ghostty = {
+      enable = true;
+      settings = {
+        font-feature = "-calt, -liga, -dlig";
+      };
+    };
     git = {
       enable = true;
       difftastic.enable = true;
