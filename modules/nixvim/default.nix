@@ -171,6 +171,7 @@
       };
     };
     web-devicons.enable = false;
+    yazi.enable = true;
   };
 
   globals = {
@@ -261,5 +262,7 @@
     { mode = "n"; key = "<C-c>"; action = ''<cmd>cclose<cr>''; }
 
     { mode = "n"; key = "<leader>as"; action.__raw = ''require('persisted').load''; }
+
+    { mode = "n"; key = "<leader>ft"; action.__raw = ''require("yazi").yazi''; }
   ];
 }
