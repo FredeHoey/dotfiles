@@ -21,6 +21,21 @@
     '';
   }];
 
+  extraPlugins = [(pkgs.vimUtils.buildVimPlugin {
+    name = "tardis";
+    src = pkgs.fetchFromGitHub {
+        owner = "fredehoey";
+        repo = "tardis.nvim";
+        rev = "a6ee00a217529490e79d349b1f1a9cf5831180d3";
+        hash = "sha256-W91wBUuP2etZiLTsYUH8yVoLDG8ZqXoAnFOjsyZmEJI=";
+    };
+    doCheck = false;
+  })];
+
+  extraConfigLua = ''
+    require('tardis-nvim').setup()
+  '';
+
   plugins = {
     blink-cmp = {
       enable = true;   
@@ -269,5 +284,7 @@
     { mode = "n"; key = "<leader>tt"; action.__raw = ''function() require('neotest').run.run() end ''; }
     { mode = "n"; key = "<leader>tf"; action.__raw = ''function() require('neotest').run.run(vim.fn.expand("%")) end ''; }
     { mode = "n"; key = "<leader>td"; action.__raw = ''function() require('neotest').run.run({ strategy = "dap" ; }) end''; } 
+
+    { mode = "n"; key = "<leader>gt"; action.__raw = ''require('tardis-nvim').tardis''; }
   ];
 }
