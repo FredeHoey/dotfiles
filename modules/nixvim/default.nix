@@ -264,5 +264,10 @@
     { mode = "n"; key = "<leader>as"; action.__raw = ''require('persisted').load''; }
 
     { mode = "n"; key = "<leader>ft"; action.__raw = ''require("yazi").yazi''; }
+
+    # neotest
+    { mode = "n"; key = "<leader>tt"; action.__raw = ''function() require('neotest').run.run() end ''; }
+    { mode = "n"; key = "<leader>tf"; action.__raw = ''function() require('neotest').run.run(vim.fn.expand("%")) end ''; }
+    { mode = "n"; key = "<leader>td"; action.__raw = ''function() require('neotest').run.run({ strategy = "dap" ; }) end''; } 
   ];
 }
