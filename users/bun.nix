@@ -5,7 +5,7 @@ let
 
   browser = "brave";
   editor = "nvim";
-  term = "ghostty";
+  term = "foot";
 in {
   imports = [
     nixvim.homeManagerModules.nixvim
@@ -210,12 +210,6 @@ in {
       defaultCommand = "${pkgs.ripgrep} --files";
       tmux.enableShellIntegration = true;
       tmux.shellIntegrationOptions = [ "-p" "-w" "80%" "-h" "80%" ];
-    };
-    ghostty = {
-      enable = true;
-      settings = {
-        font-feature = "-calt, -liga, -dlig";
-      };
     };
     git = {
       enable = true;
