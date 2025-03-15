@@ -8,21 +8,13 @@
   mv = "mv -i";
   rf = "rm -rf";
   dps = "docker ps -a";
-  dcb =
-    "COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build --parallel";
-  dcu = "docker-compose up";
-  dcd = "docker-compose up -d";
-  dck = "docker-compose down";
+  dcb = "docker compose build --parallel";
+  dcu = "docker compose up";
+  dcd = "docker compose up -d";
+  dck = "docker compose down";
   dr = "docker restart";
-  lzd =
-    "docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock lazyteam/lazydocker";
-  perf-rep = "perf report -g 'graph,0.5,caller'";
-  perf-rec = "perf record -g";
-  c = "clear";
-  chat = "ssh bun@chat.shazow.net";
+  nd = "nix develop";
   z = "zathura";
-  stowd = "stow -t/home/$USER -S *";
-  lg = "lazygit";
+  venv = ". .venv/bin/activate";
   cdgr = "cd $(git rev-parse --show-toplevel)";
-  shoot = "xprop | grep WM_PID | cut -d = -f 2 | xargs kill";
 }
