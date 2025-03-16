@@ -455,7 +455,7 @@ in {
       bars = [ ];
     };
 
-    # wrapperFeatures.gtk = true;
+    wrapperFeatures.gtk = true;
   };
   home.stateVersion = "23.11";
 }
