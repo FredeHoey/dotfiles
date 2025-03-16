@@ -82,5 +82,9 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
+  security.pam.services.swaylock = {
+    text = "auth include login";
+  };
+
   system.stateVersion = "23.11";
 }

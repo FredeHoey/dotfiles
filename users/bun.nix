@@ -6,6 +6,7 @@ let
   browser = "brave";
   editor = "nvim";
   term = "foot";
+  lockcmd = "${pkgs.swaylock}/bin/swaylock -f -i ${../assets/desktop.jpg}";
 in {
   imports = [
     nixvim.homeManagerModules.nixvim
@@ -132,6 +133,7 @@ in {
       sway-audio-idle-inhibit
       swaybg
       swayidle
+      swaylock
       wayland
       waypipe
       wdisplays
@@ -313,10 +315,23 @@ in {
   };
 
   services = {
-    swayidle = let
-    in {
+    swayidle = {
       enable = true;
+      events = [
+        {
+          event = "before-sleep";
+          command = lockcmd;
+        }
+        {
+          event = "lock";
+          command = lockcmd;
+        }
+      ];
       timeouts = [
+        {
+          timeout = 300;
+          command = lockcmd;
+        }
         # Lock computer
         {
           timeout = 600;
@@ -379,6 +394,9 @@ in {
         "${mod}+r" = "exec wofi --show run";
         "${mod}+Shift+r" = "exec wofi --show drun";
         "${mod}+b" = "exec ${browser}";
+        "${mod}+Shift+p" =
+          "exec ${lockcmd}";
+
 
         "${mod}+h" = "focus left";
         "${mod}+j" = "focus down";
