@@ -193,7 +193,6 @@ in {
         set vi-cmd-mode-string "N "
       '';
     };
-    fuzzel.enable = true;
     foot = {
       enable = true;
       settings.main.term = "xterm-256color";
@@ -235,9 +234,8 @@ in {
         };
       };
     };
-    rofi = {
+    wofi = {
       enable = true;
-      terminal = "${pkgs.${term}}/bin/${term}";
     };
     tmux = {
       enable = true;
@@ -378,8 +376,8 @@ in {
         "${mod}+Shift+q" = "kill";
 
         "${mod}+Return" = "exec ${term}";
-        "${mod}+r" = "exec ${pkgs.rofi}/bin/rofi -show run";
-        "${mod}+Shift+r" = "exec ${pkgs.rofi}/bin/rofi -show drun";
+        "${mod}+r" = "exec wofi --show run";
+        "${mod}+Shift+r" = "exec wofi --show drun";
         "${mod}+b" = "exec ${browser}";
 
         "${mod}+h" = "focus left";
