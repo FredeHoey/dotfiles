@@ -7,4 +7,3 @@ stdenv.mkDerivation {
     cp ./* $out/bin/
   '';
 }
-

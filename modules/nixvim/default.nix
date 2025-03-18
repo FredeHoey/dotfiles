@@ -21,16 +21,18 @@
     '';
   }];
 
-  extraPlugins = [(pkgs.vimUtils.buildVimPlugin {
-    name = "tardis";
-    src = pkgs.fetchFromGitHub {
+  extraPlugins = [
+    (pkgs.vimUtils.buildVimPlugin {
+      name = "tardis";
+      src = pkgs.fetchFromGitHub {
         owner = "fredehoey";
         repo = "tardis.nvim";
         rev = "a6ee00a217529490e79d349b1f1a9cf5831180d3";
         hash = "sha256-W91wBUuP2etZiLTsYUH8yVoLDG8ZqXoAnFOjsyZmEJI=";
-    };
-    doCheck = false;
-  })];
+      };
+      doCheck = false;
+    })
+  ];
 
   extraConfigLua = ''
     require('tardis-nvim').setup()
@@ -38,7 +40,7 @@
 
   plugins = {
     blink-cmp = {
-      enable = true;   
+      enable = true;
       settings = {
         completion = {
           accept = {
@@ -68,12 +70,8 @@
           inline = {
             adapter = "ollama";
             keymaps = {
-              accept_changes = {
-                modes = { n = "ga"; };
-              };
-              reject_changes = {
-                modes = { n = "gr"; };
-              };
+              accept_changes = { modes = { n = "ga"; }; };
+              reject_changes = { modes = { n = "gr"; }; };
             };
           };
         };
@@ -89,7 +87,7 @@
                   }
                 })
               end
-          '';
+            '';
           };
         };
       };
@@ -167,8 +165,8 @@
     };
     nvim-bqf.enable = true;
     notify = {
-        enable = true;
-        settings.background_colour = "#000000";
+      enable = true;
+      settings.background_colour = "#000000";
     };
     ollama = {
       enable = true;
@@ -221,70 +219,274 @@
 
   keymaps = [
     # dap
-    { mode = "n"; key = "<F2>"; action.__raw = ''require('dap').step_over''; }
-    { mode = "n"; key = "<F3>"; action.__raw = ''require('dap').step_into''; }
-    { mode = "n"; key = "<F4>"; action.__raw = ''require('dap').step_out''; }
-    { mode = "n"; key = "<F5>"; action.__raw = ''require('dap').continue''; }
-    { mode = "n"; key = "<F6>"; action.__raw = ''require('dap').run_to_cursor''; }
-    { mode = "n"; key = "<F3>"; action.__raw = ''require('dap').toggle_breakpoint''; }
-    
+    {
+      mode = "n";
+      key = "<F2>";
+      action.__raw = "require('dap').step_over";
+    }
+    {
+      mode = "n";
+      key = "<F3>";
+      action.__raw = "require('dap').step_into";
+    }
+    {
+      mode = "n";
+      key = "<F4>";
+      action.__raw = "require('dap').step_out";
+    }
+    {
+      mode = "n";
+      key = "<F5>";
+      action.__raw = "require('dap').continue";
+    }
+    {
+      mode = "n";
+      key = "<F6>";
+      action.__raw = "require('dap').run_to_cursor";
+    }
+    {
+      mode = "n";
+      key = "<F3>";
+      action.__raw = "require('dap').toggle_breakpoint";
+    }
+
     # fzf
-    { mode = "n"; key = "<leader><leader>"; action.__raw = ''require('fzf-lua').resume''; }
-    { mode = "n"; key = "<leader>gl"; action.__raw = ''require('fzf-lua').git_commits''; }
-    { mode = "n"; key = "<leader>gf"; action.__raw = ''require('fzf-lua').git_bcommits''; }
-    { mode = "n"; key = "<leader>ff"; action.__raw = ''require('fzf-lua').files''; }
-    { mode = "n"; key = "<leader>fg"; action.__raw = ''require('fzf-lua').live_grep''; }
-    { mode = "n"; key = "<leader>fr"; action.__raw = ''require('fzf-lua').grep_cword''; }
-    { mode = "v"; key = "<leader>fr"; action.__raw = ''require('fzf-lua').grep_visual''; }
-    { mode = "n"; key = "<leader>;"; action.__raw = ''require('fzf-lua').commands''; }
-    { mode = "n"; key = "<leader>b"; action.__raw = ''require('fzf-lua').buffers''; }
-    { mode = "n"; key = "<leader>l"; action.__raw = ''require('fzf-lua').lines''; }
-    { mode = "n"; key = "<leader>gb"; action.__raw = ''require('fzf-lua').git_branches''; }
-    { mode = "n"; key = "<leader>h"; action.__raw = ''require('fzf-lua').help_tags''; }
+    {
+      mode = "n";
+      key = "<leader><leader>";
+      action.__raw = "require('fzf-lua').resume";
+    }
+    {
+      mode = "n";
+      key = "<leader>gl";
+      action.__raw = "require('fzf-lua').git_commits";
+    }
+    {
+      mode = "n";
+      key = "<leader>gf";
+      action.__raw = "require('fzf-lua').git_bcommits";
+    }
+    {
+      mode = "n";
+      key = "<leader>ff";
+      action.__raw = "require('fzf-lua').files";
+    }
+    {
+      mode = "n";
+      key = "<leader>fg";
+      action.__raw = "require('fzf-lua').live_grep";
+    }
+    {
+      mode = "n";
+      key = "<leader>fr";
+      action.__raw = "require('fzf-lua').grep_cword";
+    }
+    {
+      mode = "v";
+      key = "<leader>fr";
+      action.__raw = "require('fzf-lua').grep_visual";
+    }
+    {
+      mode = "n";
+      key = "<leader>;";
+      action.__raw = "require('fzf-lua').commands";
+    }
+    {
+      mode = "n";
+      key = "<leader>b";
+      action.__raw = "require('fzf-lua').buffers";
+    }
+    {
+      mode = "n";
+      key = "<leader>l";
+      action.__raw = "require('fzf-lua').lines";
+    }
+    {
+      mode = "n";
+      key = "<leader>gb";
+      action.__raw = "require('fzf-lua').git_branches";
+    }
+    {
+      mode = "n";
+      key = "<leader>h";
+      action.__raw = "require('fzf-lua').help_tags";
+    }
 
     # git
-    { mode = "n"; key = "<leader>gq"; action.__raw = ''require("gitsigns").setqflist''; }
-    { mode = "n"; key = "<leader>gA"; action.__raw = ''require("gitsigns").stage_buffer''; }
-    { mode = "n"; key = "<leader>gR"; action.__raw = ''require("gitsigns").reset_buffer''; }
-    { mode = [ "n" "v" ]; key = "<leader>ga"; action.__raw = ''require("gitsigns").stage_hunk''; }
-    { mode = [ "n" "v" ]; key = "<leader>gr"; action.__raw = ''require("gitsigns").reset_hunk''; }
-    { mode = "n"; key = "<leader>gu"; action.__raw = ''require("gitsigns").undo_stage_hunk''; }
-    { mode = "n"; key = "<leader>gp"; action.__raw = ''require("gitsigns").preview_hunk''; }
-    { mode = "n"; key = "<leader>gm"; action.__raw = ''function() require("gitsigns").blame_line({ full = true }) end''; }
-    { mode = "n"; key = "<leader>gs"; action.__raw = ''require("neogit").open''; }
+    {
+      mode = "n";
+      key = "<leader>gq";
+      action.__raw = ''require("gitsigns").setqflist'';
+    }
+    {
+      mode = "n";
+      key = "<leader>gA";
+      action.__raw = ''require("gitsigns").stage_buffer'';
+    }
+    {
+      mode = "n";
+      key = "<leader>gR";
+      action.__raw = ''require("gitsigns").reset_buffer'';
+    }
+    {
+      mode = [ "n" "v" ];
+      key = "<leader>ga";
+      action.__raw = ''require("gitsigns").stage_hunk'';
+    }
+    {
+      mode = [ "n" "v" ];
+      key = "<leader>gr";
+      action.__raw = ''require("gitsigns").reset_hunk'';
+    }
+    {
+      mode = "n";
+      key = "<leader>gu";
+      action.__raw = ''require("gitsigns").undo_stage_hunk'';
+    }
+    {
+      mode = "n";
+      key = "<leader>gp";
+      action.__raw = ''require("gitsigns").preview_hunk'';
+    }
+    {
+      mode = "n";
+      key = "<leader>gm";
+      action.__raw =
+        ''function() require("gitsigns").blame_line({ full = true }) end'';
+    }
+    {
+      mode = "n";
+      key = "<leader>gs";
+      action.__raw = ''require("neogit").open'';
+    }
 
     # lsp
-    { mode = "n"; key = "gD"; action.__raw = ''vim.lsp.buf.declaration''; }
-    { mode = "n"; key = "gd"; action.__raw = ''vim.lsp.buf.definition''; }
-    { mode = [ "n" "i" ]; key = "<C-s>"; action.__raw = ''vim.lsp.buf.signature_help''; }
-    { mode = [ "n" "i" ]; key = "<C-t>"; action.__raw = ''vim.lsp.buf.hover, { buffer = 0, noremap = true, silent = true }''; }
-    { mode = "n"; key = "<leader>rr"; action.__raw = ''vim.lsp.buf.references''; }
-    { mode = "n"; key = "<leader>ro"; action.__raw = ''vim.lsp.buf.rename''; }
-    { mode = "n"; key = "<leader>re"; action.__raw = ''vim.lsp.buf.code_action''; }
-    { mode = "n"; key = "<leader>rn"; action.__raw = ''vim.diagnostic.goto_next''; }
-    { mode = "n"; key = "<leader>rp"; action.__raw = ''vim.diagnostic.goto_prev''; }
-    { mode = "n"; key = "<leader>rd"; action.__raw = ''vim.diagnostic.setqflist''; }
-    { mode = [ "n" "v" ]; key = "<leader>rf"; action.__raw = ''function() vim.lsp.buf.format({ async = true}) end''; }
+    {
+      mode = "n";
+      key = "gD";
+      action.__raw = "vim.lsp.buf.declaration";
+    }
+    {
+      mode = "n";
+      key = "gd";
+      action.__raw = "vim.lsp.buf.definition";
+    }
+    {
+      mode = [ "n" "i" ];
+      key = "<C-s>";
+      action.__raw = "vim.lsp.buf.signature_help";
+    }
+    {
+      mode = [ "n" "i" ];
+      key = "<C-t>";
+      action.__raw =
+        "vim.lsp.buf.hover, { buffer = 0, noremap = true, silent = true }";
+    }
+    {
+      mode = "n";
+      key = "<leader>rr";
+      action.__raw = "vim.lsp.buf.references";
+    }
+    {
+      mode = "n";
+      key = "<leader>ro";
+      action.__raw = "vim.lsp.buf.rename";
+    }
+    {
+      mode = "n";
+      key = "<leader>re";
+      action.__raw = "vim.lsp.buf.code_action";
+    }
+    {
+      mode = "n";
+      key = "<leader>rn";
+      action.__raw = "vim.diagnostic.goto_next";
+    }
+    {
+      mode = "n";
+      key = "<leader>rp";
+      action.__raw = "vim.diagnostic.goto_prev";
+    }
+    {
+      mode = "n";
+      key = "<leader>rd";
+      action.__raw = "vim.diagnostic.setqflist";
+    }
+    {
+      mode = [ "n" "v" ];
+      key = "<leader>rf";
+      action.__raw = "function() vim.lsp.buf.format({ async = true}) end";
+    }
 
     # buffers
-    { mode = "n"; key = "<leader>q"; action = ''<cmd>bd<cr>''; }
-    { mode = "n"; key = "<leader>Q"; action = ''<cmd>q!<cr>''; }
+    {
+      mode = "n";
+      key = "<leader>q";
+      action = "<cmd>bd<cr>";
+    }
+    {
+      mode = "n";
+      key = "<leader>Q";
+      action = "<cmd>q!<cr>";
+    }
 
     # quickfix
-    { mode = "n"; key = "<C-p>"; action = ''<cmd>cprev<cr>zz''; }
-    { mode = "n"; key = "<C-n>"; action =''<cmd>cnext<cr>zz''; }
-    { mode = "n"; key = "<C-q>"; action = ''<cmd>copen<cr>''; }
-    { mode = "n"; key = "<C-c>"; action = ''<cmd>cclose<cr>''; }
+    {
+      mode = "n";
+      key = "<C-p>";
+      action = "<cmd>cprev<cr>zz";
+    }
+    {
+      mode = "n";
+      key = "<C-n>";
+      action = "<cmd>cnext<cr>zz";
+    }
+    {
+      mode = "n";
+      key = "<C-q>";
+      action = "<cmd>copen<cr>";
+    }
+    {
+      mode = "n";
+      key = "<C-c>";
+      action = "<cmd>cclose<cr>";
+    }
 
-    { mode = "n"; key = "<leader>as"; action.__raw = ''require('persisted').load''; }
+    {
+      mode = "n";
+      key = "<leader>as";
+      action.__raw = "require('persisted').load";
+    }
 
-    { mode = "n"; key = "<leader>ft"; action.__raw = ''require("yazi").yazi''; }
+    {
+      mode = "n";
+      key = "<leader>ft";
+      action.__raw = ''require("yazi").yazi'';
+    }
 
     # neotest
-    { mode = "n"; key = "<leader>tt"; action.__raw = ''function() require('neotest').run.run() end ''; }
-    { mode = "n"; key = "<leader>tf"; action.__raw = ''function() require('neotest').run.run(vim.fn.expand("%")) end ''; }
-    { mode = "n"; key = "<leader>td"; action.__raw = ''function() require('neotest').run.run({ strategy = "dap" ; }) end''; } 
+    {
+      mode = "n";
+      key = "<leader>tt";
+      action.__raw = "function() require('neotest').run.run() end ";
+    }
+    {
+      mode = "n";
+      key = "<leader>tf";
+      action.__raw =
+        ''function() require('neotest').run.run(vim.fn.expand("%")) end '';
+    }
+    {
+      mode = "n";
+      key = "<leader>td";
+      action.__raw =
+        ''function() require('neotest').run.run({ strategy = "dap" ; }) end'';
+    }
 
-    { mode = "n"; key = "<leader>gt"; action.__raw = ''require('tardis-nvim').tardis''; }
+    {
+      mode = "n";
+      key = "<leader>gt";
+      action.__raw = "require('tardis-nvim').tardis";
+    }
   ];
 }

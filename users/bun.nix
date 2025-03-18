@@ -12,10 +12,8 @@ let
   name = "Frede Braendstrup";
   gpg_key = "EEDBC8E8FC8CF68D";
 in {
-  imports = [
-    nixvim.homeManagerModules.nixvim
-    stylix.homeManagerModules.stylix
-  ];
+  imports =
+    [ nixvim.homeManagerModules.nixvim stylix.homeManagerModules.stylix ];
 
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
@@ -36,15 +34,15 @@ in {
           trash = "[Gmail]/Trash";
         };
         smtp.tls.useStartTls = true;
-        
+
         gpg = {
           key = gpg_key;
           signByDefault = true;
         };
-        
+
         imapnotify = {
           enable = true;
-          boxes = ["Inbox"];
+          boxes = [ "Inbox" ];
           onNotifyPost = ''
             ${pkgs.libnotify}/bin/notify-send "New mail arrived."
           '';
@@ -57,7 +55,9 @@ in {
       };
     };
   };
-  programs.nixvim = import ../modules/nixvim { inherit pkgs; inherit nixvim;};
+  programs.nixvim = import ../modules/nixvim {
+    inherit pkgs nixvim;
+  };
 
   stylix = {
     enable = true;
@@ -298,14 +298,9 @@ in {
     notmuch = {
       enable = true;
       new.tags = [ "new" ];
-      search.excludeTags = [
-        "trash"
-        "spam"
-      ];
+      search.excludeTags = [ "trash" "spam" ];
     };
-    wofi = {
-      enable = true;
-    };
+    wofi.enable = true;
     rbw = {
       enable = true;
       settings = {
@@ -469,9 +464,7 @@ in {
         "${mod}+r" = "exec wofi --show run";
         "${mod}+Shift+r" = "exec wofi --show drun";
         "${mod}+b" = "exec ${browser}";
-        "${mod}+Shift+p" =
-          "exec ${lockcmd}";
-
+        "${mod}+Shift+p" = "exec ${lockcmd}";
 
         "${mod}+h" = "focus left";
         "${mod}+j" = "focus down";

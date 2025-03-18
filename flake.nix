@@ -12,7 +12,7 @@
     nixvim.url = "github:nix-community/nixvim";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }: 
+  outputs = inputs@{ nixpkgs, home-manager, ... }:
     let
       base = [ ./common/base.nix ];
       createSystem = (system-file:
@@ -28,18 +28,17 @@
       nixosConfigurations = builtins.listToAttrs
         (map createSystem (builtins.attrNames (builtins.readDir ./systems)));
 
-      homeConfigurations = let
-        pkgs = import nixpkgs { system = "x86_64-linux"; };
-      in  {
+      homeConfigurations =
+        let pkgs = import nixpkgs { system = "x86_64-linux"; };
+        in {
           bun = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
-            extraSpecialArgs = { 
-              inherit (inputs) nixvim stylix;
-            };
+            extraSpecialArgs = { inherit (inputs) nixvim stylix; };
             modules = [ ./users/bun.nix ];
           };
         };
 
-      formatter."x86_64-linux" = nixpkgs.legacyPackages."x86_64-linux".nixfmt;
+      formatter."x86_64-linux" =
+        nixpkgs.legacyPackages."x86_64-linux".nixfmt-classic;
     };
 }

@@ -3,7 +3,7 @@
   imports = [ inputs.home-manager.nixosModules.default ];
 
   home-manager = {
-    extraSpecialArgs = { 
+    extraSpecialArgs = {
       inherit pkgs;
       inherit (inputs) nixvim stylix;
     };
@@ -49,7 +49,7 @@
     nix-ld.enable = true;
   };
 
-  services= {
+  services = {
     nixseparatedebuginfod.enable = true;
     openssh.enable = true;
     resolved = {
@@ -88,9 +88,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
-  security.pam.services = { 
-    swaylock.text = "auth include login";
-  };
+  security.pam.services.swaylock.text = "auth include login";
 
   system.stateVersion = "23.11";
 }
