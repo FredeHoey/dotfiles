@@ -271,8 +271,18 @@ in {
         push.useForceIfIncludes = true;
         rerere.enabled = true;
         alias = {
-          explain = "!f() { DIFF=$(git show -b $*); ollama run qwen2.5:14b \"Explain what the purpose of this changeset is:\n\n$DIFF\"; }; f";
-          review = "!f() { DIFF=$(git show -b $*); ollama run qwen2.5:14b \"Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability. Respond in markdown format\n\n$DIFF\"; }; f";
+          explain = ''
+            !f() { diff=$(git show -b $*); ollama run qwen2.5:14b "Explain what the purpose of this changeset is:
+
+            $diff"; }; f'';
+          review = ''
+            !f() { diff=$(git show -b $*); ollama run qwen2.5:14b "Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
+
+            $diff"; }; f'';
+          pre-review = ''
+            !f() { diff=$(git diff --no-ext-diff); ollama run qwen2.5:14b "Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
+
+            $diff"; }; f'';
         };
       };
     };
