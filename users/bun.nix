@@ -67,8 +67,8 @@ in {
     base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
 
     targets.neovim = {
-        enable = true;
-        plugin = "mini.base16";
+      enable = true;
+      plugin = "mini.base16";
     };
 
     cursor = {
