@@ -20,45 +20,53 @@
   };
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_13;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_13;
+  };
 
   # Enable networking
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
-  services.resolved = {
-    enable = true;
-    dnssec = "true";
-    domains = [ "~." ];
-    fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
-    dnsovertls = "true";
-  };
-  # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
 
   virtualisation = {
     docker.enable = true;
     libvirtd.enable = true;
   };
-  services.tailscale.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
-  programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-    pinentryPackage = pkgs.pinentry-qt;
-  };
-  programs.nix-ld.enable = true;
-  services.udev = {
-    enable = true;
-    extraRules = ''
-      SUBSYSTEM=="usb", MODE="0660", GROUP="dialout"
-    '';
+  programs = {
+    mtr.enable = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryPackage = pkgs.pinentry-qt;
+    };
+    nix-ld.enable = true;
   };
 
-  services.nixseparatedebuginfod.enable = true;
+  services= {
+    nixseparatedebuginfod.enable = true;
+    openssh.enable = true;
+    resolved = {
+      enable = true;
+      dnssec = "true";
+      domains = [ "~." ];
+      fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+      dnsovertls = "true";
+    };
+    tailscale.enable = true;
+    udev = {
+      enable = true;
+      extraRules = ''
+        SUBSYSTEM=="usb", MODE="0660", GROUP="dialout"
+      '';
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     dconf
@@ -77,13 +85,11 @@
     supportedLocales = [ "C.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" ];
   };
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
-  security.pam.services.swaylock = {
-    text = "auth include login";
+  security.pam.services = { 
+    swaylock.text = "auth include login";
   };
 
   system.stateVersion = "23.11";
