@@ -7,6 +7,10 @@ let
   editor = "nvim";
   term = "foot";
   lockcmd = "${pkgs.swaylock}/bin/swaylock -f -i ${../assets/desktop.jpg}";
+
+  email = "frederikbraendstrup@gmail.com";
+  name = "Frede Braendstrup";
+  gpg_key = "EEDBC8E8FC8CF68D";
 in {
   imports = [
     nixvim.homeManagerModules.nixvim
@@ -217,11 +221,11 @@ in {
       difftastic.enable = true;
       extraConfig = {
         user = {
-          signingKey = "EEDBC8E8FC8CF68D";
-          name = "Frede Braendstrup";
-          email = "frederikbraendstrup@gmail.com";
+          signingKey = gpg_key;
+          inherit email name;
         };
         commit.verbose = true;
+        commit.gpgSign = true;
         fetch.parallel = 0;
         pull.rebase = true;
         pull.autoSquash = true;
