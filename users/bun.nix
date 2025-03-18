@@ -243,6 +243,14 @@ in {
     wofi = {
       enable = true;
     };
+    rbw = {
+      enable = true;
+      settings = {
+        inherit email;
+        base_url = "https://bitwarden.fredeb.dev";
+        pinentry = pkgs.pinentry-qt;
+      };
+    };
     tmux = {
       enable = true;
       extraConfig = ''
