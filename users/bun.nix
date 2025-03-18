@@ -21,6 +21,42 @@ in {
   nixpkgs.config.allowUnfree = true;
   services.mako.enable = true;
 
+  accounts.email = {
+    accounts = {
+      bun = {
+        realName = name;
+        address = email;
+        passwordCommand = "${pkgs.rbw}/bin/rbw get gmail-app-password";
+        primary = true;
+        flavor = "gmail.com";
+        folders = {
+          inbox = "";
+          drafts = "[Gmail]/Drafts";
+          sent = "[Gmail]/Sent Mail";
+          trash = "[Gmail]/Trash";
+        };
+        smtp.tls.useStartTls = true;
+        
+        gpg = {
+          key = gpg_key;
+          signByDefault = true;
+        };
+        
+        imapnotify = {
+          enable = true;
+          boxes = ["Inbox"];
+          onNotifyPost = ''
+            ${pkgs.libnotify}/bin/notify-send "New mail arrived."
+          '';
+        };
+        notmuch.enable = true;
+        neomutt = {
+          enable = true;
+          mailboxType = "imap";
+        };
+      };
+    };
+  };
   programs.nixvim = import ../modules/nixvim { inherit pkgs; inherit nixvim;};
 
   stylix = {
@@ -239,6 +275,23 @@ in {
           review = "!f() { DIFF=$(git show -b $*); ollama run qwen2.5:14b \"Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability. Respond in markdown format\n\n$DIFF\"; }; f";
         };
       };
+    };
+    neomutt = {
+      enable = true;
+      settings = {
+        sleep_time = "0";
+        beep = "no";
+        sort = "reverse-date";
+      };
+      vimKeys = true;
+    };
+    notmuch = {
+      enable = true;
+      new.tags = [ "new" ];
+      search.excludeTags = [
+        "trash"
+        "spam"
+      ];
     };
     wofi = {
       enable = true;
