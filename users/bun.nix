@@ -272,17 +272,35 @@ in {
         rerere.enabled = true;
         alias = {
           explain = ''
-            !f() { diff=$(git show -b $*); ollama run qwen2.5:14b "Explain what the purpose of this changeset is:
+            !f() { 
+                ollama run qwen2.5:14b "Explain what the purpose of this changeset is:
 
-            $diff"; }; f'';
+                $(git show -b $*)
+            "; };
+            f'';
           review = ''
-            !f() { diff=$(git show -b $*); ollama run qwen2.5:14b "Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
+            !f() { 
+                ollama run qwen2.5:14b "$(cat .context 2> /dev/null)
+                Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
 
-            $diff"; }; f'';
+                $(git show -b $*)
+
+                $diff
+                
+            "; }; f'';
           pre-review = ''
-            !f() { diff=$(git diff --no-ext-diff); ollama run qwen2.5:14b "Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
+            !f() { 
+                diff=$(git diff --staged)
+                if [[ $? -ne 0 ]]; then
+                  echo No files in staging area
+                  exit 1
+                fi
 
-            $diff"; }; f'';
+                ollama run qwen2.5:14b "$(cat .context 2> /dev/null)
+                Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
+
+                $diff
+            "; }; f'';
         };
       };
     };
