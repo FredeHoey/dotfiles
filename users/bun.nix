@@ -3,7 +3,7 @@ let
   git-tools = pkgs.callPackage ../modules/git-tools/default.nix { };
   tmux-project = pkgs.callPackage ../modules/tmux-project/default.nix { };
 
-  browser = "brave";
+  browser = "chromium";
   editor = "nvim";
   term = "foot";
   lockcmd = "${pkgs.swaylock}/bin/swaylock -f -i ${../assets/desktop.jpg}";
@@ -215,7 +215,6 @@ in {
     };
     chromium = {
       enable = true;
-      package = pkgs.brave;
       extensions = [
         { id = "gcbommkclmclpchllfjekcdonpmejbdp"; } # https everywhere
         { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
