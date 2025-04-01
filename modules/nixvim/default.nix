@@ -482,7 +482,12 @@
       action.__raw =
         ''function() require('neotest').run.run({ strategy = "dap" ; }) end'';
     }
-
+    { 
+      mode = "n";
+      key = "<leader>ts";
+      action.__raw =
+        ''require('neotest').summary.open'';
+    }
     {
       mode = "n";
       key = "<leader>gt";
