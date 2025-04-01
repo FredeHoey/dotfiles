@@ -39,6 +39,25 @@
   '';
 
   plugins = {
+    avante = {
+      enable = true;
+      package = pkgs.vimPlugins.avante-nvim.overrideAttrs {
+        src = pkgs.fetchFromGitHub {
+          owner = "yetone";
+          repo = "avante.nvim";
+          rev = "06757e8bf57175da45180a26840c5db1f38cb4d9";
+          hash = "sha256-8q3xF9SiM/uJzHVaynn71p4yftMw5ZkiquzXXcOeSf0=";
+        };
+        doCheck = false;
+      };
+      settings = {
+        ollama = {
+          model = "qwen2.5-coder:14b";
+          endpoint = "http://localhost:11434";
+        };
+        provider = "ollama";
+      };
+    };
     blink-cmp = {
       enable = true;
       settings = {
