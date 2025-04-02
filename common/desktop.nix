@@ -22,7 +22,15 @@
     };
   };
 
-  programs.steam.enable = true;
+  programs = {
+    steam.enable = true;
+    wireshark = {
+      enable = true;
+      usbmon.enable = true;
+      dumpcap.enable = true;
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     arandr
     feh

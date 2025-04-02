@@ -163,8 +163,6 @@ in {
       kicad
       virt-manager
 
-      wireshark
-
       bemenu
       dbus
       glib
