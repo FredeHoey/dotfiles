@@ -2,7 +2,10 @@
   enable = true;
 
   enableMan = true;
-  diagnostics.virtual_lines.only_current_line = true;
+  diagnostics.virtual_text = {
+    current_line = true;
+    virt_text_pos = "eol_right_align";
+  };
 
   autoGroups = { bun = { clear = true; }; };
   autoCmd = [{
