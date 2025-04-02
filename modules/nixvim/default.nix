@@ -35,10 +35,21 @@
       };
       doCheck = false;
     })
+    (pkgs.vimUtils.buildVimPlugin {
+      name = "dap-view";
+      src = pkgs.fetchFromGitHub {
+        owner = "igorlfs";
+        repo = "nvim-dap-view";
+        rev = "c576381ecd84542d8298f3a0fc23b8b9c3237d44";
+        hash = "sha256-UzlFR8icO1Rzg/O6il22cRCqae6wZYulOsPZlQKebnY=";
+      };
+      doCheck = false;
+    })
   ];
 
   extraConfigLua = ''
     require('tardis-nvim').setup()
+    require('dap-view').setup()
   '';
 
   plugins = {
