@@ -299,6 +299,21 @@ in {
 
                 $diff
             "; }; f'';
+          vibe-commit = ''
+            !f() {
+                diff=$(git diff --staged)
+                if [[ $? -ne 0 ]]; then
+                  echo No files in staging area
+                  exit 1
+                fi
+
+                ollama run qwen2.5:14b "$(cat .context 2> /dev/null)
+                Please write a commit message for the following patch following the convetional commits v1.0.0 specification.
+                Don't include any explanation in the output, only the commit text as it would be written in a git commit
+                
+                Patch:
+                $diff
+            "; }; git commit -m "$(f)" -e'';
         };
       };
     };
