@@ -1,7 +1,12 @@
 HOSTNAME:=$(shell cat /etc/hostname)
 
+.PHONY: all nixos home-manager
+
+all: nixos home-manager
+
 nixos:
 	sudo nixos-rebuild switch --flake .#${HOSTNAME}
+
 home-manager:
 	nix run home-manager -- switch --flake .#${USER}
 

@@ -1,15 +1,4 @@
-{ pkgs, inputs, ... }: {
-
-  imports = [ inputs.home-manager.nixosModules.default ];
-
-  home-manager = {
-    extraSpecialArgs = {
-      inherit pkgs;
-      inherit (inputs) nixvim stylix;
-    };
-    users = { "bun" = import ../users/bun.nix; };
-  };
-
+{ pkgs, ... }: {
   users.users.bun = {
     isNormalUser = true;
     extraGroups =
