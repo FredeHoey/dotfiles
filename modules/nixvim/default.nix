@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, ... }: let ai = import ../../lib/ai.nix {}; in {
   enable = true;
 
   enableMan = true;
@@ -66,7 +66,7 @@
       };
       settings = {
         ollama = {
-          model = "qwen2.5-coder:14b";
+          model = ai.code-model;
           endpoint = "http://localhost:11434";
         };
         provider = "ollama";

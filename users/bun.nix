@@ -3,6 +3,8 @@ let
   git-tools = pkgs.callPackage ../modules/git-tools/default.nix { };
   tmux-project = pkgs.callPackage ../modules/tmux-project/default.nix { };
 
+  ai = import ../lib/ai.nix {};
+
   browser = "chromium";
   editor = "nvim";
   term = "foot";
@@ -271,14 +273,14 @@ in {
         alias = {
           explain = ''
             !f() { 
-                ollama run qwen2.5:14b "Explain what the purpose of this changeset is:
+                ollama run ${ai.chat-model} "Explain what the purpose of this changeset is:
 
                 $(git show -b $*)
             "; };
             f'';
           review = ''
             !f() { 
-                ollama run qwen2.5:14b "$(cat .context 2> /dev/null)
+                ollama run ${ai.chat-model} "$(cat .context 2> /dev/null)
                 Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
 
                 $(git show -b $*)
@@ -294,7 +296,7 @@ in {
                   exit 1
                 fi
 
-                ollama run qwen2.5:14b "$(cat .context 2> /dev/null)
+                ollama run ${ai.chat-model} "$(cat .context 2> /dev/null)
                 Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
 
                 $diff
@@ -307,7 +309,7 @@ in {
                   exit 1
                 fi
 
-                ollama run qwen2.5:14b "$(cat .context 2> /dev/null)
+                ollama run ${ai.chat-model} "$(cat .context 2> /dev/null)
                 Please write a commit message for the following patch following the convetional commits v1.0.0 specification.
                 Don't include any explanation in the output, only the commit text as it would be written in a git commit
                 
