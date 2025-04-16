@@ -452,17 +452,6 @@ in {
     };
   };
   wayland.windowManager.sway = let
-    dbus-sway-environment = pkgs.writeTextFile {
-      name = "dbus-sway-environment";
-      destination = "/bin/dbus-sway-environment";
-      executable = true;
-
-      text = ''
-        dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-        systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-        systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-      '';
-    };
     mod = "Mod4";
   in {
     enable = true;
@@ -485,7 +474,6 @@ in {
           command =
             "${pkgs.wlsunset}/bin/wlsunset -L 10.2 -l 56.2 -t 3200 -T 4500";
         }
-        { command = "${dbus-sway-environment}"; }
         {
           command =
             "${pkgs.sway-audio-idle-inhibit}/bin/sway-audio-idle-inhibit";
