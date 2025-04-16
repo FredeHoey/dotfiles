@@ -244,6 +244,9 @@ in {
       enable = true;
       settings.main.term = "xterm-256color";
     };
+    fuzzel = {
+      enable = true;
+    };
     fzf = {
       enable = true;
       enableBashIntegration = false;
@@ -338,7 +341,6 @@ in {
       new.tags = [ "new" ];
       search.excludeTags = [ "trash" "spam" ];
     };
-    wofi.enable = true;
     rbw = {
       enable = true;
       settings = {
@@ -500,8 +502,7 @@ in {
         "${mod}+Shift+q" = "kill";
 
         "${mod}+Return" = "exec ${term}";
-        "${mod}+r" = "exec wofi --show run";
-        "${mod}+Shift+r" = "exec wofi --show drun";
+        "${mod}+r" = "exec fuzzel";
         "${mod}+b" = "exec ${browser}";
         "${mod}+Shift+p" = "exec ${lockcmd}";
 
