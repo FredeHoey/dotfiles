@@ -33,7 +33,7 @@
         in {
           bun = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
-            extraSpecialArgs = { inherit (inputs) nixvim stylix; };
+            extraSpecialArgs = { inherit (inputs) nixgl nixvim stylix; };
             modules = [ ./users/bun.nix ];
           };
         };

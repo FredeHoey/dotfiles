@@ -1,9 +1,11 @@
-{ pkgs, nixvim, stylix, ... }:
+{ pkgs, config, nixgl, nixvim, stylix, ... }:
 let
   git-tools = pkgs.callPackage ../modules/git-tools/default.nix { };
   tmux-project = pkgs.callPackage ../modules/tmux-project/default.nix { };
 
   ai = import ../lib/ai.nix {};
+
+  glwrap = (package: config.lib.nixGL.wrap package);
 
   browser = "chromium";
   editor = "nvim";
@@ -20,6 +22,8 @@ in {
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
   services.mako.enable = true;
+
+  nixGL.packages = nixgl.packages;
 
   accounts.email = {
     accounts = {
@@ -158,11 +162,9 @@ in {
       element-desktop
       spotify
 
-      freecad
       elmerfem
       gmsh
       calculix
-      kicad
       virt-manager
 
       bemenu
@@ -181,7 +183,10 @@ in {
       wl-clipboard
       wlsunset
       xdg-utils
-    ];
+    ] ++ (map glwrap [
+      freecad
+      kicad
+    ]);
     file = {
       ".ssh/rc".source = ../configs/ssh/rc;
 
@@ -459,6 +464,7 @@ in {
     mod = "Mod4";
   in {
     enable = true;
+    package = null;
     config = {
       modifier = mod;
       terminal = term;
