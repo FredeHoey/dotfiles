@@ -39,6 +39,7 @@
   };
 
   services = {
+    envfs.enable = true;
     nixseparatedebuginfod.enable = true;
     openssh.enable = true;
     resolved = {
