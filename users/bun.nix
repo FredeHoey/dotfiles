@@ -24,8 +24,11 @@ in {
   nixpkgs.config.allowUnfree = true;
   services.mako.enable = true;
 
-  nixGL.packages = nixgl.packages;
   ai.enable = true;
+
+  nixGL.packages = import nixgl { inherit pkgs; };
+  nixGL.defaultWrapper = "mesa";
+  nixGL.installScripts = [ "mesa" ];
 
   accounts.email = {
     accounts = {
