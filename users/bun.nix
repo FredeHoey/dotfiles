@@ -122,74 +122,38 @@ in {
       NIX_SHELL_PRESERVE_PROMPT = "1";
     };
 
-    packages = with pkgs; [
-      git-tools
-      tmux-project
+    packages = with pkgs;
+      [
+        git-tools
+        tmux-project
 
-      bitwarden-cli
-      clang-tools
-      cmakeCurses
-      doxygen
-      gcc
-      gdb
-      ninja
-      go
-      rustup
-      uv
+        tree-sitter
 
-      tree-sitter
+        ansible
+        fzf
+        ripgrep
+        wget
+        vim
 
-      ansible
-      bat
-      fzf
-      nix
-      ripgrep
-      unzip
-      wget
-      vim
+        feh
+        imagemagick
+        mpv
+        usbutils
+        pavucontrol
 
-      nodejs
+        gimp
+        zathura
+        zeal
 
-      dconf
-      feh
-      imagemagick
-      mpv
-      usbutils
-      pavucontrol
+        discord
+        element-desktop
+        spotify
 
-      gimp
-      zathura
-      zeal
-
-      discord
-      element-desktop
-      spotify
-
-      elmerfem
-      gmsh
-      calculix
-      virt-manager
-
-      bemenu
-      dbus
-      glib
-      grim
-      mako
-      slurp
-      sway-audio-idle-inhibit
-      swaybg
-      swayidle
-      swaylock
-      wayland
-      waypipe
-      wdisplays
-      wl-clipboard
-      wlsunset
-      xdg-utils
-    ] ++ (map glwrap [
-      freecad
-      kicad
-    ]);
+        dconf
+        elmerfem
+        gmsh
+        calculix
+      ] ++ (map glwrap [ freecad kicad ]);
     file = {
       ".ssh/rc".source = ../configs/ssh/rc;
 

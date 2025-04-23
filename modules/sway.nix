@@ -6,6 +6,7 @@
     grim
     mako
     slurp
+    sway
     sway-audio-idle-inhibit
     swaybg
     swayidle
