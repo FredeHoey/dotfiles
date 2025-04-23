@@ -193,6 +193,7 @@ in {
         { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
         { id = "nngceckbapebfimnlniiiahkandclblb"; } # bitwarden
         { id = "ldpochfccmkkmhdbclfhpagapcfdljkj"; } # decentraleyes
+        { id = "kplfenefaakjhjkklghidleljeocgdap"; } # qwant search engine
       ];
     };
     readline = {
