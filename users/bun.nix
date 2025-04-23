@@ -3,8 +3,6 @@ let
   git-tools = pkgs.callPackage ../modules/git-tools/default.nix { };
   tmux-project = pkgs.callPackage ../modules/tmux-project/default.nix { };
 
-  ai = import ../lib/ai.nix {};
-
   glwrap = (package: config.lib.nixGL.wrap package);
 
   browser = "chromium";
@@ -16,14 +14,18 @@ let
   name = "Frede Braendstrup";
   gpg_key = "EEDBC8E8FC8CF68D";
 in {
-  imports =
-    [ nixvim.homeManagerModules.nixvim stylix.homeManagerModules.stylix ];
+  imports = [
+    nixvim.homeManagerModules.nixvim
+    stylix.homeManagerModules.stylix
+    ../modules/ai.nix
+  ];
 
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
   services.mako.enable = true;
 
   nixGL.packages = nixgl.packages;
+  ai.enable = true;
 
   accounts.email = {
     accounts = {
@@ -61,9 +63,7 @@ in {
       };
     };
   };
-  programs.nixvim = import ../modules/nixvim {
-    inherit pkgs nixvim;
-  };
+  programs.nixvim = import ../modules/nixvim { inherit config pkgs nixvim; };
 
   stylix = {
     enable = true;
@@ -278,53 +278,6 @@ in {
         push.autoSetupRemote = true;
         push.useForceIfIncludes = true;
         rerere.enabled = true;
-        alias = {
-          explain = ''
-            !f() { 
-                ollama run ${ai.chat-model} "Explain what the purpose of this changeset is:
-
-                $(git show -b $*)
-            "; };
-            f'';
-          review = ''
-            !f() { 
-                ollama run ${ai.chat-model} "$(cat .context 2> /dev/null)
-                Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
-
-                $(git show -b $*)
-
-                $diff
-                
-            "; }; f'';
-          pre-review = ''
-            !f() { 
-                diff=$(git diff --staged)
-                if [[ $? -ne 0 ]]; then
-                  echo No files in staging area
-                  exit 1
-                fi
-
-                ollama run ${ai.chat-model} "$(cat .context 2> /dev/null)
-                Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
-
-                $diff
-            "; }; f'';
-          vibe-commit = ''
-            !f() {
-                diff=$(git diff --staged)
-                if [[ $? -ne 0 ]]; then
-                  echo No files in staging area
-                  exit 1
-                fi
-
-                ollama run ${ai.chat-model} "$(cat .context 2> /dev/null)
-                Please write a commit message for the following patch following the convetional commits v1.0.0 specification.
-                Don't include any explanation in the output, only the commit text as it would be written in a git commit
-                
-                Patch:
-                $diff
-            "; }; git commit -m "$(f)" -e'';
-        };
       };
     };
     neomutt = {
