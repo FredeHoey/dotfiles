@@ -127,6 +127,14 @@ in {
         git-tools
         tmux-project
 
+        jq
+        fq
+        htop
+        openssl
+        sqlite
+        uv
+        bat
+
         tree-sitter
 
         ansible
