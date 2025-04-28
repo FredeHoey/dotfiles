@@ -133,6 +133,10 @@ in {
         openssl
         sqlite
         uv
+        cmakeCurses
+        ccache
+        ninja
+        gnumake
         bat
 
         tree-sitter
@@ -152,6 +156,7 @@ in {
         gimp
         zathura
         zeal
+        kicad 
 
         discord
         element-desktop
@@ -161,7 +166,7 @@ in {
         elmerfem
         gmsh
         calculix
-      ] ++ (map glwrap [ freecad kicad ]);
+      ] ++ (map glwrap [ freecad ]);
     file = {
       ".ssh/rc".source = ../configs/ssh/rc;
 
