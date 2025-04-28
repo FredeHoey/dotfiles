@@ -12,11 +12,12 @@
 
   environment.variables = { ROC_ENABLE_PRE_VEGA = "1"; };
   hardware.graphics.extraPackages = with pkgs; [ amdvlk rocmPackages.clr.icd ];
-  networking = {
-    interfaces.enp39s0.wakeOnLan.enable = true;
-    hostName = "dt";
-    useDHCP = lib.mkDefault true;
+
+  net = {
+    enable = true;
+    lan-interface = "enp39s0";
   };
+
   services.ollama = {
     enable = true;
     host = "0.0.0.0";
