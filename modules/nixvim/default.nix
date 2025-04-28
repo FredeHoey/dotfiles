@@ -75,37 +75,6 @@
         };
       };
     };
-    cmake-tools.enable = true;
-    codecompanion = {
-      enable = true;
-      settings = {
-        strategies = {
-          chat.adapter = "ollama";
-          inline = {
-            adapter = "ollama";
-            keymaps = {
-              accept_changes = { modes = { n = "ga"; }; };
-              reject_changes = { modes = { n = "gr"; }; };
-            };
-          };
-        };
-        adapters = {
-          ollama = {
-            __raw = ''
-              function()
-                return require("codecompanion.adapters").extend("ollama", {
-                  schema = {
-                    model = {
-                      default = "qwen2.5-coder:14b"
-                    }
-                  }
-                })
-              end
-            '';
-          };
-        };
-      };
-    };
     comment.enable = true;
     dap.enable = true;
     friendly-snippets.enable = true;
