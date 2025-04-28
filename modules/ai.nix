@@ -6,7 +6,7 @@ in {
   options.ai = {
     enable = mkEnableOption "AI Module";
 
-    ollama = rec {
+    ollama = {
       host = mkOption {
         type = types.str;
         default = "localhost";
@@ -49,57 +49,58 @@ in {
       settings = {
         ollama = {
           model = cfg.ollama.code-model;
-          endpoint = "http://${cfg.ollama.host}:${builtins.toString cfg.ollama.port}";
+          endpoint =
+            "http://${cfg.ollama.host}:${builtins.toString cfg.ollama.port}";
         };
         provider = "ollama";
       };
     };
     programs.git.extraConfig.aliases = {
-          explain = ''
-            !f() { 
-                ollama run ${cfg.ollama.chat-model} "Explain what the purpose of this changeset is:
+      explain = ''
+        !f() { 
+            ollama run ${cfg.ollama.chat-model} "Explain what the purpose of this changeset is:
 
-                $(git show -b $*)
-            "; };
-            f'';
-          review = ''
-            !f() { 
-                ollama run ${cfg.ollama.chat-model} "$(cat .context 2> /dev/null)
-                Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
+            $(git show -b $*)
+        "; };
+        f'';
+      review = ''
+        !f() { 
+            ollama run ${cfg.ollama.chat-model} "$(cat .context 2> /dev/null)
+            Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
 
-                $(git show -b $*)
+            $(git show -b $*)
 
-                $diff
-                
-            "; }; f'';
-          pre-review = ''
-            !f() { 
-                diff=$(git diff --staged)
-                if [[ $? -ne 0 ]]; then
-                  echo No files in staging area
-                  exit 1
-                fi
+            $diff
+            
+        "; }; f'';
+      pre-review = ''
+        !f() { 
+            diff=$(git diff --staged)
+            if [[ $? -ne 0 ]]; then
+              echo No files in staging area
+              exit 1
+            fi
 
-                ollama run ${cfg.ollama.chat-model} "$(cat .context 2> /dev/null)
-                Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
+            ollama run ${cfg.ollama.chat-model} "$(cat .context 2> /dev/null)
+            Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
 
-                $diff
-            "; }; f'';
-          vibe-commit = ''
-            !f() {
-                diff=$(git diff --staged)
-                if [[ $? -ne 0 ]]; then
-                  echo No files in staging area
-                  exit 1
-                fi
+            $diff
+        "; }; f'';
+      vibe-commit = ''
+        !f() {
+            diff=$(git diff --staged)
+            if [[ $? -ne 0 ]]; then
+              echo No files in staging area
+              exit 1
+            fi
 
-                ollama run ${cfg.ollama.chat-model} "$(cat .context 2> /dev/null)
-                Please write a commit message for the following patch following the convetional commits v1.0.0 specification.
-                Don't include any explanation in the output, only the commit text as it would be written in a git commit
-                
-                Patch:
-                $diff
-            "; }; git commit -m "$(f)" -e'';
-        };
+            ollama run ${cfg.ollama.chat-model} "$(cat .context 2> /dev/null)
+            Please write a commit message for the following patch following the convetional commits v1.0.0 specification.
+            Don't include any explanation in the output, only the commit text as it would be written in a git commit
+            
+            Patch:
+            $diff
+        "; }; git commit -m "$(f)" -e'';
+    };
   };
 }

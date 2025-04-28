@@ -156,7 +156,7 @@ in {
         gimp
         zathura
         zeal
-        kicad 
+        kicad
 
         discord
         element-desktop
@@ -225,9 +225,7 @@ in {
       enable = true;
       settings.main.term = "xterm-256color";
     };
-    fuzzel = {
-      enable = true;
-    };
+    fuzzel = { enable = true; };
     fzf = {
       enable = true;
       enableBashIntegration = false;
@@ -385,8 +383,7 @@ in {
       ];
     };
   };
-  wayland.windowManager.sway = let
-    mod = "Mod4";
+  wayland.windowManager.sway = let mod = "Mod4";
   in {
     enable = true;
     package = null;
