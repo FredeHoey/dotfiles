@@ -139,6 +139,9 @@ in {
         gnumake
         bat
 
+        slurp
+        grim
+
         tree-sitter
 
         ansible
