@@ -35,24 +35,34 @@ in {
       port = cfg.ollama.port;
     };
 
-    programs.nixvim.plugins.avante = {
-      enable = cfg.enable;
-      package = pkgs.vimPlugins.avante-nvim.overrideAttrs {
-        src = pkgs.fetchFromGitHub {
-          owner = "yetone";
-          repo = "avante.nvim";
-          rev = "06757e8bf57175da45180a26840c5db1f38cb4d9";
-          hash = "sha256-8q3xF9SiM/uJzHVaynn71p4yftMw5ZkiquzXXcOeSf0=";
-        };
-        doCheck = false;
-      };
+    programs.nixvim.plugins.codecompanion = {
+      enable = true;
       settings = {
-        ollama = {
-          model = cfg.ollama.code-model;
-          endpoint =
-            "http://${cfg.ollama.host}:${builtins.toString cfg.ollama.port}";
+        strategies = {
+          chat.adapter = "ollama";
+          inline = {
+            adapter = "ollama";
+            keymaps = {
+              accept_changes = { modes = { n = "ga"; }; };
+              reject_changes = { modes = { n = "gr"; }; };
+            };
+          };
         };
-        provider = "ollama";
+        adapters = {
+          ollama = {
+            __raw = ''
+              function()
+                return require("codecompanion.adapters").extend("ollama", {
+                  schema = {
+                    model = {
+                      default = "${cfg.ollama.code-model}"
+                    }
+                  }
+                })
+              end
+            '';
+          };
+        };
       };
     };
     programs.git.extraConfig.aliases = {
