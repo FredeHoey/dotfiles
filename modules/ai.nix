@@ -65,14 +65,14 @@ in {
         };
       };
     };
-    programs.git.extraConfig.aliases = {
+    programs.git.extraConfig.alias = {
       explain = ''
         !f() { 
             ollama run ${cfg.ollama.chat-model} "Explain what the purpose of this changeset is:
 
             $(git show -b $*)
         "; };
-        f'';
+        f | ${pkgs.glow}/bin/glow -p -'';
       review = ''
         !f() { 
             ollama run ${cfg.ollama.chat-model} "$(cat .context 2> /dev/null)
@@ -82,23 +82,23 @@ in {
 
             $diff
             
-        "; }; f'';
+        "; }; f | ${pkgs.glow}/bin/glow -p -'';
       pre-review = ''
         !f() { 
-            diff=$(git diff --staged)
+            diff=$(git diff --no-ext-diff -W --staged)
             if [[ $? -ne 0 ]]; then
               echo No files in staging area
               exit 1
             fi
 
             ollama run ${cfg.ollama.chat-model} "$(cat .context 2> /dev/null)
-            Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
+            Review this changeset as a senior engineer with expertise in the field would. If the change set is empty, respond only with "No changes staged".
 
             $diff
-        "; }; f'';
+        "; }; f | ${pkgs.glow}/bin/glow -p -'';
       vibe-commit = ''
         !f() {
-            diff=$(git diff --staged)
+            diff=$(git diff --no-ext-diff --staged)
             if [[ $? -ne 0 ]]; then
               echo No files in staging area
               exit 1
