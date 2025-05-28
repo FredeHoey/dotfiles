@@ -16,7 +16,7 @@ let
 in {
   imports = [
     nixvim.homeManagerModules.nixvim
-    stylix.homeManagerModules.stylix
+    stylix.homeModules.stylix
     ../modules/ai.nix
   ];
 
