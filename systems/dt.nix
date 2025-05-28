@@ -16,6 +16,7 @@
   net = {
     enable = true;
     lan-interface = "enp39s0";
+    wireless-interface = "eth0";
   };
 
   services.ollama = {

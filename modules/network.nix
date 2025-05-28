@@ -8,6 +8,10 @@ in {
     enable = mkEnableOption "Default bun networking";
     lan-interface = mkOption { type = types.str; };
     hostname = mkOption { type = types.str; };
+    wireless-interface = mkOption { 
+      type = types.nullOr types.str;
+      default = null; 
+    };
   };
 
   config = mkIf (cfg.enable) {
@@ -15,8 +19,14 @@ in {
       useDHCP = false;
       hostName = cfg.hostname;
       nameservers = [ "1.1.1.1" "1.0.0.1" ];
+      wireless.iwd = {
+        enable = (cfg.wireless-interface != null);
+        settings = {
+          General.EnableNetworkConfiguration = true;
+        };
+      };
+      firewall.enable = false;
     };
-
 
     services.resolved = {
       enable = true;

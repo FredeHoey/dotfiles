@@ -4,10 +4,6 @@
 
   fonts.packages = [ pkgs.nerd-fonts.iosevka ];
 
-  # Enable networking
-  networking.wireless.iwd.enable = true;
-  networking.firewall.enable = false;
-
   location = {
     longitude = 10.2;
     latitude = 56.1;
