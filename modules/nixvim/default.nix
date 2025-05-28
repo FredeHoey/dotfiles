@@ -111,6 +111,7 @@
       servers = {
         bashls.enable = true;
         clangd = {
+          package = null;
           enable = true;
           cmd = [
             "clangd"
