@@ -1,4 +1,4 @@
-{ pkgs, config, lib, modulesPath, ... }: {
+{ pkgs, config, lib, modulesPath, name, ... }: {
   imports = [
     ../common/desktop.nix
     ../modules/default-system-layout.nix
@@ -12,10 +12,10 @@
 
   environment.variables = { ROC_ENABLE_PRE_VEGA = "1"; };
   hardware.graphics.extraPackages = with pkgs; [ amdvlk rocmPackages.clr.icd ];
-  networking = {
-    interfaces.eno1.wakeOnLan.enable = true;
-    hostName = "ws";
-    useDHCP = lib.mkDefault true;
+  net = {
+    enable = true;
+    hostname = name;
+    lan-interface = "eno1";
   };
   services.ollama = {
     enable = true;

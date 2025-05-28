@@ -20,7 +20,7 @@
         in {
           inherit name;
           value = nixpkgs.lib.nixosSystem {
-            specialArgs = { inherit inputs; };
+            specialArgs = { inherit inputs name; };
             modules = base ++ [ (./systems + "/${system-file}") ];
           };
         });

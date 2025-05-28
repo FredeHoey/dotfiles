@@ -7,12 +7,13 @@ in {
   options.net = {
     enable = mkEnableOption "Default bun networking";
     lan-interface = mkOption { type = types.str; };
+    hostname = mkOption { type = types.str; };
   };
 
   config = mkIf (cfg.enable) {
     networking = {
       useDHCP = false;
-      hostName = "dt";
+      hostName = cfg.hostname;
       nameservers = [ "1.1.1.1" "1.0.0.1" ];
     };
 
