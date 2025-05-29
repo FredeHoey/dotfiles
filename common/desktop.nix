@@ -9,12 +9,15 @@
     latitude = 56.1;
   };
 
-  # Configure keymap in X11
   services = {
     pipewire = {
       enable = true;
       pulse.enable = true;
       alsa.enable = true;
+    };
+    xserver.displayManager.gdm = {
+      enable = true;
+      wayland = true;
     };
   };
 

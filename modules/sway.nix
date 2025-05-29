@@ -6,7 +6,6 @@
     grim
     mako
     slurp
-    sway
     sway-audio-idle-inhibit
     swaybg
     swayidle
@@ -19,6 +18,7 @@
     xdg-utils
   ];
 
+  programs.sway.enable = true;
   services.dbus.enable = true;
   xdg.portal = {
     enable = true;
