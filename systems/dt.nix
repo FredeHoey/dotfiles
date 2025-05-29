@@ -1,4 +1,4 @@
-{ pkgs, config, lib, modulesPath, ... }: {
+{ pkgs, config, lib, modulesPath, name, ... }: {
   imports = [
     ../common/desktop.nix
     ../modules/default-system-layout.nix
@@ -15,6 +15,7 @@
 
   net = {
     enable = true;
+    hostname = name;
     lan-interface = "enp39s0";
     wireless-interface = "eth0";
   };
