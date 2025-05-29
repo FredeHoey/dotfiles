@@ -15,7 +15,7 @@
       pulse.enable = true;
       alsa.enable = true;
     };
-    xserver.displayManager.gdm = {
+    displayManager.gdm = {
       enable = true;
       wayland = true;
     };
