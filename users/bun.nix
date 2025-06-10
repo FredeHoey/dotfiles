@@ -138,6 +138,7 @@ in {
         ninja
         gnumake
         bat
+        fd
 
         slurp
         grim
