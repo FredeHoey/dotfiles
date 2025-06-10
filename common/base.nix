@@ -43,6 +43,7 @@
     envfs.enable = true;
     nixseparatedebuginfod.enable = true;
     openssh.enable = true;
+    locate.enable = true;
     udev = {
       enable = true;
       extraRules = ''
