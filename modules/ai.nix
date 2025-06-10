@@ -96,7 +96,7 @@ in {
             fi
 
             ollama run ${cfg.ollama.chat-model} "$(cat .context 2> /dev/null)
-            Review this changeset as a senior engineer with expertise in the field would. If the change set is empty, respond only with "No changes staged".
+            Review this changeset as a senior engineer with expertise in the field would. Focus on the added lines, prefixed with a '+' and the removed lines, prefixed with a '-', every other line is simply context. If the change set is empty, respond only with "No changes staged".
 
             $diff
         "; }; f'';
