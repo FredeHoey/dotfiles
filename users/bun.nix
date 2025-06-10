@@ -150,6 +150,7 @@ in {
         ripgrep
         wget
         vim
+        yazi
 
         feh
         imagemagick
