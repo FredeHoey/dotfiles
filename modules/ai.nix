@@ -27,6 +27,10 @@ in {
         type = types.str;
         default = "deepcoder:14b";
       };
+      editor-model = mkOption {
+        type = types.str;
+        default = "qwen2.5-coder:14b";
+      };
     };
   };
   config = mkIf cfg.enable {
@@ -55,7 +59,7 @@ in {
                 return require("codecompanion.adapters").extend("ollama", {
                   schema = {
                     model = {
-                      default = "${cfg.ollama.code-model}"
+                      default = "${cfg.ollama.editor-model}"
                     }
                   }
                 })

@@ -204,6 +204,7 @@ in {
     };
     chromium = {
       enable = true;
+      package = pkgs.chromium.override { enableWideVine = true; };
       extensions = [
         { id = "gcbommkclmclpchllfjekcdonpmejbdp"; } # https everywhere
         { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
