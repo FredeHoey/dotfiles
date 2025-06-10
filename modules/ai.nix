@@ -76,7 +76,7 @@ in {
 
             $(git show -b $*)
         "; };
-        f | ${pkgs.glow}/bin/glow -p -'';
+        f'';
       review = ''
         !f() { 
             ollama run ${cfg.ollama.chat-model} "$(cat .context 2> /dev/null)
@@ -86,7 +86,7 @@ in {
 
             $diff
             
-        "; }; f | ${pkgs.glow}/bin/glow -p -'';
+        "; }; f'';
       pre-review = ''
         !f() { 
             diff=$(git diff --no-ext-diff -W --staged)
@@ -99,7 +99,7 @@ in {
             Review this changeset as a senior engineer with expertise in the field would. If the change set is empty, respond only with "No changes staged".
 
             $diff
-        "; }; f | ${pkgs.glow}/bin/glow -p -'';
+        "; }; f'';
       vibe-commit = ''
         !f() {
             diff=$(git diff --no-ext-diff --staged)
