@@ -146,7 +146,6 @@ in {
         tree-sitter
 
         ansible
-        fzf
         ripgrep
         wget
         vim
