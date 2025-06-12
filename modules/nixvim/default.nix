@@ -2,7 +2,7 @@
   enable = true;
 
   enableMan = true;
-  diagnostics.settings.virtual_text = {
+  diagnostic.settings.virtual_text = {
     current_line = true;
     virt_text_pos = "eol_right_align";
   };
