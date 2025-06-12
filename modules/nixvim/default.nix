@@ -182,7 +182,6 @@
     expandtab = true;
     fixeol = false;
     foldenable = false;
-    guifont = "Iosevka Nerd Font:h10";
     hidden = true;
     ignorecase = true;
     inccommand = "nosplit";
