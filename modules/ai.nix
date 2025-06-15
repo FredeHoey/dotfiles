@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nixvim, ... }:
+{ config, lib, pkgs, ... }:
 let
   inherit (lib) mkIf mkOption mkEnableOption types;
   cfg = config.ai;
