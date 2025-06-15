@@ -38,23 +38,60 @@ in {
       enable = true;
       settings = {
         strategies = {
-          chat.adapter = "ollama";
-          inline = {
-            adapter = "ollama";
-            keymaps = {
-              accept_changes = { modes = { n = "ga"; }; };
-              reject_changes = { modes = { n = "gr"; }; };
-            };
-          };
+          chat.adapter = "chat";
+          inline.adapter = "inline";
+          cmd.adapter = "cmd";
         };
         adapters = {
-          ollama = {
-            __raw = ''
+          chat.__raw = ''
               function()
                 return require("codecompanion.adapters").extend("ollama", {
+                  name = "chat",
+                  schema = {
+                    model = {
+                      default = "${cfg.ollama.chat-model}"
+                    },
+                    num_ctx = {
+                      default = 16384,
+                    },
+                    num_predict = {
+                      default = -1,
+                    }
+                  }
+                })
+              end
+            '';
+          inline .__raw = ''
+              function()
+                return require("codecompanion.adapters").extend("ollama", {
+                  name = "inline",
+                  schema = {
+                    model = {
+                      default = "${cfg.ollama.code-model}"
+                    },
+                    num_ctx = {
+                      default = 16384,
+                    },
+                    num_predict = {
+                      default = -1,
+                    }
+                  }
+                })
+              end
+            '';
+          editor.__raw = ''
+              function()
+                return require("codecompanion.adapters").extend("ollama", {
+                  name = "editor",
                   schema = {
                     model = {
                       default = "${cfg.ollama.editor-model}"
+                    },
+                    num_ctx = {
+                      default = 16384,
+                    },
+                    num_predict = {
+                      default = -1,
                     }
                   }
                 })
@@ -63,7 +100,6 @@ in {
           };
         };
       };
-    };
     programs.git.extraConfig.alias = {
       explain = ''
         !f() { 
