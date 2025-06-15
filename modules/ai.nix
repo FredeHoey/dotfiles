@@ -34,11 +34,6 @@ in {
     };
   };
   config = mkIf cfg.enable {
-    services.ollama = mkIf (cfg.ollama.host == "localhost") {
-      enable = true;
-      port = cfg.ollama.port;
-    };
-
     programs.nixvim.plugins.codecompanion = {
       enable = true;
       settings = {
