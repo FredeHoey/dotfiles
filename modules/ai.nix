@@ -25,11 +25,11 @@ in {
       };
       code-model = mkOption {
         type = types.str;
-        default = "deepcoder:14b";
+        default = "qwen3:14b";
       };
       editor-model = mkOption {
         type = types.str;
-        default = "qwen2.5-coder:14b";
+        default = "qwen3:14b";
       };
     };
   };
