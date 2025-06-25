@@ -5,7 +5,7 @@ let
 
   glwrap = (package: config.lib.nixGL.wrap package);
 
-  browser = "chromium";
+  browser = "firefox";
   editor = "nvim";
   term = "foot";
   lockcmd = "${pkgs.swaylock}/bin/swaylock -f -i ${../assets/desktop.jpg}";
@@ -197,16 +197,8 @@ in {
         fi
       '';
     };
-    chromium = {
+    firefox = {
       enable = true;
-      package = pkgs.chromium.override { enableWideVine = true; };
-      extensions = [
-        { id = "gcbommkclmclpchllfjekcdonpmejbdp"; } # https everywhere
-        { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
-        { id = "nngceckbapebfimnlniiiahkandclblb"; } # bitwarden
-        { id = "ldpochfccmkkmhdbclfhpagapcfdljkj"; } # decentraleyes
-        { id = "kplfenefaakjhjkklghidleljeocgdap"; } # qwant search engine
-      ];
     };
     readline = {
       enable = true;
