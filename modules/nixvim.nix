@@ -1,4 +1,13 @@
-{ config, pkgs, ... }: {
+{ config, lib, pkgs, ... }:
+let
+  inherit (lib) mkIf mkOption mkEnableOption types;
+  cfg = config.nixvim;
+in {
+  options.nixvim = {
+    enable = mkEnableOption "Nixvim module";
+  };
+
+  config.programs.nixvim = {
   enable = true;
 
   enableMan = true;
@@ -476,4 +485,5 @@
       action.__raw = "require('tardis-nvim').tardis";
     }
   ];
+  };
 }

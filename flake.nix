@@ -21,7 +21,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, nixvim, stylix,... }:
     let
       base = [ ./common/base.nix ];
       createSystem = (system-file:
@@ -43,7 +43,14 @@
           bun = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             extraSpecialArgs = { inherit (inputs) nixgl nixvim stylix; };
-            modules = [ ./users/bun.nix ];
+            modules = [ 
+              ./users/bun.nix
+              ./modules/ai.nix
+              ./modules/nixvim.nix
+
+              nixvim.homeManagerModules.nixvim
+              stylix.homeModules.stylix
+            ];
           };
         };
 

@@ -1,4 +1,4 @@
-{ pkgs, config, nixgl, nixvim, stylix, ... }:
+{ pkgs, config, nixgl, lib, nixvim, stylix, ... }:
 let
   git-tools = pkgs.callPackage ../modules/git-tools/default.nix { };
   tmux-project = pkgs.callPackage ../modules/tmux-project/default.nix { };
@@ -14,11 +14,6 @@ let
   name = "Frede Braendstrup";
   gpg_key = "EEDBC8E8FC8CF68D";
 in {
-  imports = [
-    nixvim.homeManagerModules.nixvim
-    stylix.homeModules.stylix
-    ../modules/ai.nix
-  ];
 
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
@@ -66,7 +61,6 @@ in {
       };
     };
   };
-  programs.nixvim = import ../modules/nixvim { inherit config pkgs nixvim; };
 
   stylix = {
     enable = true;
@@ -299,7 +293,7 @@ in {
         set -g default-terminal "tmux-256color"
         set -ga terminal-overrides ",*256col*:Tc"
         set -ga terminal-overrides '*:Ss=\E[%p1%d q:Se=\E[ q'
-        set-environment -g 'SSH_AUTH_SOCK' ~/.ssh/ssh_auth_sock
+        set -g update-environment -r
         set-environment -g COLORTERM "truecolor"
         set -wg mode-keys vi
 
