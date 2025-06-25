@@ -49,6 +49,9 @@ in {
         "10-lan" = {
           matchConfig.Name = cfg.lan-interface;
           networkConfig.DHCP = "ipv4";
+          linkConfig = {
+            RequiredForOnline = "no";
+          };
         };
       };
     };
