@@ -168,18 +168,6 @@ in {
     firefox = {
       enable = true;
     };
-    readline = {
-      enable = true;
-      extraConfig = ''
-        set completion-ignore-case On
-        set show-mode-in-prompt on
-        set editing-mode vi
-        set keyseq-timeout 0
-        set emacs-mode-string "E "
-        set vi-ins-mode-string "I "
-        set vi-cmd-mode-string "N "
-      '';
-    };
     foot = {
       enable = true;
       settings.main.term = "xterm-256color";
@@ -240,39 +228,13 @@ in {
         pinentry = pkgs.pinentry-qt;
       };
     };
+    readline = {
+      enable = true;
+      extraConfig = builtins.readFile ../extra-config/readline/readline.conf;
+    };
     tmux = {
       enable = true;
-      extraConfig = ''
-        set -g set-clipboard on
-        set -sg escape-time 0
-        set -g mouse
-        set -g focus-events on
-        set -g history-limit 20000
-        set -g status-position bottom
-        set -g status-left-length 100
-        set -g default-terminal "tmux-256color"
-        set -ga terminal-overrides ",*256col*:Tc"
-        set -ga terminal-overrides '*:Ss=\E[%p1%d q:Se=\E[ q'
-        set -g update-environment -r
-        set-environment -g COLORTERM "truecolor"
-        set -wg mode-keys vi
-
-        bind-key -n M-j  if-shell "tmux select-window -t :0" "" "new-window -t :0"
-        bind-key -n M-k  if-shell "tmux select-window -t :1" "" "new-window -t :1"
-        bind-key -n M-l  if-shell "tmux select-window -t :2" "" "new-window -t :2"
-        bind-key -n M-\; if-shell "tmux select-window -t :3" "" "new-window -t :3"
-
-        bind-key -n M-J  if-shell "tmux move-pane -t :0" "" "break-pane -t :0"
-        bind-key -n M-K  if-shell "tmux move-pane -t :1" "" "break-pane -t :1"
-        bind-key -n M-L  if-shell "tmux move-pane -t :2" "" "break-pane -t :2"
-        bind-key -n M-\: if-shell "tmux move-pane -t :3" "" "break-pane -t :3"
-
-        bind-key C-p run-shell ${tmux-project}/bin/tmux-project
-        bind-key C-l run-shell ${git-tools}/bin/gl
-
-        bind-key j split-pane -h -c "#{pane_current_path}"
-        bind-key k split-pane -v -c "#{pane_current_path}"
-      '';
+      extraConfig = builtins.readFile ../extra-config/tmux/tmux.conf;
       plugins =
         (with import ../modules/tmux.nix { inherit pkgs; }; [ nvim-movement ])
         ++ (with pkgs.tmuxPlugins; [ continuum ]);
