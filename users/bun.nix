@@ -285,33 +285,6 @@ in {
     };
   };
 
-  services = {
-    swayidle = {
-      enable = true;
-      events = [
-        {
-          event = "before-sleep";
-          command = lockcmd;
-        }
-        {
-          event = "lock";
-          command = lockcmd;
-        }
-      ];
-      timeouts = [
-        {
-          timeout = 300;
-          command = lockcmd;
-        }
-        # Lock computer
-        {
-          timeout = 600;
-          command = ''${pkgs.sway}/bin/swaymsg "output * dpms off"'';
-          resumeCommand = ''${pkgs.sway}/bin/swaymsg "output * dpms on"'';
-        }
-      ];
-    };
-  };
   wayland.windowManager.sway = let mod = "Mod4";
   in {
     enable = true;
