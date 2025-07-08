@@ -6,7 +6,6 @@ let
   browser = "firefox";
   editor = "nvim";
   term = "foot";
-  lockcmd = "${pkgs.swaylock}/bin/swaylock -f -i ${../assets/desktop.jpg}";
 
   email = "frederikbraendstrup@gmail.com";
   name = "Frede Braendstrup";
@@ -318,8 +317,9 @@ in {
         style = "Bold Semi";
         size = 10.0;
       };
-      keybindings = {
-
+      keybindings = let 
+        lockcmd = "${pkgs.swaylock}/bin/swaylock -f -i ${../assets/desktop.jpg}";
+      in {
         "${mod}+Shift+q" = "kill";
 
         "${mod}+Return" = "exec ${term}";
