@@ -3,8 +3,6 @@ let
   git-tools = pkgs.callPackage ../modules/git-tools/default.nix { };
   tmux-project = pkgs.callPackage ../modules/tmux-project/default.nix { };
 
-  glwrap = (package: config.lib.nixGL.wrap package);
-
   browser = "firefox";
   editor = "nvim";
   term = "foot";
@@ -124,7 +122,6 @@ in {
         jq
         fq
         htop
-        openssl
         sqlite
         uv
         cmakeCurses
@@ -133,38 +130,10 @@ in {
         gnumake
         bat
         fd
-
-        slurp
-        grim
-
-        tree-sitter
-
         ansible
         ripgrep
-        wget
-        vim
         yazi
-
-        feh
-        imagemagick
-        mpv
-        usbutils
-        pavucontrol
-
-        gimp
-        zathura
-        zeal
-        kicad
-
-        discord
-        element-desktop
-        spotify
-
-        dconf
-        elmerfem
-        gmsh
-        calculix
-      ] ++ (map glwrap [ freecad ]);
+      ];
     file = {
       ".ssh/rc".source = ../configs/ssh/rc;
 
