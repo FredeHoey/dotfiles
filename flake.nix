@@ -7,12 +7,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixgl = {
-      url = "github:nix-community/nixgl";
-      inputs.nixpkgs.follows = "nixpkgs";
-      };
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
@@ -42,11 +38,11 @@
         in {
           bun = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
-            extraSpecialArgs = { inherit (inputs) nixgl nixvim stylix; };
             modules = [ 
               ./users/bun.nix
               ./modules/ai.nix
               ./modules/nixvim.nix
+              ./modules/git-tools.nix
 
               nixvim.homeManagerModules.nixvim
               stylix.homeModules.stylix
