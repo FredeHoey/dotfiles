@@ -1,8 +1,5 @@
-{ pkgs, config, nixgl, lib, nixvim, stylix, ... }:
+{ pkgs, config, lib, nixvim,  ... }:
 let
-  git-tools = pkgs.callPackage ../modules/git-tools/default.nix { };
-  tmux-project = pkgs.callPackage ../modules/tmux-project/default.nix { };
-
   browser = "firefox";
   editor = "nvim";
   term = "foot";
@@ -12,15 +9,14 @@ let
   gpg_key = "EEDBC8E8FC8CF68D";
 in {
 
-  programs.home-manager.enable = true;
-  nixpkgs.config.allowUnfree = true;
-  services.mako.enable = true;
-
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [ (final: old: {
+      })
+    ];
+  };
   ai.enable = true;
-
-  nixGL.packages = import nixgl { inherit pkgs; };
-  nixGL.defaultWrapper = "mesa";
-  nixGL.installScripts = [ "mesa" ];
+  git-tools.enable = true;
 
   accounts.email = {
     accounts = {
@@ -62,9 +58,12 @@ in {
   stylix = {
     enable = true;
     autoEnable = true;
+    
     image = ../assets/desktop.jpg;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
+
+    targets.gnome.enable = true;
 
     targets.neovim = {
       enable = true;
@@ -103,6 +102,7 @@ in {
     };
   };
 
+
   home = {
     username = "bun";
     homeDirectory = "/home/bun";
@@ -113,10 +113,9 @@ in {
       NIX_SHELL_PRESERVE_PROMPT = "1";
     };
 
-    packages = with pkgs;
+    packages = (with pkgs;
       [
-        git-tools
-        tmux-project
+        (callPackage ../packages/tmux-project/default.nix {})
 
         jq
         fq
@@ -132,13 +131,32 @@ in {
         ansible
         ripgrep
         yazi
-      ];
+      ]) ++ (with pkgs.gnomeExtensions; [
+        forge
+        blur-my-shell
+        quick-settings-tweaker
+        user-themes
+      ]);
     file = {
       ".ssh/rc".source = ../configs/ssh/rc;
 
       ".config/gdb/gdbinit".source = pkgs.writeText "gdbinit" ''
         set auto-load safe-path /
       '';
+    };
+  };
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/shell" = {
+        enabled-extensions = [
+          "forge@jmmaranan.com"
+          "blur-my-shell@aunetx"
+          "gsconnect@andyholmes.github.io"
+          "quick-settings-tweaks@qwreey"
+        ];
+      };
+      "org/gnome/desktop/interface".show-battery-percentage = true;
     };
   };
   programs = {
@@ -168,17 +186,13 @@ in {
     firefox = {
       enable = true;
     };
-    foot = {
-      enable = true;
-      settings.main.term = "xterm-256color";
-    };
-    fuzzel = { enable = true; };
+    home-manager.enable = true;
     fzf = {
       enable = true;
       enableBashIntegration = false;
       defaultOptions = [
         "--preview"
-        "${pkgs.bat}/bin/bat"
+        "bat"
         "--bind"
         "ctrl-d:preview-page-down,ctrl-u:preview-page-up"
       ];
@@ -239,7 +253,6 @@ in {
         (with import ../modules/tmux.nix { inherit pkgs; }; [ nvim-movement ])
         ++ (with pkgs.tmuxPlugins; [ continuum ]);
     };
-    waybar = { enable = true; };
     wezterm = {
       enable = true;
       extraConfig = builtins.readFile ../extra-config/wezterm/init.lua;
