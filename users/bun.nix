@@ -3,6 +3,7 @@ let
   browser = "firefox";
   editor = "nvim";
   term = "foot";
+  launcher = "fuzzel";
 
   email = "frederikbraendstrup@gmail.com";
   name = "Frede Braendstrup";
@@ -241,6 +242,7 @@ in {
     };
     foot.enable = true;
     home-manager.enable = true;
+    fuzzel.enable = true;
     fzf = {
       enable = true;
       enableBashIntegration = false;
@@ -352,7 +354,7 @@ in {
         "${mod}+Shift+q" = "kill";
 
         "${mod}+Return" = "exec ${term}";
-        "${mod}+r" = "exec fuzzel";
+        "${mod}+r" = "exec ${launcher}";
         "${mod}+b" = "exec ${browser}";
         "${mod}+Shift+p" = "exec ${lockcmd}";
 
