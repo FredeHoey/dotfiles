@@ -84,6 +84,8 @@ in {
         };
       };
     };
+    clangd-extensions.enable = true;
+    cmake-tools.enable = true;
     comment.enable = true;
     dap.enable = true;
     friendly-snippets.enable = true;
