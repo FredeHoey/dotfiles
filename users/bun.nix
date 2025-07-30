@@ -239,6 +239,7 @@ in {
         };
       };
     };
+    foot.enable = true;
     home-manager.enable = true;
     fzf = {
       enable = true;
