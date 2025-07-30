@@ -15,9 +15,13 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixvim, stylix,... }:
+  outputs = inputs@{ nixpkgs, home-manager, nixvim, stylix, nur, ... }:
     let
       base = [ ./common/base.nix ];
       createSystem = (system-file:
@@ -34,7 +38,7 @@
         (map createSystem (builtins.attrNames (builtins.readDir ./systems)));
 
       homeConfigurations =
-        let pkgs = import nixpkgs { system = "x86_64-linux"; };
+        let pkgs = import nixpkgs { system = "x86_64-linux"; overlays = [ nur.overlays.default ]; };
         in {
           bun = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
