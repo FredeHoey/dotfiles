@@ -11,10 +11,6 @@ in {
   enable = true;
 
   enableMan = true;
-  diagnostic.settings.virtual_text = {
-    current_line = true;
-    virt_text_pos = "eol_right_align";
-  };
 
   autoGroups = { bun = { clear = true; }; };
   autoCmd = [{
@@ -169,6 +165,7 @@ in {
     };
     oil.enable = true;
     persisted.enable = true;
+    tiny-inline-diagnostic.enable = true;
     tmux-navigator.enable = true;
     treesitter = {
       enable = true;
