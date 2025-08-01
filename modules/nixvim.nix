@@ -269,6 +269,11 @@ in {
     }
     {
       mode = "n";
+      key = "<leader>gg";
+      action.__raw = "require('fzf-lua').git_files";
+    }
+    {
+      mode = "n";
       key = "<leader>fr";
       action.__raw = "require('fzf-lua').grep_cword";
     }
