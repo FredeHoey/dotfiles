@@ -21,11 +21,11 @@ in {
       };
       chat-model = mkOption {
         type = types.str;
-        default = "gemma3:12b";
+        default = "gpt-oss:20b";
       };
       code-model = mkOption {
         type = types.str;
-        default = "qwen3:14b";
+        default = "qwen3-coder:30b";
       };
       editor-model = mkOption {
         type = types.str;
@@ -100,20 +100,22 @@ in {
           };
         };
       };
-    programs.git.extraConfig.alias = {
+    programs.git.extraConfig.alias = let
+      ollama_cmd = "OLLAMA_CONTEXT_LENGTH=131072 ollama run $(ollama list | tail -n +2 | fzf | sed -E 's/\s.*//')";
+    in {
       explain = ''
         !f() { 
-            ollama run ${cfg.ollama.chat-model} "Explain what the purpose of this changeset is:
+            ${ollama_cmd} "Explain what the purpose of this changeset is:
 
-            $(git show -b $*)
+            $(git show -m -b -U40 $*)
         "; };
         f'';
       review = ''
         !f() { 
-            ollama run ${cfg.ollama.chat-model} "$(cat .context 2> /dev/null)
+            ${ollama_cmd} "$(cat .context 2> /dev/null)
             Review this changeset. Provide suggestions for improvements, coding best practices, improve readability, and maintainability.
 
-            $(git show -b $*)
+            $(git show -m -b -U40 $*)
 
             $diff
             
@@ -126,7 +128,7 @@ in {
               exit 1
             fi
 
-            ollama run ${cfg.ollama.chat-model} "$(cat .context 2> /dev/null)
+            ${ollama_cmd} "$(cat .context 2> /dev/null)
             Review this changeset as a senior engineer with expertise in the field would. Focus on the added lines, prefixed with a '+' and the removed lines, prefixed with a '-', every other line is simply context. If the change set is empty, respond only with "No changes staged".
 
             $diff
@@ -139,7 +141,7 @@ in {
               exit 1
             fi
 
-            ollama run ${cfg.ollama.chat-model} "$(cat .context 2> /dev/null)
+            ${ollama_cmd} "$(cat .context 2> /dev/null)
             Please write a commit message for the following patch following the convetional commits v1.0.0 specification.
             Don't include any explanation in the output, only the commit text as it would be written in a git commit
             
