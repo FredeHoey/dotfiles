@@ -7,8 +7,7 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" ];
   boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.kernelModules = [ "amdgpu" "kvm-amd" "wl" "b43" ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
+  boot.kernelModules = [ "amdgpu" "kvm-amd" ];
 
   environment.variables = { ROC_ENABLE_PRE_VEGA = "1"; };
   hardware.graphics.extraPackages = with pkgs; [ amdvlk rocmPackages.clr.icd ];
