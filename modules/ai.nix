@@ -11,6 +11,11 @@ in {
         type = types.str;
         default = "localhost";
       };
+      context = mkOption {
+        type = types.int;
+        default = 128;
+        description = "Context size in kilobytes";
+      };
       port = mkOption {
         type = types.int;
         default = 11434;
@@ -33,7 +38,9 @@ in {
       };
     };
   };
-  config = mkIf cfg.enable {
+  config = let
+    context = builtins.toString (cfg.ollama.context * 1024);
+  in mkIf cfg.enable {
     services.ollama.enable = cfg.ollama.host == "localhost" || cfg.ollama.host == "0.0.0.0";
     programs.nixvim.plugins.codecompanion = {
       enable = true;
@@ -53,7 +60,7 @@ in {
                       default = "${cfg.ollama.chat-model}"
                     },
                     num_ctx = {
-                      default = 16384,
+                      default = ${context},
                     },
                     num_predict = {
                       default = -1,
@@ -71,7 +78,7 @@ in {
                       default = "${cfg.ollama.code-model}"
                     },
                     num_ctx = {
-                      default = 16384,
+                      default = ${context},
                     },
                     num_predict = {
                       default = -1,
@@ -89,7 +96,7 @@ in {
                       default = "${cfg.ollama.editor-model}"
                     },
                     num_ctx = {
-                      default = 16384,
+                      default = ${context},
                     },
                     num_predict = {
                       default = -1,
@@ -102,7 +109,7 @@ in {
         };
       };
     programs.git.extraConfig.alias = let
-      ollama_cmd = "OLLAMA_CONTEXT_LENGTH=131072 ollama run $(ollama list | tail -n +2 | fzf | sed -E 's/\s.*//')";
+      ollama_cmd = "OLLAMA_CONTEXT_LENGTH=${context} ollama run $(ollama list | tail -n +2 | fzf | sed -E 's/\s.*//')";
     in {
       explain = ''
         !f() { 
