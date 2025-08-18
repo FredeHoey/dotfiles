@@ -52,7 +52,7 @@ in
 
         gpg = {
           key = gpg_key;
-          signByDefault = true;
+          signByDefault = false;
         };
 
         imapnotify = {
