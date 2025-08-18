@@ -29,11 +29,12 @@ in {
       };
       editor-model = mkOption {
         type = types.str;
-        default = "qwen3:14b";
+        default = "qwen3-coder:30b";
       };
     };
   };
   config = mkIf cfg.enable {
+    services.ollama.enable = cfg.ollama.host == "localhost" || cfg.ollama.host == "0.0.0.0";
     programs.nixvim.plugins.codecompanion = {
       enable = true;
       settings = {
@@ -79,10 +80,10 @@ in {
                 })
               end
             '';
-          editor.__raw = ''
+          cmd.__raw = ''
               function()
                 return require("codecompanion.adapters").extend("ollama", {
-                  name = "editor",
+                  name = "cmd",
                   schema = {
                     model = {
                       default = "${cfg.ollama.editor-model}"
