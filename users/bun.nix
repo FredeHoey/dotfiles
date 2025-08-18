@@ -82,11 +82,8 @@ in
     targets.gnome.enable = true;
 
     targets = {
-      neovim = {
-        enable = true;
-        plugin = "mini.base16";
-      };
       firefox.profileNames = ["default"];
+      neovim.enable = false;
     };
 
     cursor = {

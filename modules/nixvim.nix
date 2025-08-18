@@ -41,20 +41,20 @@ in {
       doCheck = false;
     })
     (pkgs.vimUtils.buildVimPlugin {
-      name = "dap-view";
+      name = "kanagawa";
       src = pkgs.fetchFromGitHub {
-        owner = "igorlfs";
-        repo = "nvim-dap-view";
-        rev = "c576381ecd84542d8298f3a0fc23b8b9c3237d44";
-        hash = "sha256-UzlFR8icO1Rzg/O6il22cRCqae6wZYulOsPZlQKebnY=";
+        owner = "rebelot";
+        repo = "kanagawa.nvim";
+        rev = "debe91547d7fb1eef34ce26a5106f277fbfdd109";
+        hash = "sha256-i54hTf4AEFTiJb+j5llC5+Xvepj43DiNJSq0vPZCIAg=";
       };
       doCheck = false;
     })
   ];
 
   extraConfigLua = ''
-    require('tardis-nvim').setup()
-    require('dap-view').setup()
+    require('kanagawa').setup()
+    vim.cmd('colorscheme kanagawa')
   '';
 
   plugins = {
