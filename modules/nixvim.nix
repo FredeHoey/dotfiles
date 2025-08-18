@@ -202,11 +202,6 @@ in {
       enable = true;
       settings.background_colour = "#000000";
     };
-    ollama = {
-      enable = true;
-
-    };
-    oil.enable = true;
     persisted.enable = true;
     tiny-inline-diagnostic.enable = true;
     tmux-navigator.enable = true;
