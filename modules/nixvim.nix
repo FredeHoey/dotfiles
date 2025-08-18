@@ -81,9 +81,52 @@ in {
       };
     };
     clangd-extensions.enable = true;
-    cmake-tools.enable = true;
+    cmake-tools = {
+      enable = true;
+      settings = {
+        cmake_dap_configuration = {
+          name = "cpp";
+          type = "gdb";
+          request = "launch";
+          runInTerminal = true;
+          console = "integratedTerminal";
+          stopOnEntry = false;
+        };
+      };
+    };
     comment.enable = true;
-    dap.enable = true;
+    dap = {
+      enable = true;
+
+      adapters = {
+        pipes = {
+          cmake = {
+            pipe = "$\{pipe}";
+            executable = {
+                command = "cmake";
+                args = [ "--debugger" "--debugger-pipe" "$\{pipe}" "build" ];
+            };
+          };
+        };
+        executables = {
+          bash = {
+            command = "bash-debug-adapter";
+          }; 
+          gdb = {
+            command = "gdb";
+            args = [ "--interpreter=dap" "--eval-command" "set print pretty on" ];
+          };
+        };
+      };
+      luaConfig.post = ''
+        local dap = require('dap')
+
+        require('dap.ext.vscode').type_to_filetypes = {
+            gdb = { 'c', 'cpp' },
+        }
+      '';
+    };
+    dap-view.enable = true;
     friendly-snippets.enable = true;
     fzf-lua = {
       enable = true;
