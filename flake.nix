@@ -19,9 +19,13 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixgl = {
+      url = "github:nix-community/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixvim, stylix, nur, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, nixvim, stylix, nur, nixgl, ... }:
     let
       base = [ ./common/base.nix ];
       createSystem = (system-file:
@@ -38,10 +42,17 @@
         (map createSystem (builtins.attrNames (builtins.readDir ./systems)));
 
       homeConfigurations =
-        let pkgs = import nixpkgs { system = "x86_64-linux"; overlays = [ nur.overlays.default ]; };
+        let pkgs = import nixpkgs { 
+          system = "x86_64-linux";
+          overlays = [ 
+            nixgl.overlay
+            nur.overlays.default
+          ];
+        };
         in {
           bun = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
+            extraSpecialArgs = { inherit nixgl; };
             modules = [ 
               ./users/bun.nix
               ./modules/ai.nix

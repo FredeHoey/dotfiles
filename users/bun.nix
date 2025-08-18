@@ -1,14 +1,22 @@
-{ pkgs, config, lib, nixvim,  ... }:
+{
+  pkgs,
+  nixgl,
+  config,
+  ...
+}:
 let
   browser = "firefox";
   editor = "nvim";
-  term = "foot";
+  term = "wezterm";
   launcher = "fuzzel";
 
   email = "frederikbraendstrup@gmail.com";
   name = "Frede Braendstrup";
   gpg_key = "EEDBC8E8FC8CF68D";
-in {
+
+  glwrap = (package: config.lib.nixGL.wrap package);
+in
+{
 
   nixpkgs = {
     config.allowUnfree = true;
@@ -16,7 +24,14 @@ in {
       })
     ];
   };
-  ai.enable = true;
+  ai = {
+    ollama = {
+      host = "0.0.0.0";
+      package = glwrap pkgs.ollama;
+    };
+
+    enable = true;
+  };
   git-tools.enable = true;
 
   accounts.email = {
@@ -106,6 +121,9 @@ in {
     };
   };
 
+  nixGL.packages = import nixgl { inherit pkgs; };
+  nixGL.defaultWrapper = "mesa";
+  nixGL.installScripts = [ "mesa" ];
 
   home = {
     username = "bun";
@@ -135,12 +153,12 @@ in {
         ansible
         ripgrep
         yazi
-      ]) ++ (with pkgs.gnomeExtensions; [
-        forge
-        blur-my-shell
-        quick-settings-tweaker
-        user-themes
-      ]);
+        nixgl
+      ]) ++ (map glwrap (with pkgs; [
+        freecad
+        jan
+        kicad
+      ]));
     file = {
       ".ssh/rc".source = ../configs/ssh/rc;
 
@@ -240,7 +258,6 @@ in {
         };
       };
     };
-    foot.enable = true;
     home-manager.enable = true;
     fuzzel.enable = true;
     fzf = {
@@ -312,6 +329,7 @@ in {
     waybar.enable = true;
     wezterm = {
       enable = true;
+      package = glwrap pkgs.wezterm;
       extraConfig = builtins.readFile ../extra-config/wezterm/init.lua;
     };
   };
