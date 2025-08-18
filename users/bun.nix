@@ -164,20 +164,6 @@ in
       '';
     };
   };
-  dconf = {
-    enable = true;
-    settings = {
-      "org/gnome/shell" = {
-        enabled-extensions = [
-          "forge@jmmaranan.com"
-          "blur-my-shell@aunetx"
-          "gsconnect@andyholmes.github.io"
-          "quick-settings-tweaks@qwreey"
-        ];
-      };
-      "org/gnome/desktop/interface".show-battery-percentage = true;
-    };
-  };
   programs = {
     atuin = {
       enable = true;
