@@ -307,6 +307,11 @@ in {
     }
     {
       mode = "n";
+      key = "<leader>gg";
+      action.__raw = "require('fzf-lua').git_files";
+    }
+    {
+      mode = "n";
       key = "<leader>fg";
       action.__raw = "require('fzf-lua').live_grep";
     }
