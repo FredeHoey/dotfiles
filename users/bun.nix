@@ -79,11 +79,10 @@ in
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
 
-    targets.gnome.enable = true;
-
     targets = {
-      firefox.profileNames = ["default"];
+      gnome.enable = false;
       neovim.enable = false;
+      firefox.profileNames = [ "default" ];
     };
 
     cursor = {
