@@ -1,4 +1,4 @@
-HOSTNAME:=$(shell cat /etc/hostname)
+HOSTNAME:=$(shell hostnamectl hostname)
 
 .PHONY: all nixos home-manager
 
