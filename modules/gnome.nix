@@ -1,11 +1,17 @@
-{ pkgs }:{
-  programs.gnome-shell.enable = false;
+{ pkgs, config, ... }:let
+  glwrap = (package: config.lib.nixGL.wrap package);
+in {
+  programs.gnome-shell = {
+    enable = false; 
+  };
   home.packages = (with pkgs.gnomeExtensions; [
         forge
         blur-my-shell
         quick-settings-tweaker
         gsconnect
         user-themes
+      ]) ++ (with pkgs; [
+        (glwrap gnome-shell)
       ]);
   dconf = {
     enable = true;

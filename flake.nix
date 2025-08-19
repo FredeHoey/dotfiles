@@ -58,6 +58,7 @@
               ./modules/ai.nix
               ./modules/nixvim.nix
               ./modules/git-tools.nix
+              ./modules/gnome.nix
 
               nixvim.homeManagerModules.nixvim
               stylix.homeModules.stylix

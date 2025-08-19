@@ -80,7 +80,7 @@ in
     base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
 
     targets = {
-      gnome.enable = false;
+      gnome.enable = true;
       neovim.enable = false;
       firefox.profileNames = [ "default" ];
     };
