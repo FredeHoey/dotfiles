@@ -225,7 +225,7 @@ in
                 icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
                 definedAliases = [ "@np" ];
               };
-              "nixoo wiki" = {
+              "nixos wiki" = {
                 urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
                 icon = "https://nixos.wiki/favicon.png";
                 updateInterval = 24 * 60 * 60 * 1000; # every day
