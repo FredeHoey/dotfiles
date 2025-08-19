@@ -81,6 +81,7 @@ in
 
     targets = {
       gnome.enable = true;
+      # use nvim plugin instead of stylix
       neovim.enable = false;
       firefox.profileNames = [ "default" ];
     };
