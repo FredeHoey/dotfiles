@@ -161,6 +161,13 @@ in
       ".config/wireplumber/wireplumber.conf.d".source = ../extra-config/pipewire;
       ".config/gdb/gdbinit".source = pkgs.writeText "gdbinit" ''
         set auto-load safe-path /
+
+        python
+        import os,subprocess,sys,shutil
+        if shutil.which("python"):
+            paths = subprocess.check_output('python -c "import os,sys;print(os.linesep.join(sys.path).strip())"',shell=True).decode("utf-8").split()
+            sys.path.extend(paths)
+        end
       '';
     };
   };
