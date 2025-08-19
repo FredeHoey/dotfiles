@@ -300,6 +300,13 @@ in
         sort = "reverse-date";
       };
       vimKeys = true;
+      binds = [
+         {
+          action = "group-chat-reply";
+          key = "S";
+          map = ["browser" "index" "pager"];
+        }
+      ];
     };
     notmuch = {
       enable = true;
