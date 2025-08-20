@@ -148,9 +148,7 @@ in {
         disable_commit_confirmation = true;
       };
     };
-    neogen = {
-      enable = true;
-    };
+    neogen.enable = true;
     neotest = {
       enable = true;
       adapters = {
