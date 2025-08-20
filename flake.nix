@@ -12,7 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim";
+      url = "github:fredehoey/nixvim/plugins/neotest-ctest/init";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur = {

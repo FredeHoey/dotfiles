@@ -154,8 +154,18 @@ in {
     neotest = {
       enable = true;
       adapters = {
-        # TODO: ctest
         bash.enable = true;
+        ctest = {
+          enable = true;
+          settings = {
+            is_test_file.__raw = ''
+              function(file_path)
+                return string.match(file_path, "test") ~= nil
+              end
+            '';
+            frameworks = [ "catch2" ];
+          };
+        };
         python.enable = true;
       };
     };
