@@ -148,6 +148,9 @@ in {
         disable_commit_confirmation = true;
       };
     };
+    neogen = {
+      enable = true;
+    };
     neotest = {
       enable = true;
       adapters = {
@@ -530,6 +533,13 @@ in {
       mode = "n";
       key = "<leader>gt";
       action.__raw = "require('tardis-nvim').tardis";
+    }
+
+    # neogen
+    {
+      mode = "n";
+      key = "<leader>d";
+      action.__raw = "require('neogen').generate";
     }
   ];
   };
