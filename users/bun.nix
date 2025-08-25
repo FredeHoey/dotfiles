@@ -287,7 +287,6 @@ in
           inherit email name;
         };
         commit.verbose = true;
-        commit.gpgSign = true;
         fetch.parallel = 0;
         pull.rebase = true;
         pull.autoSquash = true;
