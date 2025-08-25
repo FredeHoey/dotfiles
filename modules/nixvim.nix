@@ -133,8 +133,7 @@ in {
     fzf-lua = {
       enable = true;
       settings = {
-        fzf_bin = "fzf-tmux";
-        winopts.preview.default = "bat";
+        winopts.previewer.layout = "vertical";
       };
     };
     git-conflict.enable = true;
