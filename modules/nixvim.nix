@@ -55,6 +55,7 @@ in {
   extraConfigLua = ''
     require('kanagawa').setup()
     vim.cmd('colorscheme kanagawa')
+    require("fzf-lua").register_ui_select()
   '';
 
   plugins = {
