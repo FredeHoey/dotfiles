@@ -206,6 +206,7 @@ in
     };
     firefox = {
       enable = true;
+      package = glwrap pkgs.firefox;
       profiles = {
         default = {
           id = 0;
