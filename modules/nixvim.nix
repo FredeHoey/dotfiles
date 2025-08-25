@@ -128,6 +128,7 @@ in {
       '';
     };
     dap-view.enable = true;
+    diffview.enable = true;
     friendly-snippets.enable = true;
     fzf-lua = {
       enable = true;
