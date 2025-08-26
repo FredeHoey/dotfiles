@@ -137,7 +137,13 @@
     fzf-lua = {
       enable = true;
       settings = {
-        winopts.previewer.layout = "vertical";
+        winopts = {
+          border = "none";
+          preview = {
+            border = "none";
+            layout = "vertical";
+          };
+        };
       };
     };
     git-conflict.enable = true;
