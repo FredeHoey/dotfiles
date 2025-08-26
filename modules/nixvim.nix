@@ -110,7 +110,12 @@
         }
       '';
     };
-    dap-view.enable = true;
+    dap-view = {
+      enable = true;
+      settings = {
+        auto_toggle = true;
+      };
+    };
     diffview.enable = true;
     friendly-snippets.enable = true;
     fzf-lua = {
