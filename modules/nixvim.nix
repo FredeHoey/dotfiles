@@ -68,6 +68,18 @@
     cmake-tools = {
       enable = true;
       settings = {
+        cmake_notifications = {
+          runner.enabled = false;
+          executor.enabled = false;
+        };
+        cmake_runner = {
+          opts = {
+            terminal = {
+              split_direction = "vertical";
+              split_size = 30;
+            };
+          };
+        };
         cmake_dap_configuration = {
           name = "cpp";
           type = "gdb";
