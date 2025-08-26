@@ -112,6 +112,10 @@
             command = "gdb";
             args = [ "--interpreter=dap" "--eval-command" "set print pretty on" ];
           };
+          python = {
+            command = "uvx";
+            args = [ "--from" "debugpy" "debugpy-adapter" ];
+          };
         };
       };
       luaConfig.post = ''
