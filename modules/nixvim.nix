@@ -262,32 +262,32 @@
     # dap
     {
       mode = "n";
-      key = "<F2>";
+      key = "<leader>n";
       action.__raw = "require('dap').step_over";
     }
     {
       mode = "n";
-      key = "<F3>";
+      key = "<leader>i";
       action.__raw = "require('dap').step_into";
     }
     {
       mode = "n";
-      key = "<F4>";
+      key = "<leader>o";
       action.__raw = "require('dap').step_out";
     }
     {
       mode = "n";
-      key = "<F5>";
+      key = "<leader>c";
       action.__raw = "require('dap').continue";
     }
     {
       mode = "n";
-      key = "<F6>";
+      key = "<leader>C";
       action.__raw = "require('dap').run_to_cursor";
     }
     {
       mode = "n";
-      key = "<F3>";
+      key = "<leader>b";
       action.__raw = "require('dap').toggle_breakpoint";
     }
 
