@@ -1,12 +1,4 @@
-{ config, lib, pkgs, ... }:
-let
-  inherit (lib) mkIf mkOption mkEnableOption types;
-  cfg = config.nixvim;
-in {
-  options.nixvim = {
-    enable = mkEnableOption "Nixvim module";
-  };
-
+{ pkgs, ... }: {
   config.programs.nixvim = {
   enable = true;
 
