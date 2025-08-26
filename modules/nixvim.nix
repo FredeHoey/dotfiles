@@ -22,16 +22,7 @@
   }];
 
   extraPlugins = [
-    (pkgs.vimUtils.buildVimPlugin {
-      name = "tardis";
-      src = pkgs.fetchFromGitHub {
-        owner = "fredehoey";
-        repo = "tardis.nvim";
-        rev = "a6ee00a217529490e79d349b1f1a9cf5831180d3";
-        hash = "sha256-W91wBUuP2etZiLTsYUH8yVoLDG8ZqXoAnFOjsyZmEJI=";
-      };
-      doCheck = false;
-    })
+    pkgs.vimPlugins.tardis-nvim
     (pkgs.vimUtils.buildVimPlugin {
       name = "kanagawa";
       src = pkgs.fetchFromGitHub {
