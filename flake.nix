@@ -25,48 +25,43 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixvim, stylix, nur, nixgl, ... }:
-    let
-      base = [ ./common/base.nix ];
-      createSystem = (system-file:
-        let name = nixpkgs.lib.strings.removeSuffix ".nix" system-file;
-        in {
-          inherit name;
-          value = nixpkgs.lib.nixosSystem {
-            specialArgs = { inherit inputs name; };
-            modules = base ++ [ (./systems + "/${system-file}") ];
-          };
-        });
+  outputs = inputs@{ nixpkgs, home-manager, nixvim, stylix, nur, nixgl, ... }: let
+    base = [ ./common/base.nix ];
+    createSystem = (system-file: let 
+      name = nixpkgs.lib.strings.removeSuffix ".nix" system-file;
     in {
-      nixosConfigurations = builtins.listToAttrs
-        (map createSystem (builtins.attrNames (builtins.readDir ./systems)));
-
-      homeConfigurations =
-        let pkgs = import nixpkgs { 
-          system = "x86_64-linux";
-          overlays = [ 
-            nixgl.overlay
-            nur.overlays.default
-          ];
-        };
-        in {
-          bun = home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            extraSpecialArgs = { inherit nixgl; };
-            modules = [ 
-              ./users/bun.nix
-              ./modules/ai.nix
-              ./modules/nixvim.nix
-              ./modules/git-tools.nix
-              ./modules/gnome.nix
-
-              nixvim.homeManagerModules.nixvim
-              stylix.homeModules.stylix
-            ];
-          };
-        };
-
-      formatter."x86_64-linux" =
-        nixpkgs.legacyPackages."x86_64-linux".nixfmt-classic;
+      inherit name;
+      value = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs name; };
+        modules = base ++ [ (./systems + "/${system-file}") ];
+      };
+    });
+    pkgs = import nixpkgs { 
+      system = "x86_64-linux";
+      overlays = [ 
+        nixgl.overlay
+        nur.overlays.default
+      ];
     };
+  in {
+    nixosConfigurations = builtins.listToAttrs
+      (map createSystem (builtins.attrNames (builtins.readDir ./systems)));
+
+    homeConfigurations = {
+      bun = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = { inherit nixgl; };
+        modules = [ 
+          ./users/bun.nix
+          ./modules/ai.nix
+          ./modules/nixvim.nix
+          ./modules/git-tools.nix
+          ./modules/gnome.nix
+
+          nixvim.homeManagerModules.nixvim
+          stylix.homeModules.stylix
+        ];
+      };
+    };
+  };
 }
