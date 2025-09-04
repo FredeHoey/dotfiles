@@ -50,7 +50,7 @@ in {
           inline.adapter = "inline";
           cmd.adapter = "cmd";
         };
-        adapters = {
+        adapters.http = {
           chat.__raw = ''
               function()
                 return require("codecompanion.adapters").extend("ollama", {
