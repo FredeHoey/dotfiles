@@ -305,6 +305,13 @@ in
         push.autoSetupRemote = true;
         push.useForceIfIncludes = true;
         rerere.enabled = true;
+        sendemail = {
+          smtpEncryption = "tls";
+          smtpServer = "smtp.gmail.com";
+          smtpUser = email;
+          smtpServerPort = 587;
+          smtpAuth = "OAUTHBEARER";
+        };
       };
     };
     home-manager.enable = true;
