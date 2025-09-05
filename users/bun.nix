@@ -173,6 +173,15 @@ in
       '';
     };
   };
+  services = {
+    gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+      enableExtraSocket = true;
+      pinentry.package = pkgs.pinentry-qt;
+      enableBashIntegration = true;
+    };
+  };
   programs = {
     atuin = {
       enable = true;
