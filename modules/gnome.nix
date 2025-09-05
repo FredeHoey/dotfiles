@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:let
+{ pkgs, lib, config, term, browser, ... }:let
   glwrap = (package: config.lib.nixGL.wrap package);
 in {
   programs.gnome-shell = {
@@ -67,30 +67,50 @@ in {
         window-toggle-float = ["<Super>c"];
       };
 
+      "org/gnome/desktop/peripherals/keyboard" = {
+        delay = lib.hm.gvariant.mkUint32 200;
+        repeat-interval = lib.hm.gvariant.mkUint32 50; 
+      };
+
       "org/gnome/desktop/wm/keybindings" = {
         close = [ "<Shift><Super>q" ];
         move-to-workspace-1 = [ "<Shift><Super>a" ];
         move-to-workspace-2 = [ "<Shift><Super>s" ];
         move-to-workspace-3 = [ "<Shift><Super>d" ];
         move-to-workspace-4 = [ "<Shift><Super>f" ];
+        move-to-workspace-5 = [ "<Shift><Super>z" ];
+        move-to-workspace-6 = [ "<Shift><Super>x" ];
+        move-to-workspace-7 = [ "<Shift><Super>c" ];
+        move-to-workspace-8 = [ "<Shift><Super>v" ];
         switch-to-workspace-1 = [ "<Super>a" ];
         switch-to-workspace-2 = [ "<Super>s" ];
         switch-to-workspace-3 = [ "<Super>d" ];
         switch-to-workspace-4 = [ "<Super>f" ];
+        switch-to-workspace-5 = [ "<Super>z" ];
+        switch-to-workspace-6 = [ "<Super>x" ];
+        switch-to-workspace-7 = [ "<Super>c" ];
+        switch-to-workspace-8 = [ "<Super>v" ];
+        toggle-fullscreen = ["<Super>g"];
+        toggle-maximized = ["<Shift><Super>g"];
       };
 
-    };
-    # // (
+      "org/gnome/desktop/wm/preferences" = {
+        mouse-button-modifier = "<Super>";
+        resize-with-right-button = true;
+        focus-mode = "sloppy"; # focus follows mouse hover
+      };
+
+    # } // (
     #   let
     #     custom-bindings = [
     #       {
     #         name = "Launch Terminal";
-    #         command = term;
+    #         command = "wezterm";
     #         binding = "<Super>Return";
     #       }
     #       {
     #         name = "Launch Browser";
-    #         command = browser;
+    #         command = "firefox";
     #         binding = "<Super>b";
     #       }
     #     ];
@@ -106,8 +126,9 @@ in {
     #   dconf-bindings
     #   // {
     #     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" =
-    #       builtins.attrNames dconf-bindings;
+    #        lib.hm.gvariant.mkTuple (map (binding: (builtins.substring 0 (builtins.stringLength binding - 1) binding)) (builtins.attrNames dconf-bindings));
     #   }
     # );
+    };
   };
 }
