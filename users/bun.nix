@@ -146,6 +146,7 @@ in
         ninja
         gnumake
         bat
+        mtr
         fd
         ansible
         ripgrep
