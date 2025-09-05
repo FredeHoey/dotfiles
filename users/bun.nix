@@ -7,7 +7,7 @@
 let
   browser = "firefox";
   editor = "nvim";
-  term = "wezterm";
+  term = "ghostty";
   launcher = "fuzzel";
 
   email = "frederikbraendstrup@gmail.com";
@@ -342,10 +342,9 @@ in
         ++ (with pkgs.tmuxPlugins; [ continuum ]);
     };
     waybar.enable = true;
-    wezterm = {
+    ghostty = {
       enable = true;
-      package = glwrap pkgs.wezterm;
-      extraConfig = builtins.readFile ../extra-config/wezterm/init.lua;
+      package = glwrap pkgs.ghostty;
     };
   };
 
