@@ -181,6 +181,13 @@ in
       pinentry.package = pkgs.pinentry-qt;
       enableBashIntegration = true;
     };
+    shpool = {
+      enable = true;
+      settings = {
+        session_restore_mode.lines = 1000;
+        prompt_prefix = "";
+      };
+    };
   };
   programs = {
     atuin = {
