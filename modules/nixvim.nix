@@ -214,6 +214,7 @@
       enable = true;
       settings.background_colour = "#000000";
     };
+    perfanno.enable = true;
     persisted.enable = true;
     tardis.enable = true;
     tiny-inline-diagnostic.enable = true;
