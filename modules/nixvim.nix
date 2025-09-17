@@ -34,10 +34,12 @@
       doCheck = false;
     })
   ];
+  colorschemes.kanagawa = {
+    enable = true;
+    autoLoad = true;
+  };
 
   extraConfigLua = ''
-    require('kanagawa').setup()
-    vim.cmd('colorscheme kanagawa')
     require("fzf-lua").register_ui_select()
   '';
 
