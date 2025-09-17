@@ -305,11 +305,6 @@
     }
     {
       mode = "n";
-      key = "<leader>gf";
-      action.__raw = "require('fzf-lua').git_bcommits";
-    }
-    {
-      mode = "n";
       key = "<leader>ff";
       action.__raw = "require('fzf-lua').files";
     }
@@ -369,6 +364,16 @@
       mode = "n";
       key = "<leader>gq";
       action.__raw = ''require("gitsigns").setqflist'';
+    }
+    { 
+      mode = "n";
+      key = "<leader>gf";
+      action = "<cmd>DiffviewFileHistory<cr>";
+    }
+    { 
+      mode = "n";
+      key = "q";
+      action = "<cmd>DiffviewClose<cr>";
     }
     {
       mode = "n";
