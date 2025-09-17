@@ -127,10 +127,11 @@
       enable = true;
       settings = {
         winopts = {
+          split = "belowright new";
           border = "none";
           preview = {
             border = "none";
-            layout = "vertical";
+            layout = "horizontal";
           };
         };
       };
