@@ -136,22 +136,23 @@ in
       [
         (callPackage ../packages/tmux-project/default.nix {})
 
-        jq
+        ansible
+        bat
+        ccache
+        cmakeCurses
+        fd
         fq
+        gnumake
         htop
+        jq
+        mtr
+        ninja
+        nixgl
+        pinentry-qt
+        ripgrep
         sqlite
         uv
-        cmakeCurses
-        ccache
-        ninja
-        gnumake
-        bat
-        mtr
-        fd
-        ansible
-        ripgrep
         yazi
-        nixgl
       ]) ++ (map glwrap (with pkgs; [
         freecad
         jan
