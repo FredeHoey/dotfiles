@@ -369,6 +369,10 @@ in
     ghostty = {
       enable = true;
       package = glwrap pkgs.ghostty;
+      enableBashIntegration = true;
+      settings = {
+        font-feature = ["-calt" "-liga" "-dlig"];
+      };
     };
   };
 
