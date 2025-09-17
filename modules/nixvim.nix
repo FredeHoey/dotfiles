@@ -21,19 +21,6 @@
     '';
   }];
 
-  extraPlugins = [
-    pkgs.vimPlugins.tardis-nvim
-    (pkgs.vimUtils.buildVimPlugin {
-      name = "kanagawa";
-      src = pkgs.fetchFromGitHub {
-        owner = "rebelot";
-        repo = "kanagawa.nvim";
-        rev = "debe91547d7fb1eef34ce26a5106f277fbfdd109";
-        hash = "sha256-i54hTf4AEFTiJb+j5llC5+Xvepj43DiNJSq0vPZCIAg=";
-      };
-      doCheck = false;
-    })
-  ];
   colorschemes.kanagawa = {
     enable = true;
     autoLoad = true;
@@ -227,6 +214,7 @@
       settings.background_colour = "#000000";
     };
     persisted.enable = true;
+    tardis.enable = true;
     tiny-inline-diagnostic.enable = true;
     tmux-navigator.enable = true;
     treesitter = {
