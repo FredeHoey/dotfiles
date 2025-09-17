@@ -355,6 +355,7 @@ in
         pinentry = pkgs.pinentry-qt;
       };
     };
+    rclone.enable = true;
     readline = {
       enable = true;
       extraConfig = builtins.readFile ../extra-config/readline/readline.conf;
