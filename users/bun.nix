@@ -149,7 +149,6 @@ in
         mtr
         ninja
         nixgl
-        pinentry-qt
         ripgrep
         sqlite
         uv
