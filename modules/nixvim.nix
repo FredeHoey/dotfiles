@@ -301,6 +301,11 @@
     }
     {
       mode = "n";
+      key = "<leader>fp";
+      action.__raw = "require('fzf-lua').tabs";
+    }
+    {
+      mode = "n";
       key = "<leader>gl";
       action.__raw = "require('fzf-lua').git_commits";
     }
