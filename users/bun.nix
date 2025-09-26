@@ -157,6 +157,8 @@ in
         freecad
         jan
         kicad
+        slurp
+        grim
       ]));
     file = {
       ".ssh/rc".source = ../extra-config/ssh/rc;
@@ -359,6 +361,10 @@ in
     readline = {
       enable = true;
       extraConfig = builtins.readFile ../extra-config/readline/readline.conf;
+    };
+    satty = {
+      enable = true;
+      package = glwrap pkgs.satty;
     };
     tmux = {
       enable = true;

@@ -31,14 +31,14 @@
         size = 10.0;
       };
       keybindings = let 
-        lockcmd = "${pkgs.swaylock}/bin/swaylock -f -i ${../assets/desktop.jpg}";
+        screenshot = ''bash -c "mkdir -p ~/screenshots && slurp | grim -g - - | satty --filename - -o ~/screenshots/$(date +%Y_%m_%d_%H_%M_%S).png"'';
       in {
         "${mod}+Shift+q" = "kill";
 
         "${mod}+Return" = "exec ${term}";
         "${mod}+r" = "exec ${launcher}";
         "${mod}+b" = "exec ${browser}";
-        "${mod}+Shift+p" = "exec ${lockcmd}";
+        "${mod}+Shift+p" = "exec ${screenshot}";
 
         "${mod}+h" = "focus left";
         "${mod}+j" = "focus down";
