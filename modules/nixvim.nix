@@ -360,6 +360,43 @@
       action.__raw = "require('fzf-lua').help_tags";
     }
 
+    # terminal
+    { 
+      mode = "t";
+      key = "<C-h>";
+      action = "<C-\\><C-N><C-w>h";
+    }
+    { 
+      mode = "t";
+      key = "<C-j>";
+      action = "<C-\\><C-N><C-w>j";
+    }
+    { 
+      mode  = "t";
+      key = "<C-k>";
+      action = "<C-\\><C-N><C-w>k";
+    }
+    { 
+      mode = "t";
+      key = "<C-l>";
+      action = "<C-\\><C-N><C-w>l";
+    }
+    { 
+      mode = "t";
+      key = "<esc>";
+      action = "<C-\\><C-n>";
+    }
+    { 
+      mode = "n";
+      key = "<leader>j";
+      action = "<cmd>vsplit term://\${SHELL}<cr>";
+    }
+    { 
+      mode = "n";
+      key = "<leader>k";
+      action = "<cmd>split term://\${SHELL}<cr>";
+    }
+
     # git
     {
       mode = "n";
