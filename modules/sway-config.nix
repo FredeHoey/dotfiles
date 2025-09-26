@@ -1,7 +1,7 @@
-{ pkgs, mod ? "Mod4", term, browser, launcher }:
+{ pkgs, mod ? "Mod4", term, browser, launcher, glwrap }:
 {
     enable = true;
-    package = null;
+    package = glwrap pkgs.sway;
     config = {
       modifier = mod;
       terminal = term;
