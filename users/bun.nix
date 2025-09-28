@@ -332,7 +332,6 @@ in
         beep = "no";
         sort = "reverse-date";
       };
-      vimKeys = true;
       binds = [
          {
           action = "group-chat-reply";
