@@ -159,6 +159,7 @@ in
         kicad
         slurp
         grim
+        wdisplays
       ]));
     file = {
       ".ssh/rc".source = ../extra-config/ssh/rc;
