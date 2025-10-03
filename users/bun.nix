@@ -213,7 +213,6 @@ in
         "erasedups"
       ];
       bashrcExtra = ''
-        source ${pkgs.fzf}/share/fzf/completion.bash
         source ${../extra-config/bash/bashrc}
         eval "$(${pkgs.direnv}/bin/direnv hook bash)"
 
@@ -287,7 +286,7 @@ in
     };
     fzf = {
       enable = true;
-      enableBashIntegration = false;
+      enableBashIntegration = true;
       defaultOptions = [
         "--preview"
         "bat"
