@@ -215,6 +215,8 @@ in
       bashrcExtra = ''
         source ${pkgs.fzf}/share/fzf/completion.bash
         source ${../extra-config/bash/bashrc}
+        eval "$(${pkgs.direnv}/bin/direnv hook bash)"
+
         if [[ -f ~/.config/work.sh ]]; then
             source ~/.config/work.sh
         fi
@@ -222,7 +224,11 @@ in
     };
     direnv = {
       enable = true;
-      enableBashIntegration = true;
+      # This is really dumb, but the default bash integration for direnv
+      # puts the config at the end of bashrc, but that somehow conflicts
+      # with atuins shell hooks making history break. Probably something
+      # that should be fixed upstream in direnv
+      enableBashIntegration = false;
       nix-direnv.enable = true;
     };
     firefox = {
