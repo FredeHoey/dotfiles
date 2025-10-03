@@ -389,6 +389,21 @@ in
       };
     };
   };
+  # Make Neovim in Ghostty available as a desktop entry
+  xdg = {
+    desktopEntries.nvim-ghostty = {
+      name = "${editor} (${term})";
+      exec = "${pkgs.${term}}/bin/${term} -e ${editor} %F";
+      terminal = false;
+      type = "Application";
+      categories = [ "Utility" "TextEditor" ];
+      mimeType = [ "text/plain" ];
+    };
+
+    mimeApps.defaultApplications = {
+      "text/plain" = [ "nvim-ghostty.desktop" ];
+    };
+  };
 
   wayland.windowManager.sway = import ../modules/sway-config.nix { inherit term browser pkgs launcher glwrap; };
   home.stateVersion = "23.11";
