@@ -156,7 +156,7 @@ in
       ]) ++ (map glwrap (with pkgs; [
         freecad
         jan
-        kicad
+        kicad-unstable
         slurp
         grim
         wdisplays
