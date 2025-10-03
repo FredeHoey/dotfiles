@@ -380,6 +380,7 @@ in
       enableBashIntegration = true;
       settings = {
         font-feature = ["-calt" "-liga" "-dlig"];
+        mouse-scroll-multiplier = 1;
       };
     };
   };
