@@ -149,6 +149,7 @@ in
         mtr
         ninja
         nixgl
+        nix-inspect
         ripgrep
         sqlite
         uv
