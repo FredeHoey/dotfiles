@@ -172,6 +172,18 @@
       enable = true;
       servers = {
         bashls.enable = true;
+        bitbake_language_server = {
+          enable = true;
+          package = pkgs.bitbake-language-server.overrideAttrs (final: old: {
+            src = pkgs.fetchFromGitHub {
+              owner = "fredehoey";
+              repo = "bitbake-language-server";
+              rev = "ef05ae09fadb0cf4eb77f5fa18a01a33318b0d6a";
+              hash = "sha256-7hj1P9fbdQVrrn/HIjEZ83N1HjnwStqVW1q8Y90wNVg=";
+            };
+            version = "0.0.15-99";
+          });
+        };
         clangd = {
           package = null;
           enable = true;
