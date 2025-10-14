@@ -425,11 +425,6 @@
       key = "<leader>gf";
       action = "<cmd>DiffviewFileHistory<cr>";
     }
-    { 
-      mode = "n";
-      key = "q";
-      action = "<cmd>DiffviewClose<cr>";
-    }
     {
       mode = "n";
       key = "<leader>gA";
