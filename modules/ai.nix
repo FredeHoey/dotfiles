@@ -42,69 +42,85 @@ in {
     context = builtins.toString (cfg.ollama.context * 1024);
   in mkIf cfg.enable {
     services.ollama.enable = cfg.ollama.host == "localhost" || cfg.ollama.host == "0.0.0.0";
-    programs.nixvim.plugins.codecompanion = {
-      enable = true;
-      settings = {
-        strategies = {
-          chat.adapter = "chat";
-          inline.adapter = "inline";
-          cmd.adapter = "cmd";
+    programs.nixvim.plugins = {
+      codecompanion = {
+        enable = true;
+        settings = {
+          strategies = {
+            chat.adapter = "chat";
+            inline.adapter = "inline";
+            cmd.adapter = "cmd";
+          };
+          adapters.http = {
+            chat.__raw = ''
+                function()
+                  return require("codecompanion.adapters").extend("ollama", {
+                    name = "chat",
+                    schema = {
+                      model = {
+                        default = "${cfg.ollama.chat-model}"
+                      },
+                      num_ctx = {
+                        default = ${context},
+                      },
+                      num_predict = {
+                        default = -1,
+                      }
+                    }
+                  })
+                end
+              '';
+            inline .__raw = ''
+                function()
+                  return require("codecompanion.adapters").extend("ollama", {
+                    name = "inline",
+                    schema = {
+                      model = {
+                        default = "${cfg.ollama.code-model}"
+                      },
+                      num_ctx = {
+                        default = ${context},
+                      },
+                      num_predict = {
+                        default = -1,
+                      }
+                    }
+                  })
+                end
+              '';
+            cmd.__raw = ''
+                function()
+                  return require("codecompanion.adapters").extend("ollama", {
+                    name = "cmd",
+                    schema = {
+                      model = {
+                        default = "${cfg.ollama.editor-model}"
+                      },
+                      num_ctx = {
+                        default = ${context},
+                      },
+                      num_predict = {
+                        default = -1,
+                      }
+                    }
+                  })
+                end
+              '';
+            };
+          };
         };
-        adapters.http = {
-          chat.__raw = ''
-              function()
-                return require("codecompanion.adapters").extend("ollama", {
-                  name = "chat",
-                  schema = {
-                    model = {
-                      default = "${cfg.ollama.chat-model}"
-                    },
-                    num_ctx = {
-                      default = ${context},
-                    },
-                    num_predict = {
-                      default = -1,
-                    }
-                  }
-                })
-              end
-            '';
-          inline .__raw = ''
-              function()
-                return require("codecompanion.adapters").extend("ollama", {
-                  name = "inline",
-                  schema = {
-                    model = {
-                      default = "${cfg.ollama.code-model}"
-                    },
-                    num_ctx = {
-                      default = ${context},
-                    },
-                    num_predict = {
-                      default = -1,
-                    }
-                  }
-                })
-              end
-            '';
-          cmd.__raw = ''
-              function()
-                return require("codecompanion.adapters").extend("ollama", {
-                  name = "cmd",
-                  schema = {
-                    model = {
-                      default = "${cfg.ollama.editor-model}"
-                    },
-                    num_ctx = {
-                      default = ${context},
-                    },
-                    num_predict = {
-                      default = -1,
-                    }
-                  }
-                })
-              end
-            '';
+        wtf = {
+          enable = true;
+          settings = {
+            language = "english";
+            popup_type = "popup";
+            provider = "ollama";
+            providers = {
+              ollama = {
+                model_id = "${cfg.ollama.editor-model}";
+              };
+            };
+            search_engine = "phind";
           };
         };
       };
