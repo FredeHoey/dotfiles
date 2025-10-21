@@ -3,6 +3,9 @@ search_dir=~/git/
 
 if [[ $# -eq 1 ]]; then
     selected=$1
+elif [[ $# -eq 2 ]]; then
+    selected=$1
+    selected_name=$2
 else
     selected=$(find $search_dir -maxdepth 3 -regextype grep -regex ".*/.\(git\|hg\|repo\)" \
         | xargs dirname \
@@ -18,7 +21,9 @@ if [[ ! -d $selected ]]; then
     git -C $selected init
 fi
 
-selected_name=$(basename "$selected" | tr . _)
+if [[ -z $selected_name ]]; then
+    selected_name=$(basename "$selected" | tr . _)
+fi
 
 if [[ -z $TMUX ]]; then
     tmux new-session -s $selected_name -c $selected
