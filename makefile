@@ -2,6 +2,9 @@ HOSTNAME:=$(shell hostnamectl hostname)
 
 .PHONY: all nixos home-manager
 
+home-manager-nh:
+	nh home switch . -c ${USER} --impure
+
 all: nixos home-manager
 
 nixos:

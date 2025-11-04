@@ -347,6 +347,7 @@ in
         }
       ];
     };
+    nh.enable = true;
     notmuch = {
       enable = true;
       new.tags = [ "new" ];
