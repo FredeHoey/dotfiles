@@ -112,7 +112,7 @@ in
       };
 
       emoji = {
-        package = pkgs.noto-fonts-emoji;
+        package = pkgs.noto-fonts-color-emoji;
         name = "Noto Color Emoji";
       };
     };
@@ -222,6 +222,7 @@ in
         fi
       '';
     };
+    difftastic.enable = true;
     direnv = {
       enable = true;
       # This is really dumb, but the default bash integration for direnv
@@ -307,8 +308,7 @@ in
     fuzzel.enable = true;
     git = {
       enable = true;
-      difftastic.enable = true;
-      extraConfig = {
+      settings = {
         user = {
           signingKey = gpg_key;
           inherit email name;

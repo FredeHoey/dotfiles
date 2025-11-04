@@ -17,7 +17,7 @@ in {
   };
   config = let cfg = config.git-tools; in mkIf cfg.enable {
     home.packages = [ (pkgs.callPackage ../packages/git-tools/git-tools.nix {}) ];
-    programs.git.extraConfig.alias = mkIf cfg.enable-git-aliases {
+    programs.git.settings.alias = mkIf cfg.enable-git-aliases {
       fzf-log = "!git-fzf-log.sh";
       fzf-worktree = "!git-fzf-worktree.sh";
       list-stashes = "!git-list-stashes.sh";

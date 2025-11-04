@@ -124,7 +124,7 @@ in {
           };
         };
       };
-    programs.git.extraConfig.alias = let
+    programs.git.settings.alias = let
       ollama_cmd = "OLLAMA_CONTEXT_LENGTH=${context} ollama run $(ollama list | tail -n +2 | fzf | sed -E 's/\s.*//')";
     in {
       explain = ''
