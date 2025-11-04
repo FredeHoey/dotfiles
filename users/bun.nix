@@ -27,7 +27,7 @@ in
   ai = {
     ollama = {
       host = "0.0.0.0";
-      package = glwrap pkgs.ollama;
+      package = glwrap pkgs.ollama-rocm;
     };
 
     enable = true;
