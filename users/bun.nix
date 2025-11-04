@@ -142,6 +142,7 @@ in
         cmakeCurses
         fd
         fq
+        fvm
         git-filter-repo
         gnumake
         htop
