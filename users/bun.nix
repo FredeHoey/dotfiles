@@ -154,6 +154,7 @@ in
         ripgrep
         sqlite
         uv
+        virt-manager
         yazi
       ]) ++ (map glwrap (with pkgs; [
         freecad
