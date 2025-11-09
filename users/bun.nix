@@ -112,8 +112,8 @@ in
       };
 
       emoji = {
-        package = pkgs.noto-fonts-color-emoji;
-        name = "Noto Color Emoji";
+        package = pkgs.google-fonts;
+        name = "Google Fonts Emoji";
       };
     };
   };
