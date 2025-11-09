@@ -160,7 +160,6 @@ in
         yazi
       ]) ++ (map glwrap (with pkgs; [
         freecad
-        jan
         kicad-unstable
         slurp
         grim
