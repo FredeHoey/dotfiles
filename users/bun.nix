@@ -7,7 +7,7 @@
 let
   browser = "firefox";
   editor = "nvim";
-  term = "ghostty";
+  term = "foot";
   launcher = "fuzzel";
 
   email = "frederikbraendstrup@gmail.com";
@@ -391,19 +391,14 @@ in
         ++ (with pkgs.tmuxPlugins; [ continuum ]);
     };
     waybar.enable = true;
-    ghostty = {
+    "${term}" = {
       enable = true;
-      package = glwrap pkgs.ghostty;
-      enableBashIntegration = true;
-      settings = {
-        font-feature = ["-calt" "-liga" "-dlig"];
-        mouse-scroll-multiplier = 1;
-      };
+      package = glwrap pkgs.${term};
     };
   };
   # Make Neovim in Ghostty available as a desktop entry
   xdg = {
-    desktopEntries.nvim-ghostty = {
+    desktopEntries."${editor}-${term}" = {
       name = "${editor} (${term})";
       exec = "${pkgs.${term}}/bin/${term} -e ${editor} %F";
       terminal = false;
@@ -413,7 +408,7 @@ in
     };
 
     mimeApps.defaultApplications = {
-      "text/plain" = [ "nvim-ghostty.desktop" ];
+      "text/plain" = [ "${editor}-${term}.desktop" ];
     };
   };
 
