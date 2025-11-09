@@ -5,6 +5,9 @@ HOSTNAME:=$(shell hostnamectl hostname)
 home-manager-nh:
 	nh home switch . -c ${USER} --impure
 
+update:
+	nix flake update
+
 all: nixos home-manager
 
 nixos:
