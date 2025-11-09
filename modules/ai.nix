@@ -26,7 +26,7 @@ in {
       };
       chat-model = mkOption {
         type = types.str;
-        default = "gpt-oss:20b";
+        default = "qwen3-coder:30b";
       };
       code-model = mkOption {
         type = types.str;
