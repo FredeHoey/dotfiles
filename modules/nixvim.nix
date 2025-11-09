@@ -19,6 +19,16 @@
           end
       end
     '';
+  }
+  {
+    event = [ "TermOpen" ];
+    group = "bun";
+    command = "startinsert";
+  }
+  {
+    event = [ "TermClose" ];
+    group = "bun";
+    command = "bd!";
   }];
 
   colorschemes.kanagawa = {
