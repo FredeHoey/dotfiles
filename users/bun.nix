@@ -331,6 +331,10 @@ in
           smtpServerPort = 587;
           smtpAuth = "OAUTHBEARER";
         };
+        url = {
+          "git@gitlab.com:".insteadOf = "https://gitlab.com/";
+          "git@github.com:".insteadOf = "https://github.com/";
+        };
       };
     };
     home-manager.enable = true;
