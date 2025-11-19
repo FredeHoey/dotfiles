@@ -317,6 +317,7 @@ in
         };
         commit.verbose = true;
         commit.signOff = true;
+        commit.gpgSign = true;
         fetch.parallel = 0;
         pull.rebase = true;
         pull.autoSquash = true;
