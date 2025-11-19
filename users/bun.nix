@@ -316,6 +316,7 @@ in
           inherit email name;
         };
         commit.verbose = true;
+        commit.signOff = true;
         fetch.parallel = 0;
         pull.rebase = true;
         pull.autoSquash = true;
