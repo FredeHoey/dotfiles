@@ -13,7 +13,7 @@ in {
       };
       context = mkOption {
         type = types.int;
-        default = 128;
+        default = 16;
         description = "Context size in kilobytes";
       };
       port = mkOption {
