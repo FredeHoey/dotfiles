@@ -89,7 +89,7 @@
             pipe = "$\{pipe}";
             executable = {
                 command = "cmake";
-                args = [ "--debugger" "--debugger-pipe" "$\{pipe}" "build" ];
+                args = [ "--debugger" "--debugger-pipe" "$\{pipe}" "$\{command:pickFile}" ];
             };
           };
         };
@@ -99,7 +99,7 @@
           }; 
           gdb = {
             command = "gdb";
-            args = [ "--interpreter=dap" "--eval-command" "set print pretty on" ];
+            args = [ "--quiet" "--interpreter=dap" "--eval-command" "set print pretty on" ];
           };
           python = {
             command = "uvx";
@@ -302,7 +302,7 @@
     }
     {
       mode = "n";
-      key = "<leader>b";
+      key = "<S-b>";
       action.__raw = "require('dap').toggle_breakpoint";
     }
 

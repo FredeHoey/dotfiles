@@ -118,9 +118,11 @@ in
     };
   };
 
-  nixGL.packages = import nixgl { inherit pkgs; };
-  nixGL.defaultWrapper = "mesa";
-  nixGL.installScripts = [ "mesa" ];
+  targets.genericLinux.nixGL = {
+    packages = import nixgl { inherit pkgs; };
+    defaultWrapper = "mesa";
+    installScripts = [ "mesa" ];
+  };
 
   home = {
     username = "bun";
