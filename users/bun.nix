@@ -110,8 +110,6 @@ in
 
   targets.genericLinux.nixGL = {
     packages = import nixgl { inherit pkgs; };
-    defaultWrapper = "mesa";
-    installScripts = [ "mesa" ];
   };
 
   home = {
