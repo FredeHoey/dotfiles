@@ -18,10 +18,6 @@
         { command = "${pkgs.mako}/bin/mako --default-timeout 4000"; }
         {
           command =
-            "${pkgs.wlsunset}/bin/wlsunset -L 10.2 -l 56.2 -t 3200 -T 4500";
-        }
-        {
-          command =
             "${pkgs.sway-audio-idle-inhibit}/bin/sway-audio-idle-inhibit";
         }
       ];

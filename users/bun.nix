@@ -196,6 +196,15 @@ in
         prompt_prefix = "";
       };
     };
+    wlsunset = {
+      enable = true;
+      longitude = 10.2;
+      latitude = 56.2;
+      temperature = {
+        day = 4500;
+        night = 3200;
+      };
+    };
   };
   programs = {
     atuin = {
