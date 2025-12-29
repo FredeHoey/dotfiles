@@ -361,9 +361,6 @@ in
     mimeApps.defaultApplications = {
       "text/plain" = [ "nvim-foot.desktop" ];
     };
-    configFile."environment.d/99-xdg.conf".text = ''
-      XDG_CONFIG_DIRS=/etc/xdg:$XDG_CONFIG_DIRS
-    '';
   };
 
   wayland.windowManager.sway = import ../modules/sway-config.nix { inherit term browser pkgs launcher; };
