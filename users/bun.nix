@@ -413,6 +413,6 @@ in
     };
   };
 
-  wayland.windowManager.sway = import ../modules/sway-config.nix { inherit term browser pkgs launcher glwrap; };
+  wayland.windowManager.sway = import ../modules/sway-config.nix { inherit term browser pkgs launcher; };
   home.stateVersion = "23.11";
 }
