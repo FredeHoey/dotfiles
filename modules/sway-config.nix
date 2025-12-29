@@ -1,6 +1,7 @@
 { pkgs, mod ? "Mod4", term, browser, launcher }:
 {
     enable = true;
+    systemd.variables = [ "--all" ];
     package = null;
     config = {
       modifier = mod;
