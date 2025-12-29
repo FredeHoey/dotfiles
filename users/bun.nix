@@ -63,10 +63,7 @@ in
           '';
         };
         notmuch.enable = true;
-        neomutt = {
-          enable = true;
-          mailboxType = "imap";
-        };
+        aerc.enable = true;
       };
     };
   };
@@ -207,6 +204,17 @@ in
     };
   };
   programs = {
+    aerc = {
+      enable = true;
+      extraConfig = {
+        general.unsafe-accounts-conf = true;
+        filters = {
+          "text/plain" = "! plaintext";
+          "text/html" = "! html";
+          "image/*" = "feh";
+        };
+      };
+    };
     atuin = {
       enable = true;
       enableBashIntegration = true;
@@ -350,21 +358,6 @@ in
       };
     };
     home-manager.enable = true;
-    neomutt = {
-      enable = true;
-      settings = {
-        sleep_time = "0";
-        beep = "no";
-        sort = "reverse-date";
-      };
-      binds = [
-         {
-          action = "group-chat-reply";
-          key = "S";
-          map = ["browser" "index" "pager"];
-        }
-      ];
-    };
     nh.enable = true;
     notmuch = {
       enable = true;
