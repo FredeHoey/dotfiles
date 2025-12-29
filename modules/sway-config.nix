@@ -9,7 +9,7 @@
         "type:keyboard" = {
           repeat_delay = "200";
           repeat_rate = "50";
-          xkb_options = "caps:escape,compose:ralt";
+          xkb_options = "caps:escape,compose:app";
         };
       };
       startup = [
