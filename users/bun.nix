@@ -345,16 +345,16 @@ in
         ++ (with pkgs.tmuxPlugins; [ continuum ]);
     };
     waybar.enable = true;
-    "${term}" = {
+    foot = {
       enable = true;
-      package = glwrap pkgs.${term};
+      server.enable = true;
     };
   };
   # Make Neovim in Ghostty available as a desktop entry
   xdg = {
-    desktopEntries."${editor}-${term}" = {
-      name = "${editor} (${term})";
-      exec = "${pkgs.${term}}/bin/${term} -e ${editor} %F";
+    desktopEntries."nvim-foot" = {
+      name = "Neovim (foot)";
+      exec = "${pkgs.foot}/bin/footclient -e ${editor} %F";
       terminal = false;
       type = "Application";
       categories = [ "Utility" "TextEditor" ];
@@ -362,8 +362,11 @@ in
     };
 
     mimeApps.defaultApplications = {
-      "text/plain" = [ "${editor}-${term}.desktop" ];
+      "text/plain" = [ "nvim-foot.desktop" ];
     };
+    configFile."environment.d/99-xdg.conf".text = ''
+      XDG_CONFIG_DIRS=/etc/xdg:$XDG_CONFIG_DIRS
+    '';
   };
 
   wayland.windowManager.sway = import ../modules/sway-config.nix { inherit term browser pkgs launcher; };
