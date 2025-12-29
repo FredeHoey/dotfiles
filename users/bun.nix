@@ -156,10 +156,8 @@ in
         virt-manager
         yazi
       ]) ++ (map glwrap (with pkgs; [
-        freecad
-        kicad-unstable
-        slurp
         grim
+        slurp
         wdisplays
       ]));
     file = {
