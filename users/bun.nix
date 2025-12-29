@@ -333,10 +333,7 @@ in
       enable = true;
       extraConfig = builtins.readFile ../extra-config/readline/readline.conf;
     };
-    satty = {
-      enable = true;
-      package = glwrap pkgs.satty;
-    };
+    satty.enable = true;
     tmux = {
       enable = true;
       extraConfig = builtins.readFile ../extra-config/tmux/tmux.conf;
