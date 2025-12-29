@@ -242,49 +242,13 @@ in
       nix-direnv.enable = true;
     };
     firefox = {
-      enable = true;
+      enable = false;
       package = glwrap pkgs.firefox;
       profiles = {
         default = {
           id = 0;
           name = "default";
           isDefault = true;
-          settings = {
-            "browser.startup.homepage" = "https://qwant.com";
-            "browser.search.defaultenginename" = "qwant";
-          };
-          search = {
-            force = true;
-            default = "qwant";
-            order = [ "qwant" "google" ];
-            engines = {
-              "nix packages" = {
-                urls = [{
-                  template = "https://search.nixos.org/packages";
-                  params = [
-                    { name = "type"; value = "packages"; }
-                    { name = "query"; value = "{searchTerms}"; }
-                  ];
-                }];
-                icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                definedAliases = [ "@np" ];
-              };
-              "nixos wiki" = {
-                urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
-                icon = "https://nixos.wiki/favicon.png";
-                updateInterval = 24 * 60 * 60 * 1000; # every day
-                definedAliases = [ "@nw" ];
-              };
-              "qwant" = {
-                urls = [{ template = "https://www.qwant.com/?q={searchTerms}"; }];
-                icon = "https://www.qwant.com/favicon.ico";
-                updateInterval = 24 * 60 * 60 * 1000; # every day
-                definedAliases = [ "@q" ];
-              };
-              "bing".metaData.hidden = true;
-              "google".metaData.alias = "@g"; # builtin engines only support specifying one additional alias
-            };
-          };
           extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
             ublock-origin
             bitwarden
