@@ -1,0 +1,100 @@
+font {{ fonts.monospace }} 10.000000
+floating_modifier Mod4
+default_border pixel 1
+default_floating_border pixel 1
+hide_edge_borders none
+focus_wrapping no
+focus_follows_mouse yes
+focus_on_window_activation smart
+mouse_warping output
+workspace_layout default
+workspace_auto_back_and_forth no
+client.focused #{{ colors.base0D }} #{{ colors.base00 }} #{{ colors.base05 }} #{{ colors.base0B }} #{{ colors.base0D }}
+client.focused_inactive #{{ colors.base03 }} #{{ colors.base00 }} #{{ colors.base05 }} #{{ colors.base0B }} #{{ colors.base03 }}
+client.unfocused #{{ colors.base03 }} #{{ colors.base00 }} #{{ colors.base05 }} #{{ colors.base0B }} #{{ colors.base03 }}
+client.urgent #{{ colors.base08 }} #{{ colors.base00 }} #{{ colors.base05 }} #{{ colors.base0B }} #{{ colors.base08 }}
+client.placeholder #{{ colors.base03 }} #{{ colors.base00 }} #{{ colors.base05 }} #{{ colors.base0B }} #{{ colors.base03 }}
+client.background #{{ colors.base00 }}
+
+bindsym Mod4+Shift+h move left
+bindsym Mod4+Shift+j move down
+bindsym Mod4+Shift+k move up
+bindsym Mod4+Shift+l move right
+
+bindsym Mod4+h focus left
+bindsym Mod4+j focus down
+bindsym Mod4+k focus up
+bindsym Mod4+l focus right
+
+bindsym Mod4+Shift+Return floating toggle
+bindsym Mod4+Shift+e exit
+bindsym Mod4+Shift+q kill
+
+bindsym Mod4+Shift+p exec bash -c "mkdir -p ~/screenshots && slurp | grim -g - - | satty --filename - -o ~/screenshots/$(date +%Y_%m_%d_%H_%M_%S).png"
+
+bindsym Mod4+Return exec {{ terminal.program }}
+bindsym Mod4+b exec {{ browser.program }}
+bindsym Mod4+r exec {{ launcher.program }}
+
+bindsym Mod4+Shift+minus move scratchpad
+
+bindsym Mod4+Shift+a move container to workspace 1
+bindsym Mod4+Shift+s move container to workspace 2
+bindsym Mod4+Shift+d move container to workspace 3
+bindsym Mod4+Shift+f move container to workspace 4
+bindsym Mod4+Shift+z move container to workspace 5
+bindsym Mod4+Shift+x move container to workspace 6
+bindsym Mod4+Shift+c move container to workspace 7
+bindsym Mod4+Shift+v move container to workspace 8
+
+bindsym Mod4+a workspace 1
+bindsym Mod4+s workspace 2
+bindsym Mod4+d workspace 3
+bindsym Mod4+f workspace 4
+bindsym Mod4+z workspace 5
+bindsym Mod4+x workspace 6
+bindsym Mod4+c workspace 7
+bindsym Mod4+v workspace 8
+
+bindsym Mod4+g fullscreen toggle
+bindsym Mod4+i resize shrink height 10 px or 10 ppt
+bindsym Mod4+o resize grow width 10 px or 10 ppt
+bindsym Mod4+u resize grow height 10 px or 10 ppt
+bindsym Mod4+y resize shrink width 10 px or 10 ppt
+
+bindsym Mod4+t layout toggle split tabbed
+bindsym Mod4+space focus mode_toggle
+bindsym Mod4+minus scratchpad show
+
+input "type:keyboard" {
+  repeat_delay 200
+  repeat_rate 50
+  xkb_options compose:menu
+}
+
+output "*" {
+  bg {{ dotfile_dir }}/assets/desktop.jpg fill
+}
+
+seat "*" {
+  xcursor_theme "Bibata-Modern-Ice" 32
+}
+
+mode "resize" {
+  bindsym Down resize grow height 10 px
+  bindsym Escape mode default
+  bindsym Left resize shrink width 10 px
+  bindsym Return mode default
+  bindsym Right resize grow width 10 px
+  bindsym Up resize shrink height 10 px
+  bindsym h resize shrink width 10 px
+  bindsym j resize grow height 10 px
+  bindsym k resize shrink height 10 px
+  bindsym l resize grow width 10 px
+}
+
+exec waybar
+exec mako --default-timeout 6000
+
+exec "dbus-update-activation-environment --systemd --all; systemctl --user reset-failed && systemctl --user start sway-session.target && swaymsg -mt subscribe '[]' || true && systemctl --user stop sway-session.target"
+

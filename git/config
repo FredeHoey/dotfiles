@@ -1,0 +1,52 @@
+[alias]
+        fzf-log = "!git-fzf-log.sh"
+        fzf-worktree = "!git-fzf-worktree.sh"
+        list-branches = "!git-list-branches.sh"
+        list-reflog = "!git-back.sh"
+        list-stashes = "!git-list-stashes.sh"
+
+[commit]
+        gpgSign = true
+        signOff = true
+        verbose = true
+
+[fetch]
+        parallel = 0
+
+[gpg]
+        format = "openpgp"
+
+[gpg "openpgp"]
+        program = "gpg"
+
+[pull]
+        autoSquash = true
+        autoStash = true
+        rebase = true
+
+[push]
+        autoSetupRemote = true
+        default = "upstream"
+        useForceIfIncludes = true
+
+[rerere]
+        enabled = true
+
+[sendemail "{{ user.name }}"]
+        from = "{{ user.real_name }} <{{ user.email }}>"
+        smtpEncryption = "tls"
+        smtpServer = "{{ smtp_server.host }}"
+        smtpServerPort = {{ smtp_server.port }}
+        smtpSslCertPath = "/etc/ssl/certs/ca-certificates.crt"
+        smtpUser = "{{ user.email }}"
+
+{% for source, replacement in git.redirects.items() %}
+[url "{{ source }}"]
+        insteadOf = "{{ replacement }}"
+{% endfor %}
+
+[user]
+        email = "{{ user.email }}"
+        name = "{{ user.real_name }}"
+        signingKey = "{{ user.gpg_key }}"
+

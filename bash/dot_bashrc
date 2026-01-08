@@ -1,0 +1,46 @@
+export PS1="🐧\033[36m\t \033[0;10m\033[35m\u\033[0;10m@\033[0;10m\033[32m\h\033[0;10m \w\033[0;10m \033[0;10m\033[34m\\033[0;10m \033[0;10m\n\${IN_NIX_SHELL:+❆ }"
+HISTCONTROL=ignoreboth:erasedups
+HISTFILESIZE=100000
+HISTSIZE=10000
+
+shopt -s histappend
+shopt -s extglob
+shopt -s globstar
+shopt -s checkjobs
+
+alias cdgr='cd $(git rev-parse --show-toplevel)'
+alias cp='cp -i'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias gba='git-back.sh'
+alias gbr='git-list-branches.sh'
+alias gd='git diff'
+alias gl='git-fzf-log.sh'
+alias grep='grep --color=auto'
+alias gs='git status'
+alias gst='git-list-stashes.sh'
+alias gw='git-fzf-worktree.sh'
+alias la='ls -lah'
+alias ls='ls --color=auto -FC'
+alias mv='mv -i'
+alias nd='nix develop'
+alias rf='rm -rf'
+alias venv='. .venv/bin/activate'
+
+if [[ ! -v BASH_COMPLETION_VERSINFO ]]; then
+  source "/etc/profile.d/bash_completion.sh"
+fi
+
+eval "$(fzf --bash)"
+eval "$(direnv hook bash)"
+eval "$(atuin init bash --disable-up-arrow)"
+
+GPG_TTY="$(tty)"
+export GPG_TTY
+gpg-connect-agent --quiet updatestartuptty /bye > /dev/null
+
+if [[ -f ~/.config/work.sh ]]; then
+    source ~/.config/work.sh
+fi
+
+export PATH={{ dotfile_dir }}/scripts:$PATH
