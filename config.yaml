@@ -64,6 +64,10 @@ variables:
     name: fuzzel
     program: fuzzel
 
+  editor:
+    name: neovim
+    program: nvim
+
   bitwarden:
     url: https://bitwarden.fredeb.dev
 
