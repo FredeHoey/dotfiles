@@ -2,7 +2,7 @@
 vim.g.foldenable = false
 vim.g.mapleader = " "
 vim.opt.cmdheight = 0
-vim.opt.completeopt = "menuone,noinsert,noselect"
+vim.opt.completeopt = "menuone,noinsert"
 vim.opt.expandtab = true
 vim.opt.fixeol = false
 vim.opt.foldenable = false
@@ -282,6 +282,14 @@ vim.keymap.set("n", "<C-p>", "<cmd>cprev<cr>zz")
 vim.keymap.set("n", "<C-n>", "<cmd>cnext<cr>zz")
 vim.keymap.set("n", "<C-q>", "<cmd>copen<cr>")
 vim.keymap.set("n", "<C-c>", "<cmd>cclose<cr>")
+
+vim.keymap.set("i", "<CR>", function()
+  if vim.fn.pumvisible() == 1 then
+    return "<C-y>"
+  else
+    return "<CR>"
+  end
+end, { expr = true })
 
 
 local default_caps = function()
