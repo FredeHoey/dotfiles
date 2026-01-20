@@ -1,0 +1,4 @@
+enter_accept = false
+inline_height = 20
+keymap_mode = "vim-insert"
+style = "compact"

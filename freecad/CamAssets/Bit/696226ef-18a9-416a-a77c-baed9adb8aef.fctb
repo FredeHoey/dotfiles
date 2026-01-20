@@ -1,0 +1,16 @@
+{
+  "attribute": {},
+  "name": "10 mm Endmill",
+  "parameter": {
+    "CuttingEdgeHeight": "35.0 mm",
+    "Diameter": "10.0 mm",
+    "Flutes": 4,
+    "Length": "75.0 mm",
+    "Material": "HSS",
+    "ShankDiameter": "10.0 mm",
+    "SpindleDirection": "Forward"
+  },
+  "shape": "endmill.fcstd",
+  "shape-type": "Endmill",
+  "version": 2
+}

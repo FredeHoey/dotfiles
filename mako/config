@@ -1,0 +1,5 @@
+font={{ fonts.monospace }} 12
+background-color=#{{ colors.base00 }}
+text-color=#{{ colors.base05 }}
+border-color=#{{ colors.base08 }}
+border-radius=5

@@ -1,0 +1,8 @@
+# Load interactive shell config
+export EDITOR={{ editor.program }}
+export LAUNCHER={{ launcher.program }}
+export BROWSER={{ browser.program }}
+
+if [ -f ~/.bashrc ]; then
+  source ~/.bashrc
+fi
