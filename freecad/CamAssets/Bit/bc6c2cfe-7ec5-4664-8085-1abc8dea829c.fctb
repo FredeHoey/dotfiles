@@ -1,0 +1,16 @@
+{
+  "attribute": {},
+  "name": "Flattening Endmill",
+  "parameter": {
+    "CuttingEdgeHeight": "12.0 mm",
+    "Diameter": "38.0 mm",
+    "Flutes": 4,
+    "Length": "55.0 mm",
+    "Material": "HSS",
+    "ShankDiameter": "8.0 mm",
+    "SpindleDirection": "Forward"
+  },
+  "shape": "endmill.fcstd",
+  "shape-type": "Endmill",
+  "version": 2
+}

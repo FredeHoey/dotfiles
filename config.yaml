@@ -5,6 +5,8 @@ dotfiles:
     target: "~"
   foot: {}
   fuzzel: {}
+  freecad:
+    target: "~/.config/FreeCAD"
   git: {}
   gpg: {}
   mako: {}

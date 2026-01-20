@@ -1,0 +1,25 @@
+{
+  "tools": [
+    {
+      "nr": 1,
+      "path": "6a7181dd-def0-4662-887a-90f6b4f48fe9.fctb"
+    },
+    {
+      "nr": 2,
+      "path": "21aabb87-a9f2-4068-a58d-6adc62f91d41.fctb"
+    },
+    {
+      "nr": 3,
+      "path": "bb773d9f-e575-4c26-8f58-5287a1626b07.fctb"
+    },
+    {
+      "nr": 4,
+      "path": "696226ef-18a9-416a-a77c-baed9adb8aef.fctb"
+    },
+    {
+      "nr": 5,
+      "path": "bc6c2cfe-7ec5-4664-8085-1abc8dea829c.fctb"
+    }
+  ],
+  "version": 1
+}
