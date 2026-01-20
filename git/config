@@ -32,7 +32,7 @@
 [rerere]
         enabled = true
 
-[sendemail "{{ user.name }}"]
+[sendemail]
         from = "{{ user.real_name }} <{{ user.email }}>"
         smtpEncryption = "tls"
         smtpServer = "{{ smtp_server.host }}"
