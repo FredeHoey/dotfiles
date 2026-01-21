@@ -31,6 +31,14 @@ if [[ ! -v BASH_COMPLETION_VERSINFO ]]; then
   source "/etc/profile.d/bash_completion.sh"
 fi
 
+if [[ ! $- == *i* ]]; then 
+  return 0
+fi
+
+if [[ -r /usr/share/bash-preexec/bash-preexec.sh ]]; then
+  source "/usr/share/bash-preexec/bash-preexec.sh"
+fi
+
 eval "$(fzf --bash)"
 eval "$(direnv hook bash)"
 eval "$(atuin init bash --disable-up-arrow)"
@@ -44,3 +52,4 @@ if [[ -f ~/.config/work.sh ]]; then
 fi
 
 export PATH={{ dotfile_dir }}/scripts:$PATH
+# vim: ft=bash
