@@ -69,7 +69,7 @@ end)
 vim.cmd.colorscheme("kanagawa")
 
 later(function()
-    add({ source = "nvim-neotest/neotest", depends = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter", "nvim-neotest/nvim-nio" }, })
+    add({ source = "fredehoey/neotest", depends = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter", "nvim-neotest/nvim-nio" }, })
     add({ source = "nvim-neotest/neotest-python", depends = { "nvim-neotest/neotest" } })
     add({ source = "orjangj/neotest-ctest", depends = { "nvim-neotest/neotest" } })
     add({ source = "rcasia/neotest-bash", depends = { "nvim-neotest/neotest" } })
