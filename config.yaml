@@ -1,6 +1,5 @@
 dotfiles:
   aerc: {}
-  atuin: {}
   bash:
     target: "~"
   foot: {}

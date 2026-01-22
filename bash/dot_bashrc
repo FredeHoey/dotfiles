@@ -35,13 +35,8 @@ if [[ ! $- == *i* ]]; then
   return 0
 fi
 
-if [[ -r /usr/share/bash-preexec/bash-preexec.sh ]]; then
-  source "/usr/share/bash-preexec/bash-preexec.sh"
-fi
-
 eval "$(fzf --bash)"
 eval "$(direnv hook bash)"
-eval "$(atuin init bash --disable-up-arrow)"
 
 GPG_TTY="$(tty)"
 export GPG_TTY
