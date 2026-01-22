@@ -319,7 +319,7 @@ vim.lsp.config("clangd", {
     },
 })
 vim.lsp.enable("clangd")
-vim.lsp.config("dartls", {})
+vim.lsp.config("dartls", { cmd = { "fvm", "dart", "language-server", "--protocol=lsp" }})
 vim.lsp.enable("dartls")
 vim.lsp.config("docker_compose_language_service", {})
 vim.lsp.enable("docker_compose_language_service")
