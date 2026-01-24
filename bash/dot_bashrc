@@ -3,6 +3,10 @@ HISTCONTROL=ignoreboth:erasedups
 HISTFILESIZE=100000
 HISTSIZE=10000
 
+export EDITOR={{ editor.program }}
+export LAUNCHER={{ launcher.program }}
+export BROWSER={{ browser.program }}
+
 shopt -s histappend
 shopt -s extglob
 shopt -s globstar
