@@ -24,239 +24,355 @@ vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.wildmode = "longest,list"
 
--- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
-local package_path = vim.fn.stdpath('data') .. '/site/'
-local mini_path = package_path .. 'pack/deps/start/mini.nvim'
-if not vim.loop.fs_stat(mini_path) then
-    vim.cmd('echo "Installing `mini.nvim`" | redraw')
-    local clone_cmd = {
-        'git', 'clone', '--filter=blob:none',
-        'https://github.com/nvim-mini/mini.nvim', mini_path
-    }
-    vim.fn.system(clone_cmd)
-    vim.cmd('packadd mini.nvim | helptags ALL')
-    vim.cmd('echo "Installed `mini.nvim`" | redraw')
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+        vim.api.nvim_echo({
+            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+            { out,                            "WarningMsg" },
+            { "\nPress any key to exit..." },
+        }, true, {})
+        vim.fn.getchar()
+        os.exit(1)
+    end
 end
+vim.opt.rtp:prepend(lazypath)
 
 
+require("lazy").setup({
+    spec = {
+        -- theme
+        { "rebelot/kanagawa.nvim", config = true },
 
--- Set up 'mini.deps' (customize to your liking)
-require('mini.deps').setup({ path = { package = package_path } })
+        -- neotest
+        {
+            "fredehoey/neotest",
+            config = function()
+                local neotest = require("neotest")
+                neotest.setup({
+                    adapters = {
+                        require("neotest-bash"),
+                        require("neotest-ctest").setup({
+                            frameworks = { "catch2" },
+                            is_test_file = function(file_path)
+                                return string.match(file_path, "test") ~= nil
+                            end,
+                        }),
+                        require("neotest-python"),
+                    },
+                })
+                vim.keymap.set("n", "<leader>tt", neotest.run.run)
+                vim.keymap.set("n", "<leader>ts", neotest.summary.open)
+                vim.keymap.set("n", "<leader>td", function() neotest.run.run({ strategy = "dap" }) end)
+            end,
+            keys = { "<leader>tt", "<leader>ts", "<leader>td" },
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+                "nvim-treesitter/nvim-treesitter",
+                "nvim-neotest/nvim-nio",
+                "antoinemadec/FixCursorHold.nvim",
+                "nvim-neotest/neotest-python",
+                "orjangj/neotest-ctest",
+                "rcasia/neotest-bash",
+            }
+        },
 
-local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+        -- dap
+        {
+            "mfussenegger/nvim-dap",
+            config = function()
+                local dap = require("dap")
+                dap.adapters = {
+                    bash = { command = "bash-debug-adapter", type = "executable" },
+                    cmake = {
+                        executable = { args = { "--debugger", "--debugger-pipe", "${pipe}", "build" }, command = "cmake" },
+                        pipe = "${pipe}",
+                        type = "pipe",
+                    },
+                    gdb = {
+                        args = { "--quiet", "--interpreter=dap", "--eval-command", "set print pretty on" },
+                        command = "gdb",
+                        type = "executable",
+                    },
+                    python = {
+                        executable = {
+                            command = "python",
+                            args = { "-m", "debugpy", "--listen", ":${port}", "${file}" },
+                        },
+                        type = "server",
+                        port = "${port}"
+                    },
+                }
 
--- now(vim.cmd.colorscheme("main"))
+                vim.keymap.set("n", "<leader>n", dap.step_over)
+                vim.keymap.set("n", "<leader>i", dap.step_into)
+                vim.keymap.set("n", "<leader>o", dap.step_out)
+                vim.keymap.set("n", "<leader>c", dap.continue)
+                vim.keymap.set("n", "<leader>C", dap.run_to_cursor)
+                vim.keymap.set("n", "<S-b>", dap.toggle_breakpoint)
 
-now(function() require('mini.notify').setup() end)
-now(function() require('mini.icons').setup() end)
-now(function() require('mini.statusline').setup() end)
+                require("dap.ext.vscode").type_to_filetypes = { gdb = { "c", "cpp" } }
+            end
+        },
+        { "igorlfs/nvim-dap-view", opts = { auto_toggle = true }, dependencies = { "mfussenegger/nvim-dap" } },
 
-now(function() require('mini.comment').setup() end)
-now(function() require('mini.completion').setup() end)
-now(function() require('mini.snippets').setup() end)
-now(function() require('mini.pairs').setup() end)
+        -- fzf
+        {
+            "ibhagwan/fzf-lua",
+            config = function()
+                local fzf_lua = require("fzf-lua")
+                fzf_lua.setup({ winopts = { preview = { layout = "horizontal" }, split = "belowright new" }, })
 
+                fzf_lua.register_ui_select()
+                vim.keymap.set("v", "<leader>fr", fzf_lua.grep_visual)
+                vim.keymap.set("n", "<leader><leader>", fzf_lua.resume)
+                vim.keymap.set("n", "<leader>fp", fzf_lua.tabs)
+                vim.keymap.set("n", "<leader>gl", fzf_lua.git_commits)
+                vim.keymap.set("n", "<leader>ff", fzf_lua.files)
+                vim.keymap.set("n", "<leader>gg", fzf_lua.git_files)
+                vim.keymap.set("n", "<leader>fg", fzf_lua.live_grep)
+                vim.keymap.set("n", "<leader>gg", fzf_lua.git_files)
+                vim.keymap.set("n", "<leader>fr", fzf_lua.grep_cword)
+                vim.keymap.set("n", "<leader>;", fzf_lua.commands)
+                vim.keymap.set("n", "<leader>b", fzf_lua.buffers)
+                vim.keymap.set("n", "<leader>l", fzf_lua.lines)
+                vim.keymap.set("n", "<leader>gb", fzf_lua.git_branches)
+                vim.keymap.set("n", "<leader>h", fzf_lua.help_tags)
+            end,
+            keys = {
+                "<leader>fr",
+                "<leader><leader>",
+                "<leader>fp",
+                "<leader>gl",
+                "<leader>ff",
+                "<leader>gg",
+                "<leader>fg",
+                "<leader>gg",
+                "<leader>fr",
+                "<leader>;",
+                "<leader>b",
+                "<leader>l",
+                "<leader>gb",
+                "<leader>h",
+            }
+        },
 
--- Core shared dependencies
-now(function()
-    add("nvim-lua/plenary.nvim")
-    add("nvim-tree/nvim-web-devicons")
-    add("nvim-neotest/nvim-nio")
-    add("muniftanjim/nui.nvim")
-    add("rebelot/kanagawa.nvim")
-end)
+        -- git
+        {
+            "neogitorg/neogit",
+            opts = {
+                auto_show_console = false,
+                disable_builtin_notifications = true,
+                disable_commit_confirmation = true,
+                kind = "split",
+                use_magit_keybinds = true,
+            },
+            dependencies = { "nvim-lua/plenary.nvim" },
+            config = function()
+                vim.keymap.set("n", "<leader>gs", require("neogit").open)
+            end,
+            keys = { "<leader>gs" }
+        },
+        {
+            "lewis6991/gitsigns.nvim",
+            config = function()
+                local gitsigns = require("gitsigns")
+                vim.keymap.set("n", "<leader>gq", gitsigns.setqflist)
+                vim.keymap.set("n", "<leader>gA", gitsigns.stage_buffer)
+                vim.keymap.set("n", "<leader>gR", gitsigns.reset_buffer)
+                vim.keymap.set({ "n", "v" }, "<leader>ga", gitsigns.stage_hunk)
+                vim.keymap.set({ "n", "v" }, "<leader>gr", gitsigns.reset_hunk)
+                vim.keymap.set("n", "<leader>gu", gitsigns.undo_stage_hunk)
+                vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk)
+                vim.keymap.set("n", "<leader>gm", function() gitsigns.blame_line({ full = true }) end)
+            end
+        },
+        "clabby/difftastic.nvim",
+        dependencies = { "muniftanjim/nui.nvim" },
+        config = function()
+            require("difftastic-nvim").setup({
+                download = true, -- Auto-download pre-built binary
+            })
+        end,
+
+        -- misc
+        {
+            "fredehoey/tardis.nvim",
+            config = function() vim.keymap.set("n", "<leader>gt", require("tardis-nvim").tardis) end,
+            keys = { "<leader>gt" },
+        },
+        { "kevinhwang91/nvim-bqf",                  config = true },
+        {
+            "mikavilpas/yazi.nvim",
+            config = function()
+                vim.keymap.set("n", "<leader>ft", require("yazi").yazi)
+            end,
+            keys = { "<leader>ft" },
+            dependencies = { "nvim-lua/plenary.nvim", "muniftanjim/nui.nvim", "nvim-tree/nvim-web-devicons", },
+        },
+        {
+            "nvim-lualine/lualine.nvim",
+            opts = {
+                options = { disabled_filetypes = { winbar = { "dap-repl", "dap-view", "dap-view-term" } } } },
+            config = true,
+            dependencies = { "nvim-tree/nvim-web-devicons" }
+        },
+        {
+            "olimorris/persisted.nvim",
+            config = function()
+                vim.keymap.set("n", "<leader>as", require("persisted").load)
+            end,
+            dependencies = { "nvim-lua/plenary.nvim" }
+        },
+        { "rachartier/tiny-inline-diagnostic.nvim", config = true },
+        {
+            "danymat/neogen",
+            config = function()
+                vim.keymap.set("n", "<leader>d", require("neogen").generate)
+            end,
+            keys = { "<leader>d" },
+            dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" }
+        },
+        { "t-troebst/perfanno.nvim", config = true, dependencies = { "nvim-lua/plenary.nvim" } },
+        { "aserowy/tmux.nvim",       config = true },
+
+        -- lsp
+        {
+            'saghen/blink.cmp',
+            -- optional: provides snippets for the snippet source
+            dependencies = { 'rafamadriz/friendly-snippets' },
+
+            -- use a release tag to download pre-built binaries
+            version = '1.*',
+            opts = {
+                keymap = { preset = "enter" },
+
+                appearance = {
+                    -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+                    -- Adjusts spacing to ensure icons are aligned
+                    nerd_font_variant = 'mono'
+                },
+
+                -- (Default) Only show the documentation popup when manually triggered
+                completion = { documentation = { auto_show = false } },
+                sources = {
+                    default = { 'lsp', 'path', 'snippets', 'buffer' },
+                },
+                fuzzy = { implementation = "prefer_rust_with_warning" }
+            },
+            opts_extend = { "sources.default" }
+        },
+        {
+            "neovim/nvim-lspconfig",
+            config = function()
+                vim.lsp.config("bashls", {})
+                vim.lsp.enable("bashls")
+                vim.lsp.config("bitbake_language_server", {})
+                vim.lsp.enable("bitbake_language_server")
+                vim.lsp.config("clangd", {
+                    filetypes = { "c", "cpp" },
+                    cmd = {
+                        "clangd",
+                        "--header-insertion=never",
+                        "--all-scopes-completion",
+                        "--background-index",
+                        "--clang-tidy",
+                        "--compile-commands-dir=build",
+                        "--query-driver=/**/*",
+                    },
+                })
+                vim.lsp.enable("clangd")
+                vim.lsp.config("dartls", { cmd = { "fvm", "dart", "language-server", "--protocol=lsp" } })
+                vim.lsp.enable("dartls")
+                vim.lsp.config("docker_compose_language_service", {})
+                vim.lsp.enable("docker_compose_language_service")
+                vim.lsp.config("dockerls", {})
+                vim.lsp.enable("dockerls")
+                vim.lsp.config("ginko_ls", {})
+                vim.lsp.enable("ginko_ls")
+                vim.lsp.config("gopls", {})
+                vim.lsp.enable("gopls")
+                vim.lsp.config("lua_ls", {})
+                vim.lsp.enable("lua_ls")
+                vim.lsp.config("neocmake", {})
+                vim.lsp.enable("neocmake")
+                vim.lsp.config("nixd", {})
+                vim.lsp.enable("nixd")
+                vim.lsp.config("pyright", {})
+                vim.lsp.enable("pyright")
+                vim.lsp.config("ruff", {})
+                vim.lsp.enable("ruff")
+                vim.lsp.config("rust_analyzer", {})
+                vim.lsp.enable("rust_analyzer")
+                vim.lsp.config("svelte", {})
+                vim.lsp.enable("svelte")
+                vim.lsp.config("terraformls", {})
+                vim.lsp.enable("terraformls")
+                vim.lsp.config("ts_ls", {
+                    filetypes = {
+                        "javascript",
+                        "javascriptreact",
+                        "javascript.jsx",
+                        "typescript",
+                        "typescriptreact",
+                        "typescript.tsx",
+                    },
+                })
+                vim.lsp.enable("ts_ls")
+                vim.lsp.config("verible", {})
+                vim.lsp.enable("verible")
+                vim.lsp.config("zls", {})
+                vim.lsp.enable("zls")
+                vim.lsp.config("zuban", {})
+                vim.lsp.enable("zuban")
+            end
+        },
+
+        -- treesitter
+
+        {
+            "nvim-treesitter/nvim-treesitter",
+            build = ":TSUpdate",
+            opts = {
+                highlight = { enable = true },
+                incremental_selection = { enable = true },
+                indent = { enable = false },
+            }
+        },
+
+        -- c++
+        {
+            "civitasv/cmake-tools.nvim",
+            config = function()
+                require("cmake-tools").setup({
+                    cmake_dap_configuration = {
+                        console = "integratedTerminal",
+                        name = "cpp",
+                        request = "launch",
+                        runInTerminal = true,
+                        stopOnEntry = false,
+                        type = "gdb",
+                    },
+                    cmake_notifications = { executor = { enabled = false }, runner = { enabled = false } },
+                    cmake_runner = { opts = { terminal = { split_direction = "vertical", split_size = 30 } } },
+                })
+            end,
+            dependencies = { "nvim-lua/plenary.nvim" }
+        },
+        { "p00f/clangd_extensions.nvim", config = true },
+
+    }
+})
 
 vim.cmd.colorscheme("kanagawa")
 
-later(function()
-    add({ source = "fredehoey/neotest", depends = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter", "nvim-neotest/nvim-nio" }, })
-    add({ source = "nvim-neotest/neotest-python", depends = { "nvim-neotest/neotest" } })
-    add({ source = "orjangj/neotest-ctest", depends = { "nvim-neotest/neotest" } })
-    add({ source = "rcasia/neotest-bash", depends = { "nvim-neotest/neotest" } })
-
-    local neotest = require("neotest")
-    neotest.setup({
-        adapters = {
-            require("neotest-bash"),
-            require("neotest-ctest").setup({
-                frameworks = { "catch2" },
-                is_test_file = function(file_path)
-                    return string.match(file_path, "test") ~= nil
-                end,
-            }),
-            require("neotest-python"),
-        },
-    })
-    vim.keymap.set("n", "<leader>tt", neotest.run.run)
-    vim.keymap.set("n", "<leader>ts", neotest.summary.open)
-    vim.keymap.set("n", "<leader>td", function() neotest.run.run({ strategy = "dap" }) end)
-end)
-
-later(function()
-    add({ source = "mfussenegger/nvim-dap" })
-    add({ source = "igorlfs/nvim-dap-view", depends = { "mfussenegger/nvim-dap" } })
-
-    require("dap-view").setup({ auto_toggle = true })
-
-    local dap = require("dap")
-    dap.adapters = {
-        bash = { command = "bash-debug-adapter", type = "executable" },
-        cmake = {
-            executable = { args = { "--debugger", "--debugger-pipe", "${pipe}", "build" }, command = "cmake" },
-            pipe = "${pipe}",
-            type = "pipe",
-        },
-        gdb = {
-            args = { "--quiet", "--interpreter=dap", "--eval-command", "set print pretty on" },
-            command = "gdb",
-            type = "executable",
-        },
-        python = {
-            executable = {
-                command = "python",
-                args = { "-m", "debugpy", "--listen", ":${port}", "${file}"},
-            },
-            type = "server",
-            port = "${port}"
-        },
-    }
-
-    require("dap.ext.vscode").type_to_filetypes = {
-        gdb = { "c", "cpp" },
-    }
-
-    vim.keymap.set("n", "<leader>n", dap.step_over)
-    vim.keymap.set("n", "<leader>i", dap.step_into)
-    vim.keymap.set("n", "<leader>o", dap.step_out)
-    vim.keymap.set("n", "<leader>c", dap.continue)
-    vim.keymap.set("n", "<leader>C", dap.run_to_cursor)
-    vim.keymap.set("n", "<S-b>", dap.toggle_breakpoint)
-end)
-
-later(function()
-    add({ source = "ibhagwan/fzf-lua" })
-    add({ source = "kevinhwang91/nvim-bqf" })
-
-    local fzf_lua = require("fzf-lua")
-    fzf_lua.setup({
-        winopts = { border = "none", preview = { border = "none", layout = "horizontal" }, split = "belowright new" },
-    })
-    fzf_lua.register_ui_select()
-
-    require("bqf").setup({})
-
-    vim.keymap.set("v", "<leader>fr", fzf_lua.grep_visual)
-    vim.keymap.set("n", "<leader><leader>", fzf_lua.resume)
-    vim.keymap.set("n", "<leader>fp", fzf_lua.tabs)
-    vim.keymap.set("n", "<leader>gl", fzf_lua.git_commits)
-    vim.keymap.set("n", "<leader>ff", fzf_lua.files)
-    vim.keymap.set("n", "<leader>gg", fzf_lua.git_files)
-    vim.keymap.set("n", "<leader>fg", fzf_lua.live_grep)
-    vim.keymap.set("n", "<leader>gg", fzf_lua.git_files)
-    vim.keymap.set("n", "<leader>fr", fzf_lua.grep_cword)
-    vim.keymap.set("n", "<leader>;", fzf_lua.commands)
-    vim.keymap.set("n", "<leader>b", fzf_lua.buffers)
-    vim.keymap.set("n", "<leader>l", fzf_lua.lines)
-    vim.keymap.set("n", "<leader>gb", fzf_lua.git_branches)
-    vim.keymap.set("n", "<leader>h", fzf_lua.help_tags)
-end)
-
-later(function()
-    add({ source = "neogitorg/neogit", depends = { "nvim-lua/plenary.nvim" } })
-    add({ source = "lewis6991/gitsigns.nvim" })
-
-    local neogit = require("neogit")
-    neogit.setup({
-        auto_show_console = false,
-        disable_builtin_notifications = true,
-        disable_commit_confirmation = true,
-        kind = "split",
-        use_magit_keybinds = true,
-    })
-
-    vim.keymap.set("n", "<leader>gs", neogit.open)
-
-    local gitsigns = require("gitsigns")
-
-    vim.keymap.set("n", "<leader>gq", gitsigns.setqflist)
-    vim.keymap.set("n", "<leader>gA", gitsigns.stage_buffer)
-    vim.keymap.set("n", "<leader>gR", gitsigns.reset_buffer)
-    vim.keymap.set({"n", "v"}, "<leader>ga", gitsigns.stage_hunk)
-    vim.keymap.set({"n", "v"}, "<leader>gr", gitsigns.reset_hunk)
-    vim.keymap.set("n", "<leader>gu", gitsigns.undo_stage_hunk)
-    vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk)
-    vim.keymap.set("n", "<leader>gm", function() gitsigns.blame_line({ full = true }) end)
-end)
-
-later(function()
-    add({ source = "nvim-lualine/lualine.nvim", depends = { "nvim-tree/nvim-web-devicons" } })
-    add({ source = "fredehoey/tardis.nvim", name = "tardis-nvim" })
-    add({ source = "mikavilpas/yazi.nvim", name = "yazi", depends = { "nvim-lua/plenary.nvim", "muniftanjim/nui.nvim", "nvim-tree/nvim-web-devicons" }, })
-    add({ source = "rachartier/tiny-inline-diagnostic.nvim" })
-    add({ source = "olimorris/persisted.nvim", depends = { "nvim-lua/plenary.nvim" } })
-
-    require("lualine").setup({ options = { disabled_filetypes = { winbar = { "dap-repl", "dap-view", "dap-view-term" } } } })
-    require("persisted").setup({})
-    require("tardis-nvim").setup({})
-    require("tiny-inline-diagnostic").setup({})
-    require("yazi").setup({})
-
-    vim.keymap.set("n", "<leader>gt", require("tardis-nvim").tardis)
-    vim.keymap.set("n", "<leader>ft", require("yazi").yazi)
-    vim.keymap.set("n", "<leader>as", require("persisted").load)
-end)
-
-later(function()
-    add({ source = "danymat/neogen", depends = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" } })
-    add({ source = "t-troebst/perfanno.nvim", depends = { "nvim-lua/plenary.nvim" } })
-    add({ source = "aserowy/tmux.nvim" })
-
-    require("neogen").setup({})
-    require("perfanno").setup({})
-    require("tmux").setup({})
-
-    vim.keymap.set("n", "<leader>d", require("neogen").generate)
-end)
-
-later(function()
-    add({ source = "neovim/nvim-lspconfig" })
-    add({ source = "p00f/clangd_extensions.nvim" })
-
-    require("clangd_extensions").setup({})
-end)
-
-later(function()
-    add({ source = "nvim-treesitter/nvim-treesitter", checkout = "master", hooks = { post_checkout = function() vim.cmd("TSUpdate") end }, })
-
-    require('nvim-treesitter').setup({
-        highlight = { enable = true },
-        incremental_selection = { enable = true },
-        indent = { enable = false },
-    })
-end)
-
-later(function()
-    add({ source = "civitasv/cmake-tools.nvim", depends = { "nvim-lua/plenary.nvim" } })
-
-    require("cmake-tools").setup({
-        cmake_dap_configuration = {
-            console = "integratedTerminal",
-            name = "cpp",
-            request = "launch",
-            runInTerminal = true,
-            stopOnEntry = false,
-            type = "gdb",
-        },
-        cmake_notifications = { executor = { enabled = false }, runner = { enabled = false } },
-        cmake_runner = { opts = { terminal = { split_direction = "vertical", split_size = 30 } } },
-    })
-end)
-
-
--- Safely execute immediately
 
 vim.diagnostic.config({ virtual_text = false })
 
+-- misc keybinds
 vim.keymap.set("t", "<C-h>", "<C-\\><C-N><C-w>h")
 vim.keymap.set("t", "<C-j>", "<C-\\><C-N><C-w>j")
 vim.keymap.set("t", "<C-k>", "<C-\\><C-N><C-w>k")
@@ -283,85 +399,6 @@ vim.keymap.set("n", "<C-n>", "<cmd>cnext<cr>zz")
 vim.keymap.set("n", "<C-q>", "<cmd>copen<cr>")
 vim.keymap.set("n", "<C-c>", "<cmd>cclose<cr>")
 
-vim.keymap.set("i", "<CR>", function()
-  if vim.fn.pumvisible() == 1 then
-    return "<C-y>"
-  else
-    return "<CR>"
-  end
-end, { expr = true })
-
-
-local default_caps = function()
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-    -- Capabilities configuration for blink-cmp
-    capabilities = MiniCompletion.get_lsp_capabilities(capabilities)
-
-    return capabilities
-end
-
-
-vim.lsp.config("bashls", {})
-vim.lsp.enable("bashls")
-vim.lsp.config("bitbake_language_server", {})
-vim.lsp.enable("bitbake_language_server")
-vim.lsp.config("clangd", {
-    filetypes = { "c", "cpp" },
-    cmd = {
-        "clangd",
-        "--header-insertion=never",
-        "--all-scopes-completion",
-        "--background-index",
-        "--clang-tidy",
-        "--compile-commands-dir=build",
-        "--query-driver=/**/*",
-    },
-})
-vim.lsp.enable("clangd")
-vim.lsp.config("dartls", { cmd = { "fvm", "dart", "language-server", "--protocol=lsp" }})
-vim.lsp.enable("dartls")
-vim.lsp.config("docker_compose_language_service", {})
-vim.lsp.enable("docker_compose_language_service")
-vim.lsp.config("dockerls", {})
-vim.lsp.enable("dockerls")
-vim.lsp.config("ginko_ls", {})
-vim.lsp.enable("ginko_ls")
-vim.lsp.config("gopls", {})
-vim.lsp.enable("gopls")
-vim.lsp.config("lua_ls", {})
-vim.lsp.enable("lua_ls")
-vim.lsp.config("neocmake", {})
-vim.lsp.enable("neocmake")
-vim.lsp.config("nixd", {})
-vim.lsp.enable("nixd")
-vim.lsp.config("pyright", {})
-vim.lsp.enable("pyright")
-vim.lsp.config("ruff", {})
-vim.lsp.enable("ruff")
-vim.lsp.config("rust_analyzer", {})
-vim.lsp.enable("rust_analyzer")
-vim.lsp.config("svelte", {})
-vim.lsp.enable("svelte")
-vim.lsp.config("terraformls", {})
-vim.lsp.enable("terraformls")
-vim.lsp.config("ts_ls", {
-    filetypes = {
-        "javascript",
-        "javascriptreact",
-        "javascript.jsx",
-        "typescript",
-        "typescriptreact",
-        "typescript.tsx",
-    },
-})
-vim.lsp.enable("ts_ls")
-vim.lsp.config("verible", {})
-vim.lsp.enable("verible")
-vim.lsp.config("zls", {})
-vim.lsp.enable("zls")
-vim.lsp.config("zuban", {})
-vim.lsp.enable("zuban")
 
 vim.api.nvim_create_augroup("bun", { clear = true })
 
@@ -379,8 +416,8 @@ local autocmds = {
         event = { "BufWritePre" },
         group = "bun",
     },
-    { command = "startinsert", event = { "TermOpen" }, group = "bun" },
-    { command = "bd!", event = { "TermClose" }, group = "bun" },
+    { command = "startinsert", event = { "TermOpen" },  group = "bun" },
+    { command = "bd!",         event = { "TermClose" }, group = "bun" },
 }
 
 for _, autocmd in ipairs(autocmds) do
