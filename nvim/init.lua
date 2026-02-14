@@ -112,11 +112,21 @@ require("lazy").setup({
                 vim.keymap.set("n", "<leader>o", dap.step_out)
                 vim.keymap.set("n", "<leader>c", dap.continue)
                 vim.keymap.set("n", "<leader>C", dap.run_to_cursor)
+                vim.keymap.set("n", "<leader>d", dap.terminate)
                 vim.keymap.set("n", "<S-b>", dap.toggle_breakpoint)
 
                 require("dap.ext.vscode").type_to_filetypes = { gdb = { "c", "cpp" } }
-            end
-        },
+            end,
+            keys = {
+                "<leader>n",
+                "<leader>i",
+                "<leader>o",
+                "<leader>c",
+                "<leader>C",
+                "<leader>d",
+                "<S-b>",
+            },
+        }, 
         { "igorlfs/nvim-dap-view", opts = { auto_toggle = true }, dependencies = { "mfussenegger/nvim-dap" } },
 
         -- fzf
