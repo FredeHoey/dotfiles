@@ -389,7 +389,6 @@ vim.keymap.set({ "n", "i" }, "<C-t>", vim.lsp.buf.hover, { buffer = 0, noremap =
 vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references)
 vim.keymap.set("n", "<leader>ro", vim.lsp.buf.rename)
 vim.keymap.set("n", "<leader>re", vim.lsp.buf.code_action)
-vim.keymap.set("n", "<leader>rn", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>rn", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<leader>rp", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "<leader>rd", vim.diagnostic.setqflist)
