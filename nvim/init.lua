@@ -234,15 +234,6 @@ require("lazy").setup({
             end,
             dependencies = { "nvim-lua/plenary.nvim" }
         },
-        { "rachartier/tiny-inline-diagnostic.nvim", config = true },
-        {
-            "danymat/neogen",
-            config = function()
-                vim.keymap.set("n", "<leader>d", require("neogen").generate)
-            end,
-            keys = { "<leader>d" },
-            dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" }
-        },
         { "t-troebst/perfanno.nvim", config = true, dependencies = { "nvim-lua/plenary.nvim" } },
         { "aserowy/tmux.nvim",       config = true },
 
@@ -378,6 +369,10 @@ vim.cmd.colorscheme("kanagawa")
 
 
 vim.diagnostic.config({ virtual_text = false })
+vim.keymap.set('n', 'gK', function()
+    local new_config = not vim.diagnostic.config().virtual_lines
+    vim.diagnostic.config({ virtual_lines = new_config })
+end, { desc = 'Toggle diagnostic virtual_lines' })
 
 -- misc keybinds
 vim.keymap.set("t", "<C-h>", "<C-\\><C-N><C-w>h")
