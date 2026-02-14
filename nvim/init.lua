@@ -144,12 +144,10 @@ require("lazy").setup({
                 vim.keymap.set("n", "<leader>ff", fzf_lua.files)
                 vim.keymap.set("n", "<leader>gg", fzf_lua.git_files)
                 vim.keymap.set("n", "<leader>fg", fzf_lua.live_grep)
-                vim.keymap.set("n", "<leader>gg", fzf_lua.git_files)
                 vim.keymap.set("n", "<leader>fr", fzf_lua.grep_cword)
                 vim.keymap.set("n", "<leader>;", fzf_lua.commands)
                 vim.keymap.set("n", "<leader>b", fzf_lua.buffers)
                 vim.keymap.set("n", "<leader>l", fzf_lua.lines)
-                vim.keymap.set("n", "<leader>gb", fzf_lua.git_branches)
                 vim.keymap.set("n", "<leader>h", fzf_lua.help_tags)
             end,
             keys = {
@@ -160,12 +158,10 @@ require("lazy").setup({
                 "<leader>ff",
                 "<leader>gg",
                 "<leader>fg",
-                "<leader>gg",
                 "<leader>fr",
                 "<leader>;",
                 "<leader>b",
                 "<leader>l",
-                "<leader>gb",
                 "<leader>h",
             }
         },
@@ -197,6 +193,7 @@ require("lazy").setup({
                 vim.keymap.set({ "n", "v" }, "<leader>gr", gitsigns.reset_hunk)
                 vim.keymap.set("n", "<leader>gu", gitsigns.undo_stage_hunk)
                 vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk)
+                vim.keymap.set("n", "<leader>gb", gitsigns.blame)
                 vim.keymap.set("n", "<leader>gm", function() gitsigns.blame_line({ full = true }) end)
             end
         },
