@@ -419,7 +419,6 @@ local autocmds = {
         group = "bun",
     },
     { command = "startinsert", event = { "TermOpen" },  group = "bun" },
-    { command = "bd!",         event = { "TermClose" }, group = "bun" },
 }
 
 for _, autocmd in ipairs(autocmds) do
