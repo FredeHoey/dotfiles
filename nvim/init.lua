@@ -126,7 +126,7 @@ require("lazy").setup({
                 "<leader>d",
                 "<S-b>",
             },
-        }, 
+        },
         { "igorlfs/nvim-dap-view", opts = { auto_toggle = true }, dependencies = { "mfussenegger/nvim-dap" } },
 
         -- fzf
@@ -203,7 +203,7 @@ require("lazy").setup({
             config = function() vim.keymap.set("n", "<leader>gt", require("tardis-nvim").tardis) end,
             keys = { "<leader>gt" },
         },
-        { "kevinhwang91/nvim-bqf",                  config = true },
+        { "kevinhwang91/nvim-bqf",   config = true },
         {
             "mikavilpas/yazi.nvim",
             config = function()
@@ -227,7 +227,7 @@ require("lazy").setup({
             dependencies = { "nvim-lua/plenary.nvim" }
         },
         { "t-troebst/perfanno.nvim", config = true, dependencies = { "nvim-lua/plenary.nvim" } },
-        { "aserowy/tmux.nvim",       config = true },
+        { "aserowy/tmux.nvim",       config = true, },
 
         -- lsp
         {
@@ -421,7 +421,7 @@ local autocmds = {
         event = { "BufWritePre" },
         group = "bun",
     },
-    { command = "startinsert", event = { "TermOpen" },  group = "bun" },
+    { command = "startinsert", event = { "TermOpen" }, group = "bun" },
 }
 
 for _, autocmd in ipairs(autocmds) do
