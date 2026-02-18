@@ -10,7 +10,7 @@ dotfiles:
   gpg: {}
   mako: {}
   nvim: {}
-  pipewire: {}
+  wireplumber: {}
   rbw: {}
   readline:
     target: "~"
