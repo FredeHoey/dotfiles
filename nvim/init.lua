@@ -292,7 +292,19 @@ require("lazy").setup({
                 vim.lsp.enable("ginko_ls")
                 vim.lsp.config("gopls", {})
                 vim.lsp.enable("gopls")
-                vim.lsp.config("lua_ls", {})
+                vim.lsp.config("lua_ls", {
+                    settings = {
+                        Lua = {
+                            diagnostics = {
+                                globals = { "vim" },
+                            },
+                            workspace = {
+                                checkThirdParty = false,
+                                library = vim.api.nvim_get_runtime_file("", true),
+                            },
+                        },
+                    },
+                })
                 vim.lsp.enable("lua_ls")
                 vim.lsp.config("neocmake", {})
                 vim.lsp.enable("neocmake")
