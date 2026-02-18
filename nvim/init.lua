@@ -191,7 +191,6 @@ require("lazy").setup({
                 vim.keymap.set("n", "<leader>gR", gitsigns.reset_buffer)
                 vim.keymap.set({ "n", "v" }, "<leader>ga", gitsigns.stage_hunk)
                 vim.keymap.set({ "n", "v" }, "<leader>gr", gitsigns.reset_hunk)
-                vim.keymap.set("n", "<leader>gu", gitsigns.undo_stage_hunk)
                 vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk)
                 vim.keymap.set("n", "<leader>gb", gitsigns.blame)
                 vim.keymap.set("n", "<leader>gm", function() gitsigns.blame_line({ full = true }) end)
