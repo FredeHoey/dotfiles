@@ -42,9 +42,8 @@ fi
 eval "$(fzf --bash)"
 eval "$(direnv hook bash)"
 
-GPG_TTY="$(tty)"
-export GPG_TTY
-gpg-connect-agent --quiet updatestartuptty /bye > /dev/null
+export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 if [[ -f ~/.config/work.sh ]]; then
     source ~/.config/work.sh
