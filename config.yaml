@@ -9,6 +9,8 @@ dotfiles:
   git: {}
   gpg: {}
   mako: {}
+  # mbsync:
+  #   target: "~"
   nvim: {}
   wireplumber: {}
   rbw: {}
