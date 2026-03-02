@@ -88,7 +88,7 @@ require("lazy").setup({
                 dap.adapters = {
                     bash = { command = "bash-debug-adapter", type = "executable" },
                     cmake = {
-                        executable = { args = { "--debugger", "--debugger-pipe", "${pipe}", "build" }, command = "cmake" },
+                        executable = { args = { "--debugger", "--debugger-pipe", "${pipe}" }, command = "cmake" },
                         pipe = "${pipe}",
                         type = "pipe",
                     },
