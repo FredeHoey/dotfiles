@@ -228,6 +228,16 @@ require("lazy").setup({
         },
         { "t-troebst/perfanno.nvim", config = true, dependencies = { "nvim-lua/plenary.nvim" } },
         { "aserowy/tmux.nvim",       config = true, },
+        {
+            "olimorris/codecompanion.nvim",
+            opts = {
+                interactions = {
+                    chat = {
+                        adapter = "opencode",
+                    },
+                },
+            },
+        },
 
         -- lsp
         {
