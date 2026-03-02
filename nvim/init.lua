@@ -270,8 +270,6 @@ require("lazy").setup({
             config = function()
                 vim.lsp.config("bashls", {})
                 vim.lsp.enable("bashls")
-                vim.lsp.config("bitbake_language_server", {})
-                vim.lsp.enable("bitbake_language_server")
                 vim.lsp.config("clangd", {
                     filetypes = { "c", "cpp" },
                     cmd = {
