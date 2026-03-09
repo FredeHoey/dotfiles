@@ -1,0 +1,26 @@
+{% for user in users %}
+
+IMAPAccount {{ user.name }}
+Host {{ user.imap_server.host }}
+User {{ user.email }}
+PassCmd "{{ user.email_password_cmd }}"
+TLSType IMAPS
+
+IMAPStore {{ user.name }}-remote
+Account {{ user.name }}
+
+MaildirStore {{ user.name }}-local
+Path ~/.mail/{{ user.name }}/
+Inbox ~/.mail/{{ user.name }}/Inbox
+Subfolders Verbatim
+
+Channel {{ user.name }}
+Far :{{ user.name }}-remote:
+Near :{{ user.name }}-local:
+Patterns *
+Create Near
+SyncState *
+Expunge Both
+Sync All
+
+{% endfor %}

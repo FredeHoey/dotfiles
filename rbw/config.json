@@ -1,6 +1,6 @@
 {
   "base_url": "{{ bitwarden.url }}",
-  "email": "{{ user.email }}",
+  "email": "{{ users[0].email }}",
   "identity_url": null,
   "lock_timeout": 3600,
   "pinentry": "/usr/bin/pinentry"

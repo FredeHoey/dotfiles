@@ -9,8 +9,8 @@ dotfiles:
   git: {}
   gpg: {}
   mako: {}
-  # mbsync:
-  #   target: "~"
+  mbsync:
+    target: "~"
   nvim: {}
   wireplumber: {}
   rbw: {}
@@ -21,17 +21,29 @@ dotfiles:
   waybar: {}
 
 variables:
-  user:
-    name: bun
-    real_name: Frede Hoey Braendstrup
-    email: frederikbraendstrup@gmail.com
-    gpg_key: EEDBC8E8FC8CF68D
-  smtp_server:
-    host: smtp.gmail.com
-    port: 587
-  imap_server:
-    host: smtp.gmail.com
-    port: 993
+  users:
+    - name: bun
+      real_name: Frede Hoey Braendstrup
+      email: frederikbraendstrup@gmail.com
+      email_password_cmd: rbw get bun-gmail-app-password
+      gpg_key: EEDBC8E8FC8CF68D
+      smtp_server:
+        host: smtp.gmail.com
+        port: 587
+      imap_server:
+        host: imap.gmail.com
+        port: 993
+    - name: vokalo
+      real_name: Frede Hoey Braendstrup
+      email: frede@vokalo.io
+      email_password_cmd: rbw get vokalo-gmail-app-password
+      gpg_key: 0F40306414D0827E
+      smtp_server:
+        host: smtp.gmail.com
+        port: 587
+      imap_server:
+        host: imap.gmail.com
+        port: 993
 
   git:
     redirects:

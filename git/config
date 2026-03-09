@@ -33,12 +33,12 @@
         enabled = true
 
 [sendemail]
-        from = "{{ user.real_name }} <{{ user.email }}>"
+        from = "{{ users[0].real_name }} <{{ users[0].email }}>"
         smtpEncryption = "tls"
-        smtpServer = "{{ smtp_server.host }}"
-        smtpServerPort = {{ smtp_server.port }}
+        smtpServer = "{{ users[0].smtp_server.host }}"
+        smtpServerPort = {{ users[0].smtp_server.port }}
         smtpSslCertPath = "/etc/ssl/certs/ca-certificates.crt"
-        smtpUser = "{{ user.email }}"
+        smtpUser = "{{ users[0].email }}"
 
 {% for source, replacement in git.redirects.items() %}
 [url "{{ source }}"]
@@ -46,7 +46,7 @@
 {% endfor %}
 
 [user]
-        email = "{{ user.email }}"
-        name = "{{ user.real_name }}"
-        signingKey = "{{ user.gpg_key }}"
+        email = "{{ users[0].email }}"
+        name = "{{ users[0].real_name }}"
+        signingKey = "{{ users[0].gpg_key }}"
 
