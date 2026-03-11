@@ -353,6 +353,12 @@ require("lazy").setup({
             }
         },
 
+        {
+            "mfussenegger/nvim-treehopper",
+            config = function()
+                vim.keymap.set({ 'v', 'o' }, 'm', require('tsht').nodes, { remap = false })
+            end,
+        },
         -- c++
         {
             "civitasv/cmake-tools.nvim",
