@@ -54,7 +54,6 @@ require("lazy").setup({
                 local neotest = require("neotest")
                 neotest.setup({
                     adapters = {
-                        require("neotest-bash"),
                         require("neotest-ctest").setup({
                             frameworks = { "catch2" },
                             is_test_file = function(file_path)
@@ -73,10 +72,8 @@ require("lazy").setup({
                 "nvim-lua/plenary.nvim",
                 "nvim-treesitter/nvim-treesitter",
                 "nvim-neotest/nvim-nio",
-                "antoinemadec/FixCursorHold.nvim",
                 "nvim-neotest/neotest-python",
                 "orjangj/neotest-ctest",
-                "rcasia/neotest-bash",
             }
         },
 
