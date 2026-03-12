@@ -224,7 +224,7 @@ require("lazy").setup({
             config = function() vim.keymap.set("n", "<leader>gt", require("tardis-nvim").tardis) end,
             keys = { "<leader>gt" },
         },
-        { "kevinhwang91/nvim-bqf",   config = true },
+        { "kevinhwang91/nvim-bqf", config = true },
         {
             "mikavilpas/yazi.nvim",
             config = function()
