@@ -124,7 +124,31 @@ require("lazy").setup({
                 "<S-b>",
             },
         },
-        { "igorlfs/nvim-dap-view", opts = { auto_toggle = true }, dependencies = { "mfussenegger/nvim-dap" } },
+        {
+            "igorlfs/nvim-dap-view",
+            opts = {
+                auto_toggle = true,
+                winbar = {
+                    sections = {
+                        "watches", "scopes", "exceptions", "breakpoints", "threads", "repl", "disassembly",
+                    }
+                }
+            },
+            dependencies = { "mfussenegger/nvim-dap" }
+        },
+        {
+            "jorenar/nvim-dap-disasm",
+            config = true,
+            opts = {
+                dapview_register = true,
+                dapview = {
+                    keymap = "D",
+                    label = "Disassembly",
+                    short_label = "󰒓 [D]",
+                },
+            },
+            dependencies = { "mfussenegger/nvim-dap", "igorlfs/nvim-dap-view" }
+        },
 
         -- fzf
         {
