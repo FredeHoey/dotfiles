@@ -69,7 +69,7 @@ bindsym Mod4+minus scratchpad show
 input "type:keyboard" {
   repeat_delay 200
   repeat_rate 50
-  xkb_options compose:menu
+  xkb_options compose:menu,caps:escape
 }
 
 output "*" {
