@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-search_dir=~/git/
+search_dir=$HOME/git/
 
 if [[ $# -eq 1 ]]; then
     selected=$1
@@ -7,7 +7,7 @@ elif [[ $# -eq 2 ]]; then
     selected=$1
     selected_name=$2
 else
-    selected=$(find $search_dir -maxdepth 3 -regextype grep -regex ".*/.\(git\|hg\|repo\)" \
+    selected=$(find $search_dir -maxdepth 3 -regextype grep -regex ".*/.git" \
         | xargs dirname \
         | fzf-tmux -p --no-preview --bind "ctrl-g:beginning-of-line+put($search_dir)+print-query")
 fi
@@ -22,7 +22,7 @@ if [[ ! -d $selected ]]; then
 fi
 
 if [[ -z $selected_name ]]; then
-    selected_name=$(basename "$selected" | tr . _)
+    selected_name=$(echo -n "${selected##$search_dir}" | tr ./- _)
 fi
 
 if [[ -z $TMUX ]]; then
