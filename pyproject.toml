@@ -5,8 +5,5 @@ description = "FredeHoey's dotfiles"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
-    "stash",
+    "dotstash",
 ]
-
-[tool.uv.sources]
-stash = { git = "https://github.com/FredeHoey/stash.git" }
