@@ -49,7 +49,7 @@ require("lazy").setup({
 
         -- neotest
         {
-            "fredehoey/neotest",
+            "nvim-neotest/neotest",
             config = function()
                 local neotest = require("neotest")
                 neotest.setup({
