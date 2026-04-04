@@ -56,9 +56,6 @@ require("lazy").setup({
                     adapters = {
                         require("neotest-ctest").setup({
                             frameworks = { "catch2" },
-                            is_test_file = function(file_path)
-                                return string.match(file_path, "test") ~= nil
-                            end,
                         }),
                         require("neotest-python"),
                     },
