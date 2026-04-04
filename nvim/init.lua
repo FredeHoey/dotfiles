@@ -342,6 +342,8 @@ require("lazy").setup({
                 vim.lsp.enable("svelte")
                 vim.lsp.config("terraformls", {})
                 vim.lsp.enable("terraformls")
+                vim.lsp.config("ty", {})
+                vim.lsp.enable("ty")
                 vim.lsp.config("ts_ls", {
                     filetypes = {
                         "javascript",
