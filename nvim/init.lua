@@ -196,7 +196,7 @@ require("lazy").setup({
             },
             dependencies = { "nvim-lua/plenary.nvim" },
             config = function()
-                vim.keymap.set("n", "<leader>gs", require("neogit").open)
+                vim.keymap.set("n", "<leader>gs", function() require("neogit").open({ kind = "replace" }) end)
             end,
             keys = { "<leader>gs" }
         },
