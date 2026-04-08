@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
-COMMITISH=($@); shift
+set -euo pipefail
+COMMITISH=($@)
 git --no-pager log --oneline "${COMMITISH[@]}" \
-    | fzf -m --no-sort --reverse --preview "git --no-pager show --ext-diff {1}" \
+    | fzf-tmux -p -m --no-sort --reverse --preview "git --no-pager show --ext-diff {1}" \
         --bind "ctrl-o:become(git checkout {1})" \
         --bind "ctrl-r:become(git rebase -i {1}^)" \
         --bind "ctrl-a:execute-multi(git cherry-pick {1})+accept" \
