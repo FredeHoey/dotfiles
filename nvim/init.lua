@@ -81,6 +81,14 @@ require("lazy").setup({
             "mfussenegger/nvim-dap",
             config = function()
                 local dap = require("dap")
+                local make_gdb_config = function(program)
+                    return {
+                        args = { "--quiet", "--interpreter=dap", "--eval-command", "set print pretty on" },
+                        command = program,
+                        type = "executable",
+                    }
+                end
+
                 dap.adapters = {
                     bash = { command = "bash-debug-adapter", type = "executable" },
                     cmake = {
@@ -88,11 +96,7 @@ require("lazy").setup({
                         pipe = "${pipe}",
                         type = "pipe",
                     },
-                    gdb = {
-                        args = { "--quiet", "--interpreter=dap", "--eval-command", "set print pretty on" },
-                        command = "gdb",
-                        type = "executable",
-                    },
+                    gdb = make_gdb_config("gdb"),
                     python = {
                         executable = {
                             command = "python",
