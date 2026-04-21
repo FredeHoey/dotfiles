@@ -96,7 +96,7 @@ require("lazy").setup({
                     python = {
                         executable = {
                             command = "python",
-                            args = { "-m", "debugpy", "--listen", ":${port}", "${file}" },
+                            args = { "-m", "debugpy", "--listen", ":${port}" },
                         },
                         type = "server",
                         port = "${port}"
