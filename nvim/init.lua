@@ -58,6 +58,11 @@ require("lazy").setup({
                     adapters = {
                         require("neotest-ctest").setup({
                             frameworks = { "catch2" },
+                            dap_adapter = { "gdb" },
+                            is_test_file = function(file)
+                                local cwd = vim.uv.cwd()
+                                return file:match(cwd .. "/test/.*cpp$") ~= nil
+                            end,
                         }),
                         require("neotest-python"),
                     },
