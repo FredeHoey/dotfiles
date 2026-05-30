@@ -410,8 +410,12 @@ require("lazy").setup({
 
 vim.cmd.colorscheme("kanagawa")
 
+vim.diagnostic.config({ virtual_text = {
+    severity = vim.diagnostic.severity.ERROR,
+    current_line = true,
+    virt_text_pos = "eol_right_align",
+}  })
 
-vim.diagnostic.config({ virtual_text = false })
 vim.keymap.set('n', 'gK', function()
     local new_config = not vim.diagnostic.config().virtual_lines
     vim.diagnostic.config({ virtual_lines = new_config })
