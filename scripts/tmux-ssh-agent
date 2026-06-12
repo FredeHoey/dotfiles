@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+link="$HOME/.ssh/agent.sock"
+sock=$(tmux show-environment SSH_AUTH_SOCK 2>/dev/null | sed -n 's/^SSH_AUTH_SOCK=//p')
+
+if [[ -n "$sock" && "$sock" != "$link" && -S "$sock" ]]; then
+    ln -snf "$sock" "$link"
+fi

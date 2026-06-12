@@ -43,7 +43,15 @@ eval "$(fzf --bash)"
 eval "$(direnv hook bash)"
 
 export GPG_TTY=$(tty)
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
+ssh_auth_link="$HOME/.ssh/agent.sock"
+if [[ -n "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != "$ssh_auth_link" && -S "$SSH_AUTH_SOCK" ]]; then
+    ln -snf "$SSH_AUTH_SOCK" "$ssh_auth_link"
+elif [[ ! -S "$ssh_auth_link" ]]; then
+    ln -snf "$(gpgconf --list-dirs agent-ssh-socket)" "$ssh_auth_link"
+fi
+export SSH_AUTH_SOCK="$ssh_auth_link"
+unset ssh_auth_link
 
 if [[ -f ~/.config/work.sh ]]; then
     source ~/.config/work.sh
