@@ -19,6 +19,7 @@ dotfiles:
   sway: {}
   tmux: {}
   waybar: {}
+  quickshell: {}
 
 variables:
   users:

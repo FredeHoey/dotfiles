@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:quickshell.org)",
+      "WebFetch(domain:git.outfoxxed.me)",
+      "WebSearch",
+      "Bash(fc-list)",
+      "Bash(python3 -c \"import fontTools; print\\('fonttools', fontTools.version\\)\")",
+      "Bash(bash scripts/networkd-status.sh)",
+      "Bash(command -v quickshell qs)",
+      "Bash(quickshell --version)",
+      "Bash(qs --version)",
+      "Read(//tmp/caelestia-shell/modules/notifications/**)",
+      "Read(//tmp/caelestia-shell/modules/bar/**)",
+      "Bash(sed -n '170,210p' plugin/src/Caelestia/Config/appearanceconfig.cpp)",
+      "Bash(sed -n '1,80p' modules/notifications/Notification.qml)",
+      "Bash(awk '/AnimDurationTokens|expressiveFastSpatial.*CONFIG|CONFIG_PROPERTY\\\\\\(int, normal/{print NR\": \"$0}' plugin/src/Caelestia/Config/tokens.hpp)",
+      "Bash(qmake6 --version)",
+      "Bash(qmake --version)",
+      "Bash(pkg-config --modversion Qt6Quick)",
+      "Read(//usr/lib64/qt6/qml/QtQuick/**)",
+      "Bash(grep -nA25 \"buildCurve\")",
+      "Bash(awk '/name: \"qs::ObjectModelInterface\"|UntypedObjectModel|ObjectModel/{f=1} f&&/Property|name:/{print NR\": \"$0} f&&/^    }/{if\\(++c>3\\)exit}' /usr/lib64/qt6/qml/Quickshell/quickshell-core.qmltypes)"
+    ]
+  }
+}
