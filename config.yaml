@@ -1,92 +1,83 @@
 dotfiles:
   aerc: {}
   bash:
-    target: "~"
+    target: '~'
   foot: {}
   fuzzel: {}
   freecad:
-    target: "~/.config/FreeCAD"
+    target: ~/.config/FreeCAD
   git: {}
   gpg: {}
   mbsync:
-    target: "~"
+    target: '~'
   nvim: {}
   wireplumber: {}
   rbw: {}
   readline:
-    target: "~"
+    target: '~'
   sway: {}
   tmux: {}
   quickshell: {}
 
 variables:
   users:
-    - name: bun
-      real_name: Frede Hoey Braendstrup
-      email: frederikbraendstrup@gmail.com
-      email_password_cmd: rbw get bun-gmail-app-password
-      gpg_key: EEDBC8E8FC8CF68D
-      smtp_server:
-        host: smtp.gmail.com
-        port: 587
-      imap_server:
-        host: imap.gmail.com
-        port: 993
-    - name: vokalo
-      real_name: Frede Hoey Braendstrup
-      email: frede@vokalo.io
-      email_password_cmd: rbw get vokalo-gmail-app-password
-      gpg_key: 0F40306414D0827E
-      smtp_server:
-        host: smtp.gmail.com
-        port: 587
-      imap_server:
-        host: imap.gmail.com
-        port: 993
-
+  - name: bun
+    real_name: Frede Hoey Braendstrup
+    email: frederikbraendstrup@gmail.com
+    email_password_cmd: rbw get bun-gmail-app-password
+    gpg_key: EEDBC8E8FC8CF68D
+    smtp_server:
+      host: smtp.gmail.com
+      port: 587
+    imap_server:
+      host: imap.gmail.com
+      port: 993
+  - name: vokalo
+    real_name: Frede Hoey Braendstrup
+    email: frede@vokalo.io
+    email_password_cmd: rbw get vokalo-gmail-app-password
+    gpg_key: 0F40306414D0827E
+    smtp_server:
+      host: smtp.gmail.com
+      port: 587
+    imap_server:
+      host: imap.gmail.com
+      port: 993
   git:
     redirects:
-      "git@gitlab.com:": "https://gitlab.com/"
-
+      'git@gitlab.com:': https://gitlab.com/
   colors:
-    base00: "1f1f28"
-    base01: "16161d"
-    base02: "223249"
-    base03: "54546d"
-    base04: "727169"
-    base05: "dcd7ba"
-    base06: "c8c093"
-    base07: "717c7c"
-    base08: "c34043"
-    base09: "ffa066"
-    base0A: "c0a36e"
-    base0B: "76946a"
-    base0C: "6a9589"
-    base0D: "7e9cd8"
-    base0E: "957fb8"
-    base0F: "d27e99"
-
+    base00: 1f1f28
+    base01: 16161d
+    base02: '223249'
+    base03: 54546d
+    base04: '727169'
+    base05: dcd7ba
+    base06: c8c093
+    base07: 717c7c
+    base08: c34043
+    base09: ffa066
+    base0A: c0a36e
+    base0B: 76946a
+    base0C: 6a9589
+    base0D: 7e9cd8
+    base0E: 957fb8
+    base0F: d27e99
   terminal:
     name: foot
     program: foot
-
   browser:
     name: firefox
     program: firefox
-
   launcher:
     name: fuzzel
     program: fuzzel
-
   editor:
     name: neovim
     program: nvim
-
   bitwarden:
     url: https://bitwarden.fredeb.dev
-
   fonts:
     monospace: Iosevka Nerd Font Mono
     sans: Noto Sans
     emoji: Noto Color Emoji
-
