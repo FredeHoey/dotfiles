@@ -8,7 +8,6 @@ dotfiles:
     target: "~/.config/FreeCAD"
   git: {}
   gpg: {}
-  mako: {}
   mbsync:
     target: "~"
   nvim: {}
@@ -18,7 +17,6 @@ dotfiles:
     target: "~"
   sway: {}
   tmux: {}
-  waybar: {}
   quickshell: {}
 
 variables:

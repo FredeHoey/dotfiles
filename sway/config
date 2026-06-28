@@ -94,8 +94,5 @@ mode "resize" {
   bindsym l resize grow width 10 px
 }
 
-exec waybar
-exec mako --default-timeout 6000
-
 exec "dbus-update-activation-environment --systemd --all; systemctl --user reset-failed && systemctl --user start sway-session.target && swaymsg -mt subscribe '[]' || true && systemctl --user stop sway-session.target"
 
