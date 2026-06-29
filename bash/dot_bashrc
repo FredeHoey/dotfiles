@@ -13,7 +13,6 @@ shopt -s globstar
 shopt -s checkjobs
 
 alias cdgr='cd $(git rev-parse --show-toplevel)'
-alias cp='cp -i'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias gba='{{dotfile_dir}}/scripts/git-back.sh'
@@ -26,7 +25,6 @@ alias gst='{{dotfile_dir}}/scripts/git-list-stashes.sh'
 alias gw='{{dotfile_dir}}/scripts/git-fzf-worktree.sh'
 alias la='ls -lah'
 alias ls='ls --color=auto -FC'
-alias mv='mv -i'
 alias nd='nix develop'
 alias rf='rm -rf'
 alias venv='. .venv/bin/activate'
