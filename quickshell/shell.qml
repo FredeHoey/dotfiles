@@ -11,7 +11,6 @@ import Quickshell.Widgets
 ShellRoot {
 	id: root
 
-	// Nerd Font (Material Design Icons) glyphs, verified present in Iosevka Nerd Font Mono
 	readonly property string iconWifi: "\u{f05a9}"    // md-wifi
 	readonly property string iconEth: "\u{f0200}"     // md-ethernet
 	readonly property string iconNetOff: "\u{f0c9b}"  // md-network_off

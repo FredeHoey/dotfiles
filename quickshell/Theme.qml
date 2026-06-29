@@ -5,7 +5,7 @@ import Quickshell
 
 Singleton {
 	// Font
-	readonly property string fontFamily: "Iosevka Nerd Font Mono"
+	readonly property string fontFamily: "{{ fonts.monospace }}"
 	readonly property int fontSize: 12
 
 	// Palette (Kanagawa)
