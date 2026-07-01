@@ -116,11 +116,19 @@ require("lazy").setup({
 
                 dap.adapters = {
                     bash = { command = "bash-debug-adapter", type = "executable" },
-                    cmake = {
-                        executable = { args = { "--debugger", "--debugger-pipe", "${pipe}" }, command = "cmake" },
-                        pipe = "${pipe}",
-                        type = "pipe",
-                    },
+                    cmake = function(callback, config)
+                        callback({
+                            type = "pipe",
+                            pipe = "${pipe}",
+                            executable = {
+                                command = "cmake",
+                                args = vim.list_extend(
+                                    { "--debugger", "--debugger-pipe", "${pipe}" },
+                                    config.args or {}
+                                ),
+                            },
+                        })
+                    end,
                     gdb = make_gdb_config("gdb"),
                     python = {
                         executable = {
@@ -139,8 +147,6 @@ require("lazy").setup({
                 vim.keymap.set("n", "<leader>C", dap.run_to_cursor)
                 vim.keymap.set("n", "<leader>d", dap.terminate)
                 vim.keymap.set("n", "<S-b>", dap.toggle_breakpoint)
-
-                require("dap.ext.vscode").type_to_filetypes = { gdb = { "c", "cpp" } }
             end,
             keys = {
                 "<leader>n",
