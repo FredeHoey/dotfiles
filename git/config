@@ -6,7 +6,7 @@
         list-stashes = "!git-list-stashes.sh"
 
 [commit]
-        gpgSign = true
+        gpgSign = false
         signOff = true
         verbose = true
 
