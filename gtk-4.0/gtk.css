@@ -1,0 +1,48 @@
+/* GTK 4.20+ and libadwaita use CSS variables. The named colors retain
+ * compatibility with plain GTK 4 applications and older application CSS. */
+:root {
+  --accent-bg-color: #{{ colors.base0D }};
+  --accent-fg-color: #{{ colors.base00 }};
+  --window-bg-color: #{{ colors.base00 }};
+  --window-fg-color: #{{ colors.base05 }};
+  --view-bg-color: #{{ colors.base01 }};
+  --view-fg-color: #{{ colors.base05 }};
+  --headerbar-bg-color: #{{ colors.base00 }};
+  --headerbar-fg-color: #{{ colors.base05 }};
+  --headerbar-border-color: #{{ colors.base03 }};
+  --card-bg-color: #{{ colors.base01 }};
+  --card-fg-color: #{{ colors.base05 }};
+  --dialog-bg-color: #{{ colors.base00 }};
+  --dialog-fg-color: #{{ colors.base05 }};
+  --popover-bg-color: #{{ colors.base01 }};
+  --popover-fg-color: #{{ colors.base05 }};
+  --success-bg-color: #{{ colors.base0B }};
+  --warning-bg-color: #{{ colors.base0A }};
+  --error-bg-color: #{{ colors.base08 }};
+}
+
+@define-color window_bg_color #{{ colors.base00 }};
+@define-color window_fg_color #{{ colors.base05 }};
+@define-color view_bg_color #{{ colors.base01 }};
+@define-color view_fg_color #{{ colors.base05 }};
+@define-color accent_bg_color #{{ colors.base0D }};
+@define-color accent_fg_color #{{ colors.base00 }};
+@define-color borders #{{ colors.base03 }};
+
+window.background,
+.background {
+  background-color: @window_bg_color;
+  color: @window_fg_color;
+}
+
+.view,
+textview text {
+  background-color: @view_bg_color;
+  color: @view_fg_color;
+}
+
+selection,
+*:selected {
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+}
