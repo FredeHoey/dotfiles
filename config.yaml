@@ -69,7 +69,7 @@ variables:
     base0F: d27e99
   terminal:
     name: foot
-    program: foot
+    program: footclient
   browser:
     name: firefox
     program: firefox
