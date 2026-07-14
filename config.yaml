@@ -18,6 +18,8 @@ dotfiles:
   sway: {}
   tmux: {}
   quickshell: {}
+  systemd-user:
+    target: '~/.config/systemd/user'
 
 variables:
   mbsync:
