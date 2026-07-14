@@ -5,6 +5,7 @@ Host {{ user.imap_server.host }}
 User {{ user.email }}
 PassCmd "{{ user.email_password_cmd }}"
 TLSType IMAPS
+PipelineDepth 1
 
 IMAPStore {{ user.name }}-remote
 Account {{ user.name }}
@@ -14,13 +15,64 @@ Path ~/.mail/{{ user.name }}/
 Inbox ~/.mail/{{ user.name }}/Inbox
 Subfolders Verbatim
 
-Channel {{ user.name }}
-Far :{{ user.name }}-remote:
-Near :{{ user.name }}-local:
-Patterns *
+MaildirStore {{ user.name }}-archive-local
+Path ~/.mail-archive/{{ user.name }}/
+Inbox ~/.mail-archive/{{ user.name }}/Inbox
+Subfolders Verbatim
+
+Channel {{ user.name }}-inbox
+Far :{{ user.name }}-remote:INBOX
+Near :{{ user.name }}-local:INBOX
 Create Near
 SyncState *
 Expunge Both
 Sync All
+MaxMessages {{ mbsync.recent_messages }}
+
+Channel {{ user.name }}-sent
+Far ":{{ user.name }}-remote:[Gmail]/Sent Mail"
+Near :{{ user.name }}-local:Sent
+Create Near
+SyncState *
+Expunge Both
+Sync All
+MaxMessages {{ mbsync.recent_messages }}
+
+Channel {{ user.name }}-archive
+Far ":{{ user.name }}-remote:[Gmail]/All Mail"
+Near :{{ user.name }}-local:Archive
+Create Near
+SyncState *
+Expunge Both
+Sync All
+MaxMessages {{ mbsync.recent_messages }}
+
+Channel {{ user.name }}-inbox-full
+Far :{{ user.name }}-remote:INBOX
+Near :{{ user.name }}-archive-local:INBOX
+Create Near
+SyncState *
+Expunge Near
+Sync Pull
+
+Channel {{ user.name }}-sent-full
+Far ":{{ user.name }}-remote:[Gmail]/Sent Mail"
+Near :{{ user.name }}-archive-local:Sent
+Create Near
+SyncState *
+Expunge Near
+Sync Pull
+
+Channel {{ user.name }}-archive-full
+Far ":{{ user.name }}-remote:[Gmail]/All Mail"
+Near :{{ user.name }}-archive-local:Archive
+Create Near
+SyncState *
+Expunge Near
+Sync Pull
 
 {% endfor %}
+
+Group mbsync-fast{% for user in users %} {{ user.name }}-inbox {{ user.name }}-sent {{ user.name }}-archive{% endfor %}
+
+Group mbsync-archive{% for user in users %} {{ user.name }}-inbox-full {{ user.name }}-sent-full {{ user.name }}-archive-full{% endfor %}

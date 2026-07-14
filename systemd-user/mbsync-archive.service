@@ -1,0 +1,10 @@
+[Unit]
+Description=MBSync full archive mail sync
+
+[Service]
+Type=oneshot
+ExecStart=mbsync mbsync-archive
+TimeoutSec=6h
+
+[Install]
+WantedBy=default.target

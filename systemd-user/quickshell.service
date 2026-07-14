@@ -1,0 +1,9 @@
+[Unit]
+Description=Quickshell
+
+[Service]
+ExecStart=quickshell
+Restart=always
+
+[Install]
+WantedBy=default.target

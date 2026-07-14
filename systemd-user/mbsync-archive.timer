@@ -1,0 +1,11 @@
+[Unit]
+Description=MBSync full archive timer
+
+[Timer]
+OnStartupSec=10m
+OnUnitActiveSec=1d
+RandomizedDelaySec=30m
+Persistent=true
+
+[Install]
+WantedBy=timers.target

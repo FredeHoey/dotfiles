@@ -20,6 +20,8 @@ dotfiles:
   quickshell: {}
 
 variables:
+  mbsync:
+    recent_messages: 5000
   users:
   - name: bun
     real_name: Frede Hoey Braendstrup

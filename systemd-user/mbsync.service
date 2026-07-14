@@ -1,0 +1,11 @@
+[Unit]
+Description=MBSync fast mail sync
+
+[Service]
+Type=oneshot
+ExecStart=mbsync mbsync-fast
+ExecStartPost=-{{ dotfile_dir }}/scripts/mbsync-notify
+TimeoutSec=10min
+
+[Install]
+WantedBy=default.target

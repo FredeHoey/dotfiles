@@ -1,0 +1,16 @@
+#!/bin/sh
+
+new_count=$(find "$HOME/.mail" -path '*/Inbox/new/*' -type f 2>/dev/null | wc -l)
+state="${XDG_RUNTIME_DIR:-/tmp}/mbsync-new-count"
+
+if [ ! -e "$state" ]; then
+    printf '%s\n' "$new_count" > "$state"
+    exit 0
+fi
+
+old_count=$(cat "$state" 2>/dev/null || printf 0)
+printf '%s\n' "$new_count" > "$state"
+
+if [ "$new_count" -gt "$old_count" ]; then
+    notify-send "New mail" "$((new_count - old_count)) new message(s) in Inbox"
+fi
