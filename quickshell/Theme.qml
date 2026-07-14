@@ -9,15 +9,15 @@ Singleton {
 	readonly property int fontSize: 12
 
 	// Palette (Kanagawa)
-	readonly property color base00: "#1f1f28"
-	readonly property color base01: "#16161d"
-	readonly property color base02: "#223249"
-	readonly property color base03: "#54546d"
-	readonly property color base05: "#dcd7ba"
-	readonly property color base08: "#c34043"
-	readonly property color base0B: "#76946a"
-	readonly property color base0D: "#7e9cd8"
-	readonly property color base0E: "#957fb8"
+	readonly property color base00: "#{{ colors.base00 }}"
+	readonly property color base01: "#{{ colors.base01 }}"
+	readonly property color base02: "#{{ colors.base02 }}"
+	readonly property color base03: "#{{ colors.base03 }}"
+	readonly property color base05: "#{{ colors.base05 }}"
+	readonly property color base08: "#{{ colors.base08 }}"
+	readonly property color base0B: "#{{ colors.base0B }}"
+	readonly property color base0D: "#{{ colors.base0D }}"
+	readonly property color base0E: "#{{ colors.base0E }}"
 
 	// Subtle outline shared by the bar and the notification blob
 	readonly property int borderWidth: 1
