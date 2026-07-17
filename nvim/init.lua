@@ -68,6 +68,7 @@ require("lazy").setup({
     spec = {
         -- theme
         { "rebelot/kanagawa.nvim", config = true },
+        { "rrethy/base16-nvim" },
 
         -- neotest
         {
@@ -485,7 +486,10 @@ require("lazy").setup({
     }
 })
 
-vim.cmd.colorscheme("kanagawa")
+local io = io.popen("busctl --user call org.dotstash.Stash /org/dotstash/Stash org.dotstash.Stash1 GetTheme --json=short")
+local output = io:read("*a")
+local theme = vim.json.decode(output).data[1]
+vim.cmd.colorscheme(theme)
 
 vim.diagnostic.config({
     virtual_text = {
