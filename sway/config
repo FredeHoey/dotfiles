@@ -31,6 +31,7 @@ bindsym Mod4+Shift+e exit
 bindsym Mod4+Shift+q kill
 
 bindsym Mod4+p exec swaylock -i {{ dotfile_dir }}/assets/desktop.jpg
+bindsym Mod4+m exec {{ dotfile_dir }}/scripts/switch-theme.sh
 bindsym Mod4+Shift+p exec bash -c "mkdir -p ~/screenshots && slurp | grim -g - - | satty --filename - -o ~/screenshots/$(date +%Y_%m_%d_%H_%M_%S).png"
 
 bindsym Mod4+Return exec {{ terminal.program }}
