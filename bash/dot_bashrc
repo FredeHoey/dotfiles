@@ -52,8 +52,8 @@ fi
 export SSH_AUTH_SOCK="$ssh_auth_link"
 unset ssh_auth_link
 
-if [[ -f ~/.config/work.sh ]]; then
-    source ~/.config/work.sh
+if [[ -f ~/.config/extra.sh ]]; then
+    source ~/.config/extra.sh
 fi
 
 export PATH={{ dotfile_dir }}/scripts:$PATH
