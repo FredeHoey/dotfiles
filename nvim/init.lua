@@ -448,12 +448,8 @@ require("lazy").setup({
 
         {
             "nvim-treesitter/nvim-treesitter",
+            lazy = false,
             build = ":TSUpdate",
-            opts = {
-                highlight = { enable = true },
-                incremental_selection = { enable = true },
-                indent = { enable = false },
-            }
         },
 
         {
